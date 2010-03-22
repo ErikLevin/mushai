@@ -6,4 +6,5 @@ Welcome to MushAI. This project will evolve a Nine Men's Morris-playing artifici
 
 
 = Pages =
- ... wiki links here ...
+
+[Requirements]
