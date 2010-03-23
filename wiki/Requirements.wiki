@@ -2,17 +2,19 @@
 
 = Introduction =
 
-The intent is to explore how a genetic programming approach can be used to develop an artificial intelligence that plays a simple board game.
+The intent is to explore how a genetic programming approach can be used to develop an artificial intelligence that plays a abstract strategy board game.
+
+The ultimate vision for the end product is a graphical Traverse game where a human player can play against our AI.
 
 
 = Details =
 
 == Programming language ==
 
-The programming language we will use for the GUI will be ...?
-For the genetic algorithm, ... will be used and the expressions that are evolved will be ...
+The programming language we will use for the GUI will be Java.
+For the genetic algorithm, ... will be used and the expressions that are evolved will be Lisp (Maybe???)
 
 
 == Game rules ==
 
-The game variant used will be with/without diagonal lines...
+GameRules
