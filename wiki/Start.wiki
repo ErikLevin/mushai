@@ -8,4 +8,5 @@ Welcome to MushAI. This project is about evolving a Traverse-playing artificial 
 = Pages =
 
 GameRules
+
 [Requirements]
