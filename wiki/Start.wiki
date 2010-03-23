@@ -1,10 +1,11 @@
-#summary Nine Men's Morris AI
+#summary Start page for Wiki documentation
 
 = Introduction =
 
-Welcome to MushAI. This project will evolve a Nine Men's Morris-playing artificial intelligence through genetic programming.
+Welcome to MushAI. This project is about evolving a Traverse-playing artificial intelligence through genetic programming.
 
 
 = Pages =
 
+GameRules
 [Requirements]
