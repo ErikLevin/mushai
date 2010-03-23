@@ -1,5 +1,4 @@
 #summary Start page for Wiki documentation
-[Start Recursion]
 
 = Introduction =
 
@@ -7,6 +6,8 @@ Welcome to MushAI. This project is about evolving a Traverse-playing artificial 
 
 
 = Pages =
+
+[http://docs.google.com/#folders/folder.0.0B6HzD7Uz0e6mN2QxZWVhMjYtOTc4Mi00MjY3LWI3ZmItNmE2M2IzOGZiNDI0 Google Docs folder (only for project members)]
 
 GameRules
 
