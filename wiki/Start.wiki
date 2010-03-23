@@ -1,4 +1,5 @@
 #summary Start page for Wiki documentation
+[Start Recursion]
 
 = Introduction =
 
