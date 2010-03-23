@@ -4,7 +4,7 @@
 
 The intent is to explore how a genetic programming approach can be used to develop an artificial intelligence that plays a abstract strategy board game.
 
-The ultimate vision for the end product is a graphical Traverse game where a human player can play against our AI.
+The ultimate vision for the end product is a complete, graphical Traverse game where a human player can play against our AI.
 
 
 = Details =
