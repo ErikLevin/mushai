@@ -1,14 +1,16 @@
-#summary Start page for Wiki documentation
+#summary Welcome to MushAI!
 
 = Introduction =
 
-Welcome to MushAI. This project is about evolving a Traverse-playing artificial intelligence through genetic programming.
+This project's goal is to through genetic programming evolve an artificial intelligence that can play the abstract strategy board game [http://www.educationallearninggames.com/how-to-play-traverse-game.asp Traverse] (a.k.a. _Taifho_).
+
+This project is developed for the 2010 course [http://www.cse.chalmers.se/edu/course/TIN171/ TIN171 Artificial Intelligence] at [http://chalmers.se/ Chalmers University of Technology].
 
 
 = Pages =
 
-[http://docs.google.com/#folders/folder.0.0B6HzD7Uz0e6mN2QxZWVhMjYtOTc4Mi00MjY3LWI3ZmItNmE2M2IzOGZiNDI0 Google Docs folder (only for project members)]
-
 GameRules
 
-[Requirements]
+[Requirements Requirements and vision]
+
+[http://docs.google.com/#folders/folder.0.0B6HzD7Uz0e6mN2QxZWVhMjYtOTc4Mi00MjY3LWI3ZmItNmE2M2IzOGZiNDI0 Google Docs folder (only for project members)]
