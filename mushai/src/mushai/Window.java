@@ -22,6 +22,7 @@ public class Window extends JFrame {
         
         setResizable(false);
         setUndecorated(true);
+
         Playboard pb=new Playboard();
         add(pb);
         add(new JLabel("smdas"));
