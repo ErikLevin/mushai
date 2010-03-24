@@ -15,5 +15,8 @@ private static int playboardSize=4;
     public static int getPlayboardSize(){
         return playboardSize;
     }
+    public static int getNrOfPlayers(){
+        return 2;
+    }
 
 }

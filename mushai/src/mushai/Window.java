@@ -8,7 +8,7 @@ package mushai;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -20,10 +20,11 @@ public class Window extends JFrame {
         super();
         setTitle("calender");
         setPreferredSize(new Dimension(400,400));
-        setLayout(new GridLayout(1,1));
+        setLayout(new GridLayout(1,2));
         setResizable(false);
         setUndecorated(true);
-
+        JPanel playersPanel= new JPanel();
+        playersPanel.setLayout(new GridLayout(1,Settings.getNrOfPlayers()));
         Playboard pb=new Playboard();
         
         add(pb);
