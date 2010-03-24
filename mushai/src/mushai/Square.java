@@ -5,6 +5,7 @@
 
 package mushai;
 import java.util.ArrayList;
+import javax.swing.Icon;
 
 /**
  *
@@ -15,7 +16,5 @@ public class Square extends Piece {
     ArrayList<Tile> legalMoves;
     public Square() {
         super("hej");
-
     }
-  
 }
