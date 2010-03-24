@@ -16,7 +16,7 @@ public class Main {
      */
     public static void main(String[] args) {
        Window win = new Window();
-       win.add(new Square());
+//       win.add(new Square());
     }
 
 }
