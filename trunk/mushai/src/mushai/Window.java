@@ -5,6 +5,7 @@
 
 package mushai;
 
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -17,7 +18,8 @@ public class Window extends JFrame {
     public Window(){
         super();
         setTitle("calender");
-        super.setSize(200,200);
+        setPreferredSize(new Dimension(400,400));
+        
         setResizable(false);
         setUndecorated(true);
         Playboard pb=new Playboard();

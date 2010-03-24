@@ -15,7 +15,7 @@ import javax.swing.JButton;
 public class Square extends JButton {
 
     public Square() {
-        super();
+        super("hej");
 
     }
   

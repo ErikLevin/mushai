@@ -27,5 +27,6 @@ int playboardSize=4;
         for(int i=0;i<playboardSize;i++){
             add(new Square());
         }
+
     }
 }
