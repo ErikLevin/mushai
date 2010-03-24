@@ -19,7 +19,10 @@ public class Piece extends JButton {
 
     public Piece() {
         super();
-
     }
 
+    public Piece(String label)
+    {
+        super(label);
+    }
 }

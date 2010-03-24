@@ -15,9 +15,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Window win =new Window();
-
-
+       Window win = new Window();
+       win.add(new Square());
     }
 
 }
