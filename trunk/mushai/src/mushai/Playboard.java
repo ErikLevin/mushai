@@ -25,7 +25,7 @@ int playboardSize=4;
         add(new JLabel("ololll"));
         setLayout(new GridLayout(playboardSize,playboardSize));
         for(int i=0;i<playboardSize;i++){
-            add(new Square());
+            add(new Tile());
         }
 
     }
