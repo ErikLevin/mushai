@@ -25,8 +25,8 @@ public class Window extends JFrame {
         setUndecorated(true);
 
         Playboard pb=new Playboard();
+        
         add(pb);
-        add(new JLabel("smdas"));
         pack();
         this.setVisible(true);
     }

@@ -10,22 +10,24 @@ import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author bark
  */
 
-public class Playboard extends JComponent {
+public class Playboard extends JPanel {
 int playboardSize=4;
     public Playboard(){
         super();
 
         this.setPreferredSize(new Dimension(200,200));
-        add(new JLabel("ololll"));
+
         setLayout(new GridLayout(playboardSize,playboardSize));
-        for(int i=0;i<playboardSize;i++){
-            add(new Tile());
+        //add(new JLabel("ololll"));
+        for(int i=0;i<playboardSize*playboardSize;i++){
+            add(new Square());
         }
 
     }
