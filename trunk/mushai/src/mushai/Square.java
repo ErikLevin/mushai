@@ -4,16 +4,15 @@
  */
 
 package mushai;
-
-import java.awt.Graphics;
-import javax.swing.JButton;
+import java.util.ArrayList;
 
 /**
  *
  * @author bark
  */
-public class Square extends JButton {
+public class Square extends Piece {
 
+    ArrayList<Tile> legalMoves;
     public Square() {
         super("hej");
 
