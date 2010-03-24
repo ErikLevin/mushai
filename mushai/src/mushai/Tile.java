@@ -5,6 +5,7 @@
 
 package mushai;
 
+import java.awt.Graphics;
 import javax.swing.JButton;
 
 /**
@@ -13,9 +14,23 @@ import javax.swing.JButton;
  */
 public class Tile extends JButton{
 
+    private Piece piece;
+
     public Tile(){
         super();
-        
+        piece = null;
     }
-  
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public void update() {
+        if(piece != null)
+            setIcon(piece.getIcon());
+    }
 }

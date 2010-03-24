@@ -2,10 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package mushai;
+
 import java.util.ArrayList;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashSet;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -13,37 +17,39 @@ import java.awt.Point;
  */
 public class Square extends Piece {
 
-    public Square() {
-        super("hej");
+    public Square(int x, int y, PieceColor color) throws FileNotFoundException {
+        super(x, y, color);
+        File picFile = new File("images/square.png");
+        if(!picFile.exists())
+            throw new FileNotFoundException("Image for Square not found");
+        icon = new ImageIcon(picFile.getAbsolutePath());
     }
-    public ArrayList<Point> getSquareMoves(){
-        ArrayList<Point> moves = new ArrayList<Point>();
-        Point forward,backward,left,right;
-        int x = (int)position.getX();
-        int y = (int)position.getY();
-        if (Color.RED){
-            forward = new Point(x,y-1);
-            backward = new Point(x,y+1);
-            left = new Point(x-1,y);
-            right = new Point(x+1,y);
-            
-        }
-        else if (Color.BLACK){
-            forward = new Point(x,y+1);
-            backward = new Point(x,y-1);
-            left = new Point(x+1,y);
-            right = new Point(x-1,y);
+
+    @Override
+    protected void updateMoves() {
+        Point forward = null, backward = null, left = null, right = null;
+        moves = new HashSet<Point>();
+        int x = getX();
+        int y = getY();
+        if (color == PieceColor.RED) {
+            forward = new Point(x, y - 1);
+            backward = new Point(x, y + 1);
+            left = new Point(x - 1, y);
+            right = new Point(x + 1, y);
+
+        } else if (color == PieceColor.BLACK) {
+            forward = new Point(x, y + 1);
+            backward = new Point(x, y - 1);
+            left = new Point(x + 1, y);
+            right = new Point(x - 1, y);
             moves.add(forward);
             moves.add(backward);
             moves.add(left);
             moves.add(right);
-        }else{
-            return null;
         }
         moves.add(forward);
         moves.add(backward);
         moves.add(left);
         moves.add(right);
-        return moves;
     }
 }
