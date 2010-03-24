@@ -6,6 +6,7 @@
 package mushai;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -19,7 +20,7 @@ public class Window extends JFrame {
         super();
         setTitle("calender");
         setPreferredSize(new Dimension(400,400));
-        
+        setLayout(new GridLayout(1,1));
         setResizable(false);
         setUndecorated(true);
 
