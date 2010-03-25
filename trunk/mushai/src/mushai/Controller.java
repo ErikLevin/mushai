@@ -64,7 +64,6 @@ public class Controller implements ActionListener {
         Piece p = origin.getPiece();
         origin.setPiece(null);
         board.getTiles()[end.x][end.y].setPiece(p);
-        p.setPosition(end.x, end.y);
         moveStart = null;
         board.update();
     }
