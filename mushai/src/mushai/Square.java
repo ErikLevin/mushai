@@ -39,34 +39,16 @@ public class Square extends Piece {
         moves.add(right);
     }
 
-    private class SquareIcon extends PieceIcon
-    {
-        public SquareIcon(Color color){
-            this.color = color;
+    private class SquareIcon extends PieceIcon {
+
+        public SquareIcon(Color color) {
+            super(color);
         }
 
         public void paintIcon(Component c, Graphics g, int x, int y) {
-            g.setColor(color);
+            super.paintIcon(c, g, x, y);
+
             g.fillRect(x, y, getIconWidth(), getIconHeight());
         }
-
-        /**
-         * @TODO Remove magic number, instead base return value on tile size
-         * @return the width of icon
-         */
-        @Override
-        public int getIconWidth() {
-            return 75;
-        }
-
-        /**
-         * @TODO Remove magic number, instead base return value on tile size
-         * @return the height of icon
-         */
-        @Override
-        public int getIconHeight() {
-            return 75;
-        }
-
     }
 }
