@@ -17,4 +17,6 @@ For the genetic algorithm, ... will be used and the expressions that are evolved
 
 == Game rules ==
 
-GameRules
+=== Simplified rules for first version ===
+
+...
