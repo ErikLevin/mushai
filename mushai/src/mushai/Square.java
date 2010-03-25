@@ -4,7 +4,6 @@
  */
 package mushai;
 
-import java.util.ArrayList;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,11 +16,13 @@ import javax.swing.ImageIcon;
  */
 public class Square extends Piece {
 
+
     public Square(int x, int y, PieceColor color) throws FileNotFoundException {
         super(x, y, color);
         File picFile = new File("images/square.png");
+        System.out.println(picFile.getAbsolutePath());
         if(!picFile.exists())
-            throw new FileNotFoundException("Image for Square not found");
+           // throw new FileNotFoundException("Image for Square not found");
         icon = new ImageIcon(picFile.getAbsolutePath());
     }
 
