@@ -40,6 +40,7 @@ public class Window extends JFrame {
         playersPanel.setPreferredSize(new Dimension(100,50));
         add(playersPanel,BorderLayout.EAST);
         pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
 

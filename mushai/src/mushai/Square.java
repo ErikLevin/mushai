@@ -62,11 +62,19 @@ public class Square extends Piece {
             g.fillRect(x, y, getIconWidth(), getIconHeight());
         }
 
+        /**
+         * @TODO Remove magic number, instead base return value on tile size
+         * @return the width of icon
+         */
         @Override
         public int getIconWidth() {
             return 75;
         }
 
+        /**
+         * @TODO Remove magic number, instead base return value on tile size
+         * @return the height of icon
+         */
         @Override
         public int getIconHeight() {
             return 75;
