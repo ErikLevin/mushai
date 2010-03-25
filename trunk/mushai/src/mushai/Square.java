@@ -1,14 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mushai;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.Point;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 
 /**
  *
@@ -16,42 +14,65 @@ import javax.swing.ImageIcon;
  */
 public class Square extends Piece {
 
-
-    public Square(int x, int y, PieceColor color) throws FileNotFoundException {
+    public Square(int x, int y, Color color) {
         super(x, y, color);
-        File picFile = new File("images/square.png");
-        System.out.println(picFile.getAbsolutePath());
-        if(!picFile.exists()){
-            throw new FileNotFoundException("Image for Square not found");
-        }
-        icon = new ImageIcon(picFile.getAbsolutePath());
+        icon = new SquareIcon(color);
     }
 
     @Override
     protected void updateMoves() {
         Point forward = null, backward = null, left = null, right = null;
         moves = new HashSet<Point>();
+
+
         int x = getX();
+
+
         int y = getY();
-        if (color == PieceColor.RED) {
+
+
+        if (color == Color.RED) {
             forward = new Point(x, y - 1);
             backward = new Point(x, y + 1);
             left = new Point(x - 1, y);
             right = new Point(x + 1, y);
 
-        } else if (color == PieceColor.BLACK) {
+
+
+        } else if (color == Color.BLACK) {
             forward = new Point(x, y + 1);
             backward = new Point(x, y - 1);
             left = new Point(x + 1, y);
             right = new Point(x - 1, y);
-            moves.add(forward);
-            moves.add(backward);
-            moves.add(left);
-            moves.add(right);
+
+
         }
         moves.add(forward);
         moves.add(backward);
         moves.add(left);
         moves.add(right);
+    }
+
+    private class SquareIcon extends PieceIcon
+    {
+        public SquareIcon(Color color){
+            this.color = color;
+        }
+
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            g.setColor(color);
+            g.fillRect(x, y, getIconWidth(), getIconHeight());
+        }
+
+        @Override
+        public int getIconWidth() {
+            return 75;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return 75;
+        }
+
     }
 }

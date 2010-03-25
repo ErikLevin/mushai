@@ -24,7 +24,7 @@ public class Window extends JFrame {
         setPreferredSize(new Dimension(650,500));
         setLayout(new FlowLayout());
         setResizable(false);
-        setUndecorated(true);
+        setUndecorated(false);
         Playboard pb=new Playboard();
         pb.setPreferredSize(new Dimension(500,  500));
         add(pb);
