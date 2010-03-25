@@ -4,6 +4,7 @@
  */
 package mushai;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -11,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import mushai.Piece.PieceColor;
 
 /**
  *
@@ -34,16 +34,15 @@ public class Playboard extends JPanel {
                 add(tiles[i][j]);
             }
         }
-        try {
-            tiles[1][1].setPiece(new Square(1, 1, PieceColor.BLACK));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Playboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        tiles[1][1].setPiece(new Square(1, 1, Color.BLACK));
         update();
     }
 
-    private void update(){
+    /**
+     * Updates the Playboard so that pieces are shown in their correct places.
+     * To be executed each time a move has been made.
+     */
+    private void update() {
         for (Tile[] ts : tiles) {
             for (Tile t : ts) {
                 t.update();

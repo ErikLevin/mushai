@@ -4,11 +4,11 @@
  */
 package mushai;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -49,20 +49,16 @@ public abstract class Piece {
 
     protected abstract void updateMoves();
 
-    public enum PieceColor {
-        RED, BLACK
-    }
-
-    protected PieceColor color;
+    protected Color color;
 
     public Piece() {
-        color = PieceColor.RED;
+        color = Color.RED;
         position = new Point(0, 0);
         icon = null;
         moves = new HashSet<Point>();
     }
 
-    public Piece(int x, int y, PieceColor color) {
+    public Piece(int x, int y, Color color) {
         this();
         setPosition(x, y);
         this.color = color;
