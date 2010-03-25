@@ -5,9 +5,11 @@
 
 package mushai;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,18 +24,21 @@ public class Window extends JFrame {
         super();
         setTitle("calender");
         setPreferredSize(new Dimension(650,500));
-        setLayout(new FlowLayout());
+
+
+        setLayout( new BorderLayout() );
+        
         setResizable(false);
         setUndecorated(false);
         Playboard pb=new Playboard();
-        pb.setPreferredSize(new Dimension(500,  500));
-        add(pb);
+        add(pb,BorderLayout.CENTER );
         JPanel playersPanel= new JPanel();
         playersPanel.setLayout(new GridLayout(Settings.getNrOfPlayers(),1));
-        playersPanel.setPreferredSize(new Dimension(120,500));
+       
         playersPanel.add(new Player("bark", Color.yellow));//fix temp
         playersPanel.add(new Player("ai", Color.green));//fix temp
-        add(playersPanel);
+        playersPanel.setPreferredSize(new Dimension(100,50));
+        add(playersPanel,BorderLayout.EAST);
         pack();
         this.setVisible(true);
     }
