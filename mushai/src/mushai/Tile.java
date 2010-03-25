@@ -7,10 +7,6 @@ package mushai;
 import java.awt.Color;
 import javax.swing.JButton;
 
-/**
- *
- * @author bark
- */
 public class Tile extends JButton {
 
     private Piece piece;

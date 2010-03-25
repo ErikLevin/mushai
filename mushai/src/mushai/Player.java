@@ -10,10 +10,6 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author bark
- */
 public class Player extends JPanel {
     String name;
     Color color;
@@ -35,5 +31,7 @@ public class Player extends JPanel {
        setBackground(color);
     }
 
-
+    public Color getColor() {
+        return color;
+    }
 }

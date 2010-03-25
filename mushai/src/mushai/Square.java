@@ -6,10 +6,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
 
-/**
- *
- * @author bark
- */
 public class Square extends Piece {
 
     public Square(int x, int y, Color color) {

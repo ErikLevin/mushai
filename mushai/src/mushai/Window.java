@@ -13,11 +13,13 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-/**
- *
- * @author bark
- */
 public class Window extends JFrame {
+
+    Playboard pb;
+
+    public Playboard getBoard() {
+        return pb;
+    }
 
     public Window() {
         super();
@@ -29,7 +31,7 @@ public class Window extends JFrame {
 
         setResizable(false);
         setUndecorated(false);
-        Playboard pb = new Playboard();
+        pb = new Playboard();
         add(pb, BorderLayout.CENTER);
         JPanel playersPanel = new JPanel();
         playersPanel.setLayout(new GridLayout(Settings.getNrOfPlayers(), 1));

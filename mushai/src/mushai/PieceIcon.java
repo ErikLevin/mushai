@@ -10,10 +10,6 @@ import java.awt.Component;
 import java.awt.Graphics;
 import javax.swing.Icon;
 
-/**
- *
- * @author Erik Levin
- */
 public abstract class PieceIcon implements Icon {
     protected Color color;
 

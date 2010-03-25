@@ -6,10 +6,6 @@ package mushai;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author bark
- */
 public class Settings {
 
     private static int playboardSize = 4;
