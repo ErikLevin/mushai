@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.io.FileNotFoundException;
 import java.util.HashSet;
-import javax.swing.Icon;
 
 /**
  *
