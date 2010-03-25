@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * Controller class for game logic.
@@ -65,6 +66,20 @@ public class Controller implements ActionListener {
         origin.setPiece(null);
         board.getTiles()[end.x][end.y].setPiece(p);
         moveStart = null;
+        ArrayList<Player> arL=Settings.getPlayers();
+        for(int i=0;i<Settings.getNrOfPlayers();i++){
+            if(arL.get(i).isItMyturn()){
+                arL.get(i).isNotMyTurn();
+                if(Settings.getNrOfPlayers()-1!=i){
+                    arL.get(i+1).isMyTurn();
+                    break;
+                }else{
+                    arL.get(0).isMyTurn();
+                    break;
+                }
+
+            }
+        }
         board.update();
     }
 }
