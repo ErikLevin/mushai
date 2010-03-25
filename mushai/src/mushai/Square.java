@@ -21,8 +21,9 @@ public class Square extends Piece {
         super(x, y, color);
         File picFile = new File("images/square.png");
         System.out.println(picFile.getAbsolutePath());
-        if(!picFile.exists())
-           // throw new FileNotFoundException("Image for Square not found");
+        if(!picFile.exists()){
+            throw new FileNotFoundException("Image for Square not found");
+        }
         icon = new ImageIcon(picFile.getAbsolutePath());
     }
 
