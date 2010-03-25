@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package mushai;
 
 import java.awt.BorderLayout;
@@ -20,29 +19,27 @@ import javax.swing.JPanel;
  */
 public class Window extends JFrame {
 
-    public Window(){
+    public Window() {
         super();
         setTitle("calender");
-        setPreferredSize(new Dimension(650,500));
+        setPreferredSize(new Dimension(650, 500));
 
 
-        setLayout( new BorderLayout() );
-        
+        setLayout(new BorderLayout());
+
         setResizable(false);
         setUndecorated(false);
-        Playboard pb=new Playboard();
-        add(pb,BorderLayout.CENTER );
-        JPanel playersPanel= new JPanel();
-        playersPanel.setLayout(new GridLayout(Settings.getNrOfPlayers(),1));
-       
-        playersPanel.add(new Player("bark", Color.yellow));//fix temp
-        playersPanel.add(new Player("ai", Color.green));//fix temp
-        playersPanel.setPreferredSize(new Dimension(100,50));
-        add(playersPanel,BorderLayout.EAST);
+        Playboard pb = new Playboard();
+        add(pb, BorderLayout.CENTER);
+        JPanel playersPanel = new JPanel();
+        playersPanel.setLayout(new GridLayout(Settings.getNrOfPlayers(), 1));
+        for (Player pl : Settings.getPlayers()) {
+            playersPanel.add(pl);
+        }
+        playersPanel.setPreferredSize(new Dimension(100, 50));
+        add(playersPanel, BorderLayout.EAST);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-
-
 }
