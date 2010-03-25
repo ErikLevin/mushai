@@ -15,7 +15,7 @@ public class Player extends JPanel {
     String name;
     Color color;
     int points=0;
-    JLabel jLmyTurn= new JLabel("");
+    JLabel jLmyTurn= new JLabel("aaa text");
     
     public Player(String tname,Color tcolor){
        super();
@@ -28,6 +28,7 @@ public class Player extends JPanel {
         JLabel JLpoints =new JLabel(points+"");
         JLpoints.setFont(JLpoints.getFont().deriveFont(20f));
        add(JLpoints);
+       add(jLmyTurn);
 
        setBackground(color);
     }
