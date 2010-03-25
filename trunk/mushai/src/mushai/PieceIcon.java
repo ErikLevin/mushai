@@ -13,5 +13,34 @@ import javax.swing.Icon;
 public abstract class PieceIcon implements Icon {
     protected Color color;
 
-    public abstract void paintIcon(Component c, Graphics g, int x, int y);
+    protected int width, height;
+
+    public PieceIcon(Color color) {
+        this.color = color;
+    }
+
+     /**
+         * @TODO Remove magic number, instead base return value on tile size
+         * @return the width of icon
+         */
+        @Override
+        public int getIconWidth() {
+            return width;
+        }
+
+        /**
+         * @TODO Remove magic number, instead base return value on tile size
+         * @return the height of icon
+         */
+        @Override
+        public int getIconHeight() {
+            return height;
+        }
+
+        public void paintIcon(Component c, Graphics g, int x, int y)
+        {
+            g.setColor(color);
+            width = c.getWidth() - (c.getWidth() / 4);
+            height = c.getHeight() - (c.getHeight() / 4);
+        }
 }
