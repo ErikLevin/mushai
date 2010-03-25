@@ -29,26 +29,12 @@ public abstract class Piece {
         return icon;
     }
 
-    public int getX() {
-        return (int)position.getX();
-    }
-
-    public int getY() {
-        return (int)position.getY();
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
-        updateMoves();
-    }
-
-    public void setPosition(int x, int y) {
-        this.position.setLocation(x, y);
-        updateMoves();
-    }
-
-    protected abstract void updateMoves();
-
+    /**
+     *
+     * @param x
+     * @param y
+     */
+    protected abstract void updateMoves(int x, int y);
     protected Color color;
 
     public Piece() {
@@ -58,9 +44,8 @@ public abstract class Piece {
         moves = new HashSet<Point>();
     }
 
-    public Piece(int x, int y, Color color) {
+    public Piece(Color color) {
         this();
-        setPosition(x, y);
         this.color = color;
     }
 

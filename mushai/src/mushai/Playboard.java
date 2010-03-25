@@ -33,8 +33,8 @@ public class Playboard extends JPanel {
                 add(tiles[i][j]);
             }
         }
-        tiles[1][1].setPiece(new Square(1, 1, Settings.getPlayers().get(0).getColor()));
-        tiles[3][2].setPiece(new Square(3, 2, Settings.getPlayers().get(1).getColor()));
+        tiles[1][1].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+        tiles[3][2].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
         update();
     }
 
@@ -43,9 +43,9 @@ public class Playboard extends JPanel {
      * To be executed each time a move has been made.
      */
     public void update() {
-        for (Tile[] ts : tiles) {
-            for (Tile t : ts) {
-                t.update();
+        for (int j = 0; j < Settings.getPlayboardSize(); j++) {
+            for (int i = 0; i < Settings.getPlayboardSize(); i++) {
+                tiles[i][j].update(i, j);
             }
         }
     }

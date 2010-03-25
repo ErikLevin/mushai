@@ -8,22 +8,14 @@ import java.util.HashSet;
 
 public class Square extends Piece {
 
-    public Square(int x, int y, Color color) {
-        super(x, y, color);
+    public Square(Color color) {
+        super(color);
         icon = new SquareIcon(color);
     }
 
-    @Override
-    protected void updateMoves() {
+    protected void updateMoves(int x, int y) {
         Point forward = null, backward = null, left = null, right = null;
         moves = new HashSet<Point>();
-
-
-        int x = getX();
-
-
-        int y = getY();
-
 
         if (color == Color.RED) {
             forward = new Point(x, y - 1);
