@@ -19,7 +19,7 @@ For the genetic algorithm, ... will be used and the expressions that are evolved
 
 === Simplified rules for first version ===
 
-* No long jumps
-* Only two players
-* 4x4 board
-* Only square pieces
+ * No long jumps
+ * Only two players
+ * 4x4 board
+ * Only square pieces
