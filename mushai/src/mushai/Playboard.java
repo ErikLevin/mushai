@@ -25,7 +25,6 @@ public class Playboard extends JPanel {
         int playboardSize = Settings.getPlayboardSize();
         tiles = new Tile[playboardSize][playboardSize];
         setLayout(new GridLayout(playboardSize, playboardSize));
-
         this.setPreferredSize(new Dimension(200, 200));
         for (int j = 0; j < playboardSize; j++) {
             for (int i = 0; i < playboardSize; i++) {
