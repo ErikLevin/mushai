@@ -35,13 +35,15 @@ public class Controller implements ActionListener {
             for (xTile = 0; xTile < Settings.getPlayboardSize(); xTile++) {
                 for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
 //                    System.out.println("size "+Settings.getPlayboardSize());
-
+                       
                     if (board.getTiles()[xTile][yTile] == t) {
 //                        System.out.println("Found tile!");
                         break outer;
                     }
                 }
             }
+
+
 
             System.out.println("x: " + xTile + " y: " + yTile);
             if (t.getPiece() != null) { // is piece on tile
@@ -67,6 +69,18 @@ public class Controller implements ActionListener {
         board.getTiles()[end.x][end.y].setPiece(p);
         moveStart = null;
         ArrayList<Player> arL=Settings.getPlayers();
+
+
+        /**nollställer brädet **/
+
+            int xTile = 0, yTile = 0;
+            for (xTile = 0; xTile < Settings.getPlayboardSize(); xTile++) {
+                for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
+                     board.getTiles()[xTile][yTile].setBackground(Color.lightGray);
+                     board.getTiles()[xTile][yTile].repaint();
+                }
+            }
+        /**räknar ut vems person det är **/
         for(int i=0;i<Settings.getNrOfPlayers();i++){
             if(arL.get(i).isItMyturn()){
                 arL.get(i).isNotMyTurn();
