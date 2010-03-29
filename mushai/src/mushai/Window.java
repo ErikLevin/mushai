@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -23,7 +24,7 @@ public class Window extends JFrame {
 
     public Window() {
         super();
-        setTitle("calender");
+        setTitle("");
         setPreferredSize(new Dimension(650, 500));
 
 
@@ -39,7 +40,19 @@ public class Window extends JFrame {
             playersPanel.add(pl);
         }
         playersPanel.setPreferredSize(new Dimension(100, 50));
-        add(playersPanel, BorderLayout.EAST);
+        JPanel rigthMenu = new JPanel();
+        
+        rigthMenu.setLayout(new BorderLayout());
+        rigthMenu.add(playersPanel,BorderLayout.CENTER);
+        JPanel buttonMenu = new JPanel();
+        JButton endTurn=new JButton("end turn");
+        endTurn.setFont(endTurn.getFont().deriveFont(8f));
+        buttonMenu.add(endTurn);
+        JButton resetTurn=new JButton("reset turn");
+        resetTurn.setFont(resetTurn.getFont().deriveFont(8f));
+        buttonMenu.add(resetTurn);
+        rigthMenu.add(buttonMenu,BorderLayout.SOUTH);
+        add(rigthMenu, BorderLayout.EAST);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
