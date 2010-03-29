@@ -1,6 +1,6 @@
 #summary What to do next
 
-Everyone should read up on:
+Read up on:
  * Genetic algorithms
  * Genetic programming
  * Game rules
@@ -9,6 +9,7 @@ Everyone should read up on:
  * Find tools, articles, benchmarks that can be relevant
  * solved games (see pdf)
 in
+ * Reading list
  * Book
  * The interwebs
 in order to eventually make an informed decision about
