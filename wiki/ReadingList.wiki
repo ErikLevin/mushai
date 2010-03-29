@@ -1,0 +1,14 @@
+#summary What to read next
+
+ * games solved.pdf
+   * About solvable board games or something...
+ * http://www.aihorizon.com/essays/basiccs/trees/minimax.htm
+   * ?
+ * Genetic programming in book (really short)
+ * Chess algorithms in book
+ * Lisp stuff
+   * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
+   * http://www.flownet.com/gat/papers/lisp-java.pdf
+   * http://franz.com/support/documentation/current/doc/jlinker.htm
+   * http://www.franz.com/support/documentation/6.2/doc/jil.htm
+   * http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=04145042
