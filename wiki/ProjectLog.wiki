@@ -1,0 +1,76 @@
+#summary Meeting notes, decisions we make, and for tracking non-code progress.
+
+=Supervisor meeting LV 1=
+
+Since Nine Men's Morris is already mathematically solved, we should choose a game that is not solved:
+ * 12 Men's Morris was discussed
+ * as was Taifho/Traverse
+   * Perhaps start with a simpler board
+   * Is there previous Taifho-research?
+
+Should have an "objective" way to measure how good AI is
+ * Benchmarking
+ * Or play against humans
+ * Compare with chess
+ * Compare with "hand calculated" optimal solutions
+
+Vad tillför gp utöver local search? I GP kombinerar man lösningar.
+
+*Decision*: We change to Taifho/Traverse.
+
+=Project meeting 0323=
+
+Should try to find out what kind of solvable Taifho/Traverse is (if at all): see "games solved.pdf"
+Searching for previous research on Taifho AI or the solvability of Taifho yields no results...
+Theoretical reasoning, inspired by "games solved.pdf"
+ * We could in report show that 3x3 is trivial (second player wins).
+ * 4x4 with squares
+   * max 4 turns (?)
+   * player 2 seems to have the advantage
+ * No endgame in Traverse... Is it divergent? "games solved.pdf"
+ * Maybe Shogi or another nonconvergent game is better to compare with.
+A program that calculates all possible moves would be nice...
+
+=The question of programming language=
+
+ * According to book Lisp is useful for GP...
+ * but we are most familiar with Java, esp. when it comes to GUI
+   * Is there a way to run Lisp in Java?
+   * Or we could write our own (just output from Lisp and into Java)
+   * http://www.flownet.com/gat/papers/lisp-java.pdf
+   * http://franz.com/support/documentation/current/doc/jlinker.htm
+   * http://www.franz.com/support/documentation/6.2/doc/jil.htm
+   * http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=04145042
+
+=Project meeting 0326=
+
+==Define concrete problem, question or task==
+
+Goal: Develop AI that plays the game reasonably well, compared with other benchmarks of similar games.
+
+*conclusion*: We must read more to better define this.
+
+==Search for useful programs, tools and benchmarks==
+
+===Programs, tools===
+
+ * Frameworks for genetic programming / algorithms
+ * Perhaps frameworks for board games (but we're nearly finished with our own, so...)
+ * Statistics tools (???)
+
+===Benchmarks===
+
+ * Search methods applied to similar games, genetic programming for similar games
+ * If it exists, planning etc. for similar games...
+ * Hand-calculated optimal solution
+
+==Toy solutions, small programs etc.==
+
+ * Our 4x4 will essentially be a "toy solution" compared to complete game
+ * Test stuff we find in literature
+
+==Design thoughts...==
+
+How about defining a game protocol and running a client-server solution for contact between players / AI and game rules? Game sends board state and all possible moves to client, client chooses one of the moves and sends its choice back. Reason: supporting platform and language independent AI implementations.
+
+*decision*: Move google docs to wiki.
