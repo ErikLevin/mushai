@@ -18,3 +18,5 @@ TodoList
 ReadingList
 
 ProjectLog
+
+[http://docs.google.com/#folders/folder.0.0B6HzD7Uz0e6mMTZhZTE2YjEtM2ZhMy00MGU1LWEzMmMtZGU3ZjBhYjU0Zjhi Google Docs folder (only accessible for project members)]
