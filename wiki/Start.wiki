@@ -15,7 +15,7 @@ GameRules
 
 TodoList
 
-ReadingList
+[ReadingList Reading list, references]
 
 ProjectLog
 
