@@ -34,10 +34,8 @@ public class Controller implements ActionListener {
             outer:
             for (xTile = 0; xTile < Settings.getPlayboardSize(); xTile++) {
                 for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
-//                    System.out.println("size "+Settings.getPlayboardSize());
 
                     if (board.getTiles()[xTile][yTile] == t) {
-//                        System.out.println("Found tile!");
                         break outer;
                     }
                 }
