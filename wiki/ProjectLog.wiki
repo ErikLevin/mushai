@@ -74,3 +74,16 @@ Goal: Develop AI that plays the game reasonably well, compared with other benchm
 How about defining a game protocol and running a client-server solution for contact between players / AI and game rules? Game sends board state and all possible moves to client, client chooses one of the moves and sends its choice back. Reason: supporting platform and language independent AI implementations.
 
 *decision*: Move google docs to wiki.
+
+=Solvability=
+
+Stuff from games solved.pdf.
+Let's try to decide
+ * Whether the game-theoretic value of the initial position is
+   * First player wins
+   * Second player wins
+   * Draw
+ * State-space complexity (if these are possible to know without 100 years research)
+ * Game-tree complexity
+for different sized boards. Check out table 4 in games solved.pdf. If we could do a table like that, it would look impressive! And awesome!
+With this, we can decide what of the 4 categories in Fig. 1 Traverse belongs to. My prediction: The full game will be category 4 (unsolvable by any known methods), which we can use to motivate our attempts at a genetic approach.
