@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{course_book}
+S.~Russell and P.~Norvig.
+\newblock {\em Artificial Intelligence: A Modern Approach}.
+\newblock Pearson Education, Inc, Upper Saddle River, New Jersey, second
+  edition, 2003.
+
+\bibitem{games_solved}
+H.~J. van~den Herik, J.~W. H.~M. Uiterwijk, and J.~van Rijswijck.
+\newblock Games solved: Now and in the future.
+\newblock {\em Artificial Intelligence}, (134):277--311, 2002.
+
+\end{thebibliography}
