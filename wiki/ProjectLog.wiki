@@ -83,6 +83,7 @@ Let's try to decide
    * First player wins
    * Second player wins
    * Draw
+ * Divergent / convergent / neither
  * State-space complexity (if these are possible to know without 100 years research)
  * Game-tree complexity
 for different sized boards. Check out table 4 in games solved.pdf. If we could do a table like that, it would look impressive! And awesome!
