@@ -6,7 +6,7 @@
    * ?
  * Chapter 1.1 _What is AI?_ in the course book
  * Genetic programming in the course book (really short)
- * Chess algorithms in the course book
+ * Chess algorithms in the course book (Chapter 6?)
  * Lisp stuff
    * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
    * http://www.flownet.com/gat/papers/lisp-java.pdf
