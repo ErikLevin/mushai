@@ -10,11 +10,11 @@
  * games solved.pdf
    * About solvable board games or something...
  * http://www.aihorizon.com/essays/basiccs/trees/minimax.htm
-   * ?
+   * Minmax trees
 
- ===Lisp stuff===
-   * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
-   * http://www.flownet.com/gat/papers/lisp-java.pdf
-   * http://franz.com/support/documentation/current/doc/jlinker.htm
-   * http://www.franz.com/support/documentation/6.2/doc/jil.htm
-   * http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=04145042
+===Lisp stuff===
+ * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
+ * http://www.flownet.com/gat/papers/lisp-java.pdf
+ * http://franz.com/support/documentation/current/doc/jlinker.htm
+ * http://www.franz.com/support/documentation/6.2/doc/jil.htm
+ * http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=04145042
