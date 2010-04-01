@@ -4,7 +4,7 @@
  * Chapter 1.1 _What is AI?_
    * a short overview to get you thinking
  * Genetic algorithms, pp. 116-119
- * Chess algorithms, Chapter 6?
+ * Adversarial search (games, e.g. Chess), Chapter 6
 
 ===Internet===
  * games solved.pdf
