@@ -3,7 +3,7 @@
 ===Course book===
  * Chapter 1.1 _What is AI?_
    * a short overview to get you thinking
- * Genetic programming, pp. 116-119
+ * Genetic algorithms, pp. 116-119
  * Chess algorithms, Chapter 6?
 
 ===Internet===
