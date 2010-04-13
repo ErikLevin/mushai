@@ -100,4 +100,6 @@ There are several frameworks for GP in Java:
  * [http://jgprog.sourceforge.net/ Groovy Java Genetic Programming]
  * [http://jclec.sourceforge.net/ JCLEC - Evolutionary Computation Library in Java] expression tree encoding, syntax tree encoding
 
-How do we make an informed choice about which one to pick?
+How do we make an informed choice about which one to pick? We want:
+ * suitable input/output. Sockets?
+ * possibility to save best individual after one run of algorithm
