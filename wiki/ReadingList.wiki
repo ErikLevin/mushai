@@ -1,18 +1,22 @@
 #summary What to read next
 
-===Course book===
+=Course book=
  * Chapter 1.1 _What is AI?_
    * a short overview to get you thinking
  * Genetic algorithms, pp. 116-119
  * Adversarial search (games, e.g. Chess), Chapter 6
 
-===Internet===
+=Internet=
  * games solved.pdf
    * About solvable board games or something...
  * http://www.aihorizon.com/essays/basiccs/trees/minimax.htm
    * Minmax trees
 
-===Lisp stuff===
+=Genetic Algorithms/Programming=
+ * [http://www.etsimo.uniovi.es/ftp/pub/EC/FAQ/www/ The Hitch-Hiker's Guide to Evolutionary computation]
+ * http://www.genetic-programming.com/
+
+=Lisp stuff=
  * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
  * http://www.flownet.com/gat/papers/lisp-java.pdf
  * http://franz.com/support/documentation/current/doc/jlinker.htm
