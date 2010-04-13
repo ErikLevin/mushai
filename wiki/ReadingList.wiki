@@ -15,6 +15,7 @@
 =Genetic Algorithms/Programming=
  * [http://www.etsimo.uniovi.es/ftp/pub/EC/FAQ/www/ The Hitch-Hiker's Guide to Evolutionary computation]
  * http://www.genetic-programming.com/
+ * http://www.geneticprogramming.com/Tutorial/
 
 =Lisp stuff=
  * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
