@@ -107,3 +107,5 @@ How do we make an informed choice about which one to pick? We want:
 =Supervisor meeting 100413=
  * Risky to attempt something noone has done before
  * Split in two groups? One genetic, one that examines other search methods.
+   * Genetic - Max & Erik
+   * Other - Bark & Hasse
