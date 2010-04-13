@@ -13,9 +13,9 @@
    * Minmax trees
 
 =Genetic Algorithms/Programming=
- * [http://www.etsimo.uniovi.es/ftp/pub/EC/FAQ/www/ The Hitch-Hiker's Guide to Evolutionary computation]
  * http://www.genetic-programming.com/
- * http://www.geneticprogramming.com/Tutorial/
+ * http://www.geneticprogramming.com/Tutorial/ A little introduction
+ * [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.108.3070&rep=rep1&type=pdf Attaining Human-competitive Game Playing with Genetic Programming]
 
 =Lisp stuff=
  * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
