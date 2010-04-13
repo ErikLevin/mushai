@@ -12,14 +12,21 @@ The ultimate vision for the end product is a complete, graphical Traverse game w
 == Programming language ==
 
 The programming language we will use for the GUI will be Java.
-For the genetic algorithm, ... will be used and the expressions that are evolved will be Lisp (Maybe???)
+For the genetic algorithm, a Java open source framework will probably be used.
 
 
 == Game rules ==
 
-=== Simplified rules for first version ===
+=== First version ===
 
- * No long jumps
- * Only two players
- * 4x4 board
- * Only square pieces
+ # No long jumps
+ # Only two players
+ # 4x4 board
+ # Only square pieces
+ # Pieces can't be moved when they have reached the goal
+ # Pieces are removed when they have reached the goal
+
+=== Future versions ===
+
+The restrictive rules will be removed/relaxed one after the other, in the following order:
+...
