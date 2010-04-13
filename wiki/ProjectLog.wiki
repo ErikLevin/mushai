@@ -88,3 +88,16 @@ Let's try to decide
  * Game-tree complexity
 for different sized boards. Check out table 4 in games solved.pdf. If we could do a table like that, it would look impressive! And awesome!
 With this, we can decide what of the 4 categories in Fig. 1 Traverse belongs to. My prediction: The full game will be category 4 (unsolvable by any known methods), which we can use to motivate our attempts at a genetic approach.
+
+=Meeting 100413=
+
+There are several frameworks for GP in Java:
+ * [http://code.google.com/p/genpro/ GenPro - Reflective Object Oriented Genetic Programming] Open Source Framework. Extend with POJO's, generates plain Java code.
+ * [http://www.jaga.org JAGA - Extensible and pluggable open source API for implementing genetic algorithms and genetic programming applications]
+ * [http://jgap.sourceforge.net JGAP - Java Genetic Algorithms and Genetic Programming, an open-source framework]
+ * [http://cui.unige.ch/spc/tools/n-genes/ n-genes - Java Genetic Algorithms and Genetic Programming (stack oriented) framework]
+ * [http://www.softtechdesign.com/GA/EvolvingABetterSolution-GA.html Java GALib - Source Forge open source Java genetic algorithm library, complete with Javadocs and examples (see bottom of page)]
+ * [http://jgprog.sourceforge.net/ Groovy Java Genetic Programming]
+ * [http://jclec.sourceforge.net/ JCLEC - Evolutionary Computation Library in Java] expression tree encoding, syntax tree encoding
+
+How do we make an informed choice about which one to pick?
