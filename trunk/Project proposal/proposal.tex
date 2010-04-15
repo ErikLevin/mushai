@@ -50,37 +50,35 @@ mail
 
 The goal of this project is to explore how genetic programming can be used to develop an artificial intelligence that plays the board game Traverse.
 
-If the task is deemed infeasible to carry out with genetic programming we will instead use a more conventional search method such as minmax tree. Initially we will study both approaches in parallel.
-
 %------------------------------------------------------------------------- 
 \Section{Key ideas}
 
 \SubSection{What do you propose to do?}
 
-We aim to develop an artificial intelligence that plays Traverse reasonably well. It should at least play significantly better than random playing (i.e. win practically every time), and ideally be as good as an amateur human player.
+We aim to develop an artificial intelligence that plays Traverse reasonably well. It should at least play significantly better than random playing (i.e. win practically every time), and ideally be as good as an amateur human player. Initially we will work with a smaller board with fewer types of pieces.
+
+If the task is deemed infeasible to carry out with genetic programming we will instead use a more conventional search method such as minimax tree. Initially we will study both approaches in parallel.
 
 %------------------------------------------------------------------------- 
 \SubSection{What interesting and related things are outside the scope of your project?}
 
 One thought from our supervisor was to try and develop a program that could incrementally learn the rules of the game (and by extension, any board game) by attempting moves and letting the user confirm whether the move was legal or not. This is a very interesting area, but outside the scope of this project. We will predefine the rules of the game and not let it be up to the user.
 
-Comparing with full-blown search methods. Won't be time to develop as well. ???
-
-Measuring how good the AI is, if it is above amateur level. We can make estimations.
+There will probably not be time to compare the genetic programming approach with agents developed through other methods, so this is outside of the scope as well. However, if time permits, we might develop another type of algorithm such as Minimax tree and compare the two approaches to see which performs best.
 
 %------------------------------------------------------------------------- 
 \SubSection{Why do you believe your approach will work?}
 
-Because our brains were made through evolution, and they can play Traverse on the level of an amateur.
+Because our brains were made through evolution, and they can play Traverse on the level of an amateur. Therefore there is no reason to believe a computer program developed by evolution couldn't!
 
-GP can quickly locate good solutions even for complex search spaces... Which Traverse has.
+There are previous research papers where genetic programming has been successful for board game playing, for instance \cite{human-competitive_gp}, in which agents playing Backgammon and chess were evolved. Since chess is somewhat similar to Traversal this indicates that a similar approach should be possible by the same method.
 
 %------------------------------------------------------------------------ 
 \SubSection{What will you accomplish?}
 
-If you succeed, what will you accomplish? Why is it interesting and significant?
+There does not seem to exist any research on Traverse game playing, so building an agent that plays the game well is interesting because it is unexplored territory. Interesting because it evolves... Genetic programming is not very widely used within board game playing, and that also makes it interesting to attempt it.
 
-We will have BECOME AS GODS! MWAHAHAHAHAHA!
+We chose the game Traverse partly for this reason, that it is interesting to investigate a new area, and also because the game has an appropriate level of complexity.
 
 
 %------------------------------------------------------------------------- 
@@ -88,23 +86,32 @@ We will have BECOME AS GODS! MWAHAHAHAHAHA!
 You should find published work or results that help you define the project, explain its significance, and demonstrate the value of various approaches to your task. If you cannot find work directly applicable to your project, try to find work on related problems, and adapt the results to your project.
 
 \subsection{Literature}
-One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games appear such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve: ... As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which provides an incentive for trying other methods for a playing algorithm, such as genetic programming.
+One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games appear such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve, and by what method they can be solvable. As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which provides an incentive for trying other methods for a playing algorithm, such as genetic programming.
 
-Articles about GP in board games...
+In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained.
 
+More about GP in board games...
+
+We will study these previous attempts to get inspiration and hints about how to proceed.
 
 \subsection{Tools and programs}
 
+Several genetic programming frameworks exist for our intended programming language, Java [citations]. We will 
+
 \subsection{Benchmarks}
 
-In \cite{games_solved}, a way of measuring how good game playing artificial intelligences are is proposed. The agent is placed in categories for playing at amateur level, grand master level, world champion level, better than any human, and being completely solved. Since we do not have access to any human or artificial players of higher level than amateur, we will not be able to assess our program's category in this taxonomy fully. We do, however, intend to determine whether it is better, worse or about equal to a human amateur.
+Some conceivable benchmarks are comparing our artificial intelligence with the following:
+\begin{itemize}
+	\item{An agent that plays completely randomly}
+	\item{A simple agent that plays only by one or a few easy strategies}
+	\item{The mathematically computed optimal solution. This will most likely only be possible to calculate for very small boards or boards with no opponent and few pieces.}
+	\item{Another method, such as minimax trees}
+	\item{Human players on different levels}
+\end{itemize}
 
-Compare with:
-random player (should be significantly better)
-no opponent, just homerun on empty board
-one-strategy player
-human
-mathematically computed optimal solution (for small boards)
+In \cite{games_solved}, comparing with human levels of playing is discussed.  The agent is placed in categories for playing at amateur level, grand master level, world champion level, better than any human, and an additional category for games that have been completely solved. Since we do not have access to any human or artificial players of higher level than amateur, we will not be able to compare our program with anything else of these than an amateur level player. We do, however, intend to determine whether it is better, worse or about equal to a human amateur.
+
+As mentioned above, comparing the genetic programming approach to minimax trees will only be attempted if time allows.
 
 %-------------------------------------------------------------------------
 \section{Evaluation}
