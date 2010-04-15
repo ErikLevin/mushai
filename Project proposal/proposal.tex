@@ -44,36 +44,34 @@ mail
 \maketitle
 \thispagestyle{empty}
 
-\begin{abstract}
-Do we need an abstract for project proposal?
-\end{abstract}
-
-
 
 %------------------------------------------------------------------------- 
 \Section{Summary}
 
-Try to explain what you want to do and why. Particularly for those who have an area to research rather than a precise track: you must have a clearly defined concrete question, problem or task.
+The goal of this project is to explore how genetic programming can be used to develop an artificial intelligence that plays the board game Traverse.
 
 %------------------------------------------------------------------------- 
 \Section{Key ideas}
 
-
-
-%------------------------------------------------------------------------- 
 \SubSection{What do you propose to do?}
 
-It is important to define clearly the scope of the project.
+We aim to develop an artificial intelligence that plays Traverse reasonably well. It should minimally play  significantly better than random playing, and ideally be at least as good as a novice human player.
 
 %------------------------------------------------------------------------- 
 \SubSection{What interesting and related things are outside the scope of your project?}
 
+Learning rules of the game is bloody interesting. But outside.
 
+Comparing with full-blown search methods. Won't be time to develop as well.
+
+Measuring how good the AI is, if it is above amateur level. We can make estimations.
 
 %------------------------------------------------------------------------- 
 \SubSection{Why do you believe your approach will work?}
 
+Because our brains were made through evolution, and they can play Traverse on the level of an amateur.
 
+GP can quickly locate good solutions even for complex search spaces... Which Traverse has.
 
 %------------------------------------------------------------------------ 
 \SubSection{What will you accomplish?}
@@ -88,9 +86,18 @@ You should find published work or results that help you define the project, expl
 \subsection{Literature}
 One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games appear: game-theoretic value (first-player win, second-player win or draw), divergent/convergent, 4 categories of games... We will try to find out what of these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power.
 
+Also, measurement of how good AI is. Amateur, grand master, world champion, superhuman, solved. We can only compare with amateur playing: better or worse?
+
 \subsection{Tools and programs}
 
 \subsection{Benchmarks}
+
+Compare with:
+random player (should be significantly better)
+no opponent, just homerun on empty board
+one-strategy player
+human
+mathematically computed optimal solution (for small boards)
 
 %-------------------------------------------------------------------------
 \section{Evaluation}
