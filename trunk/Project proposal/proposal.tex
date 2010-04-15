@@ -29,16 +29,16 @@ MPSEN-1\\anhans@student.chalmers.se\\
 % just like the second author.
 \and
 Erik Axelsson\\
-Program2\\
-SecondAuthor@institution2.com\\
+TKITE-3\\
+erikax@student.chalmers.se\\
 \and
 Erik Levin\\
 MPSEN-1\\
 levine@student.chalmers.se
 \and
 Max Ocklind\\
-program4\\
-mail
+MPIDE-1\\
+ocklind@student.chalmers.se
 }
 
 \maketitle
@@ -69,26 +69,22 @@ There will probably not be time to compare the genetic programming approach with
 %------------------------------------------------------------------------- 
 \SubSection{Why do you believe your approach will work?}
 
-Because our brains were made through evolution, and they can play Traverse on the level of an amateur. Therefore there is no reason to believe a computer program developed by evolution couldn't!
-
-There are previous research papers where genetic programming has been successful for board game playing, for instance \cite{human-competitive_gp}, in which agents playing Backgammon and chess were evolved. Since chess is somewhat similar to Traversal this indicates that a similar approach should be possible by the same method.
+There are previous research papers where genetic programming has been successful for board game playing, for instance \cite{human-competitive_gp}, in which agents playing Backgammon and chess were evolved. Since those games are is somewhat similar to Traversal, especially chess, this indicates that a similar approach should be possible by the same method.
 
 %------------------------------------------------------------------------ 
 \SubSection{What will you accomplish?}
 
-There does not seem to exist any research on Traverse game playing, so building an agent that plays the game well is interesting because it is unexplored territory. Interesting because it evolves... Genetic programming is not very widely used within board game playing, and that also makes it interesting to attempt it.
+There does not seem to exist any research on Traverse game playing, so building an agent that plays the game well is interesting because it is unexplored territory. Genetic programming is not very widely used within board game playing, and that also makes it interesting to attempt it.
 
 We chose the game Traverse partly for this reason, that it is interesting to investigate a new area, and also because the game has an appropriate level of complexity.
 
-
 %------------------------------------------------------------------------- 
 \section{Survey}
-You should find published work or results that help you define the project, explain its significance, and demonstrate the value of various approaches to your task. If you cannot find work directly applicable to your project, try to find work on related problems, and adapt the results to your project.
 
 \subsection{Literature}
-One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games appear such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve, and by what method they can be solvable. As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which provides an incentive for trying other methods for a playing algorithm, such as genetic programming.
+One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games are mentioned such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve, and by what method they can be solvable. As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which encourages trying other methods for a playing algorithm, of which one is genetic programming.
 
-In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained.
+In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess endgame and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained. Coevolution vs. fixed teacher...
 
 More about GP in board games...
 
@@ -96,7 +92,7 @@ We will study these previous attempts to get inspiration and hints about how to 
 
 \subsection{Tools and programs}
 
-Several genetic programming frameworks exist for our intended programming language, Java [citations]. We will 
+Several genetic programming frameworks exist for our intended programming language, Java [citations go here]. We will look into some of these and decide on one that seems be useful for our needs. Instead of developing the whole genetic algorithm from scratch, using such a framework will reduce the development time.
 
 \subsection{Benchmarks}
 
@@ -105,13 +101,13 @@ Some conceivable benchmarks are comparing our artificial intelligence with the f
 	\item{An agent that plays completely randomly}
 	\item{A simple agent that plays only by one or a few easy strategies}
 	\item{The mathematically computed optimal solution. This will most likely only be possible to calculate for very small boards or boards with no opponent and few pieces.}
-	\item{Another method, such as minimax trees}
+	\item{Another kind of algorithm, such as Minimax search}
 	\item{Human players on different levels}
 \end{itemize}
 
 In \cite{games_solved}, comparing with human levels of playing is discussed.  The agent is placed in categories for playing at amateur level, grand master level, world champion level, better than any human, and an additional category for games that have been completely solved. Since we do not have access to any human or artificial players of higher level than amateur, we will not be able to compare our program with anything else of these than an amateur level player. We do, however, intend to determine whether it is better, worse or about equal to a human amateur.
 
-As mentioned above, comparing the genetic programming approach to minimax trees will only be attempted if time allows.
+As mentioned above, comparing the genetic programming approach to Minimax trees will only be attempted if time allows. Our hopes are that the final program will be consistently better than the random agent, better than the one-strategy agents, and ideally be as good as a novice human player.
 
 %-------------------------------------------------------------------------
 \section{Evaluation}
@@ -120,40 +116,47 @@ As mentioned above, comparing the genetic programming approach to minimax trees 
 
 Progress will be measured by regularly comparing against the benchmarks above.
 
-	\item{What experiments will you perform to prove your hypothesis?}
-	\item{Are there any standard data sets/benchmarks to evaluate the performance of your application?}
-	\begin{itemize}
-		\item{If YES, you should directly use those as a metric to evaluate the performance}
-		\item{If NO, you should define a set of general metric to make the evaluation unbiased}
-	\end{itemize}
-	\item{For example you can collect some standard inputs from the real world scenario for your application, for which you know the actual results. Then you can compare the performance of your application against the actual results}
-\end{itemize}
+\subsection{Are there any standard data sets or benchmarks to evaluate the performance of your application?}
+
+No, we have not found any previous research on Traverse, so no standard metrics exist. We will measure against our benchmarks stated above.
+
 
 %-----------------------------------------------------------------------
 \section{Initial results}
-You should have a few small (or toy) programs as proof of concept, and to give reason to believe your approach will succeed.
 
 We have made a program where two human players can play against each other. The rules of Traverse are implemented. Next, we will implement the genetic programming algorithm and perhaps the minimax tree for a very small board and few pieces to try it out before going for the full game.
 
 
 %-----------------------------------------------------------------------
 \section{Project management}
+
+\subsection{What are the major tasks to accomplish?}
+
 \begin{itemize}
-	\item{What are the major tasks to accomplish?}
-	\item{Who will do what?}
-	\item{Try to define a tentative schedule showing when you will start and finish each task!}
+	\item{Create prototype program where pieces can be moved regardless of rules}
+	\item{Implement the rules}
+	\item{Evaluate whether genetic programming is feasible to solve the task, or another search method should be the focus instead.}
+	\item{Implement genetic algorithm for small board, including terminals, functions and fitness function, that develops the game playing algorithm}
+	\item{Fully evolved, working game playing algorithm}
+	\item{Extend to full game}
 \end{itemize}
-However, please note that it is unwise to leave any task entirely to just one person. The others should at least follow it fairly closely, so that someone can take over the task in case of illness or absence.
+
+\subsection{Who will do what?}
+
+In the beginning the group will be divided in two subgroups, where one investigates the genetic programming approach further and the other looks into other search methods such as Minimax trees. Erik Levin and Max Ocklind will be studying genetic programming while the other team will consist of Hans Andersson and Erik Axelsson.
+
+\subsection{Try to define a tentative schedule showing when you will start and finish each task}
+
+Task 1 is done. Task 2 will be done this week (w. 19). Task 3 should be made by April 25th. The other estimations are less certain, but we will aim to finish task 4 by April 28th, task 5 by around May 5th and task 6 before the prototype release if possible, otherwise before our demo session.
 
 %-----------------------------------------------------------------------
 \section{Website}
-The project, including a wiki, report drafts and code is published under GNU General Public License v3 and can be found at the following web adress:
+The project, including a wiki, report drafts and code is published under GNU General Public License v3 and can be found at the following web address:
 
 \url{http://code.google.com/p/mushai/wiki/Start?tm=6}
 
-\nocite{games_solved,course_book}
+\nocite{games_solved, course_book}
 \bibliographystyle{proposal}
 \bibliography{proposal}
 
 \end{document}
-
