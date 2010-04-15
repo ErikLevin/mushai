@@ -52,6 +52,7 @@ public abstract class Piece {
         pontSet.add(left);
         pontSet.add(right);
         return pontSet;
+
     }
  
 }
