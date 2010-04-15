@@ -50,19 +50,21 @@ mail
 
 The goal of this project is to explore how genetic programming can be used to develop an artificial intelligence that plays the board game Traverse.
 
+If the task is deemed infeasible to carry out with genetic programming we will instead use a more conventional search method such as minmax tree. Initially we will study both approaches in parallel.
+
 %------------------------------------------------------------------------- 
 \Section{Key ideas}
 
 \SubSection{What do you propose to do?}
 
-We aim to develop an artificial intelligence that plays Traverse reasonably well. It should minimally play  significantly better than random playing, and ideally be at least as good as a novice human player.
+We aim to develop an artificial intelligence that plays Traverse reasonably well. It should at least play significantly better than random playing (i.e. win practically every time), and ideally be as good as an amateur human player.
 
 %------------------------------------------------------------------------- 
 \SubSection{What interesting and related things are outside the scope of your project?}
 
-Learning rules of the game is bloody interesting. But outside.
+One thought from our supervisor was to try and develop a program that could incrementally learn the rules of the game (and by extension, any board game) by attempting moves and letting the user confirm whether the move was legal or not. This is a very interesting area, but outside the scope of this project. We will predefine the rules of the game and not let it be up to the user.
 
-Comparing with full-blown search methods. Won't be time to develop as well.
+Comparing with full-blown search methods. Won't be time to develop as well. ???
 
 Measuring how good the AI is, if it is above amateur level. We can make estimations.
 
@@ -78,19 +80,24 @@ GP can quickly locate good solutions even for complex search spaces... Which Tra
 
 If you succeed, what will you accomplish? Why is it interesting and significant?
 
+We will have BECOME AS GODS! MWAHAHAHAHAHA!
+
 
 %------------------------------------------------------------------------- 
 \section{Survey}
 You should find published work or results that help you define the project, explain its significance, and demonstrate the value of various approaches to your task. If you cannot find work directly applicable to your project, try to find work on related problems, and adapt the results to your project.
 
 \subsection{Literature}
-One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games appear: game-theoretic value (first-player win, second-player win or draw), divergent/convergent, 4 categories of games... We will try to find out what of these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power.
+One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games appear such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve: ... As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which provides an incentive for trying other methods for a playing algorithm, such as genetic programming.
 
-Also, measurement of how good AI is. Amateur, grand master, world champion, superhuman, solved. We can only compare with amateur playing: better or worse?
+Articles about GP in board games...
+
 
 \subsection{Tools and programs}
 
 \subsection{Benchmarks}
+
+In \cite{games_solved}, a way of measuring how good game playing artificial intelligences are is proposed. The agent is placed in categories for playing at amateur level, grand master level, world champion level, better than any human, and being completely solved. Since we do not have access to any human or artificial players of higher level than amateur, we will not be able to assess our program's category in this taxonomy fully. We do, however, intend to determine whether it is better, worse or about equal to a human amateur.
 
 Compare with:
 random player (should be significantly better)
