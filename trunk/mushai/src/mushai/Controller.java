@@ -135,8 +135,9 @@ public class Controller implements ActionListener {
                 }
             }
             if (newPoint.equals(to)) {
-
-                moves.add(to);
+                if(moves.size()<2 || !endTurn){
+                    moves.add(to);
+                }
                 if(endTurn){
                     move(moves.get(0), moves.get(moves.size() - 1));
                 }
