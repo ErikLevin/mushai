@@ -1,15 +1,5 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
-\bibitem{mancala}
-J.~Ahlschwede.
-\newblock The gp mancala project, 2000.
-
-\bibitem{othello}
-E.~Eskin and E.~Siegel.
-\newblock Genetic programming applied to othello: introducing students to
-  machine learning research.
-\newblock {\em SIGCSE Bull.}, 31(1):242--246, 1999.
-
 \bibitem{course_book}
 S.~Russell and P.~Norvig.
 \newblock {\em Artificial Intelligence: A Modern Approach}.
@@ -17,7 +7,7 @@ S.~Russell and P.~Norvig.
   edition, 2003.
 
 \bibitem{human-competitive_gp}
-M.~Sipper, Y.~A. nad Ami~Hauptman, and Y.~Shichel.
+M.~Sipper, Y.~Azaria, A.~Hauptman, and Y.~Shichel.
 \newblock Attaining human-competitive game playing with genetic programming.
 \newblock {\em IEEE Transactions on Systems, Man and Cybernetics}, 2006.
 
