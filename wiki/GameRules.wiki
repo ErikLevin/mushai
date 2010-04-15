@@ -37,6 +37,7 @@ Players are only allowed to move one piece (according to its shape's movement ru
   * Players are not allowed to end their move within their starting row, unless the piece started out in their starting row.
   * Players are otherwise not allowed to end their move along any of the four sides or in the corners, but it is allowed to temporarily move a piece to any such space in a sequence of jumps that do not end on any of theses spaces.
   * Players are allowed to move and jump with pieces into, within and out of the destination row.
+  * The board must not look the same after a single move as before it
 
 ==References==
 [http://taifho.com/ Taifho.com]<br/>
