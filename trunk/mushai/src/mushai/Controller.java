@@ -120,8 +120,9 @@ public class Controller implements ActionListener {
         System.out.println("from:" + from + "  to:" + to + "   size of moves:" + moves.size() + "bord size:" + board.getTiles().length);
         Square pi = (Square) board.getTiles()[moves.get(0).x][moves.get(0).y].getPiece();
         pi.updateMoves();
-        for (Point tempPoint : pi.getMoves()) {
 
+        for (Point tempPoint : pi.getMoves()) {
+            boolean endTurn=true;
 
             Point newPoint = new Point(from.x + tempPoint.x, from.y + tempPoint.y);
             if (newPoint.x + tempPoint.x >= 0 && newPoint.x + tempPoint.x < Settings.getPlayboardSize()) {
@@ -129,11 +130,16 @@ public class Controller implements ActionListener {
 
                     if (board.getTiles()[newPoint.x][newPoint.y].getPiece() != null) {
                         newPoint = new Point(newPoint.x + tempPoint.x, newPoint.y + tempPoint.y);
+                        endTurn=false;
                     }
                 }
             }
             if (newPoint.equals(to)) {
+
                 moves.add(to);
+                if(endTurn){
+                    move(moves.get(0), moves.get(moves.size() - 1));
+                }
                 // drawLine mellan dessa rutor
             }
         }

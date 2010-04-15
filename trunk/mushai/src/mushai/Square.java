@@ -15,7 +15,7 @@ public class Square extends Piece {
     }
 
     protected void updateMoves() {
-        /*Point forward = null, backward = null, left = null, right = null;
+        Point forward = null, backward = null, left = null, right = null;
         moves = new HashSet<Point>();
 
         if (color == Color.RED) {
@@ -37,7 +37,7 @@ public class Square extends Piece {
         moves.add(forward);
         moves.add(backward);
         moves.add(left);
-        moves.add(right);*/
+        moves.add(right);
     }
 
     private class SquareIcon extends PieceIcon {
