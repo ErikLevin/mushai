@@ -22,6 +22,7 @@
  * [http://portal.acm.org/citation.cfm?id=299771 Genetic programming applied to Othello]
  * [http://www.corngolem.com/john/gp/project.html Using Genetic Programming to Play Mancala]
  * [http://dspace.library.drexel.edu/bitstream/1860/18/1/anthony_thesis.pdf Evolving Board Evaluation Functions for a Complex Strategy Game]
+[http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=487479 Using Genetic Programming to Evolve Board Evaluation Functions]
 
 =Lisp stuff=
  * Don't overdo it as we're not sure we're doing Lisp yet... Read more on GP first?
