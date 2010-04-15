@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
 public class Window extends JFrame {
 
     Playboard pb;
-
+    ArrayList<JButton> al;
     public Playboard getBoard() {
         return pb;
     }
@@ -41,20 +42,28 @@ public class Window extends JFrame {
         }
         playersPanel.setPreferredSize(new Dimension(100, 50));
         JPanel rigthMenu = new JPanel();
-        
+
+        al = new ArrayList<JButton>();
         rigthMenu.setLayout(new BorderLayout());
         rigthMenu.add(playersPanel,BorderLayout.CENTER);
         JPanel buttonMenu = new JPanel();
         JButton endTurn=new JButton("end turn");
         endTurn.setFont(endTurn.getFont().deriveFont(8f));
+        al.add(endTurn);
         buttonMenu.add(endTurn);
         JButton resetTurn=new JButton("reset turn");
         resetTurn.setFont(resetTurn.getFont().deriveFont(8f));
+        al.add(resetTurn);
         buttonMenu.add(resetTurn);
         rigthMenu.add(buttonMenu,BorderLayout.SOUTH);
         add(rigthMenu, BorderLayout.EAST);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         this.setVisible(true);
+    }
+
+    public ArrayList<JButton> getButtons() {
+        return al;
     }
 }

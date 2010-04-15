@@ -13,7 +13,7 @@ public class Main {
        Settings.addPlayer(bark);
        Settings.addPlayer(new Player("ai", Color.ORANGE));
        Window win = new Window();
-       Controller controller = new Controller(win.getBoard());
+       Controller controller = new Controller(win);
     }
 
 }
