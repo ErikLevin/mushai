@@ -11,32 +11,33 @@ public class Square extends Piece {
     public Square(Color color) {
         super(color);
         icon = new SquareIcon(color);
+        updateMoves();
     }
 
-    protected void updateMoves(int x, int y) {
-        Point forward = null, backward = null, left = null, right = null;
+    protected void updateMoves() {
+        /*Point forward = null, backward = null, left = null, right = null;
         moves = new HashSet<Point>();
 
         if (color == Color.RED) {
-            forward = new Point(x, y - 1);
-            backward = new Point(x, y + 1);
-            left = new Point(x - 1, y);
-            right = new Point(x + 1, y);
+            forward = new Point(0,  - 1);
+            backward = new Point(0,  1);
+            left = new Point(- 1, 0);
+            right = new Point( 1, 0);
 
 
 
         } else if (color == Color.BLACK) {
-            forward = new Point(x, y + 1);
-            backward = new Point(x, y - 1);
-            left = new Point(x + 1, y);
-            right = new Point(x - 1, y);
+            forward = new Point(0,  1);
+            backward = new Point(0, - 1);
+            left = new Point(1, 0);
+            right = new Point( - 1, 0);
 
 
         }
         moves.add(forward);
         moves.add(backward);
         moves.add(left);
-        moves.add(right);
+        moves.add(right);*/
     }
 
     private class SquareIcon extends PieceIcon {
@@ -44,7 +45,9 @@ public class Square extends Piece {
         public SquareIcon(Color color) {
             super(color);
         }
+ 
 
+        @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             super.paintIcon(c, g, x, y);
 
