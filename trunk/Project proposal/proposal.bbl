@@ -1,9 +1,21 @@
-\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+\begin{thebibliography}{10}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{genpro}
+Genpro - genetic programming made simple.
+\newblock \url{http://code.google.com/p/genpro/}.
 
 \bibitem{rules}
 How to play - traverse game - game rules.
 \newblock
   \url{http://www.educationallearninggames.com/how-to-play-traverse-game.asp}.
+
+\bibitem{jgap}
+Jgap - java genetic algorithms package.
+\newblock \url{http://jgap.sourceforge.net/}.
+
+\bibitem{n-genes}
+n-genes.
+\newblock \url{http://spc.unige.ch/tools/n-genes/}.
 
 \bibitem{mancala}
 J.~Ahlschwede.
@@ -14,6 +26,13 @@ E.~Eskin and E.~Siegel.
 \newblock Genetic programming applied to othello: introducing students to
   machine learning research.
 \newblock {\em SIGCSE Bull.}, 31(1):242--246, 1999.
+
+\bibitem{gpiv}
+J.~R. Koza, M.~A. Keane, M.~J. Streeter, W.~Mydlowec, J.~Yu, and G.~Lanza.
+\newblock {\em Genetic Programming IV: Routine Human-Competitive Machine
+  Intelligence}.
+\newblock Springer Science+Business Media, Inc., Spring Street, New York, third
+  edition, 2005.
 
 \bibitem{course_book}
 S.~Russell and P.~Norvig.

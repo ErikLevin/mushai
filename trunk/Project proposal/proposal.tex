@@ -50,9 +50,9 @@ ocklind@student.chalmers.se
 
 The goal of this project is to explore how genetic programming can be used to develop an artificial intelligence that plays the board game Traverse.
 
-Traverse is a so called abstract strategy board game, that is, a game with perfect information and no elements of chance or negotiation. The full game of Traverse is for two to four players, but we will only consider two player variants. The gameplay can be described as a combination between chess and Chinese checkers. Each player controls eight pieces of four different types, initially positioned along one edge of the board of 10 x 10 squares. Players take turns moving one of their pieces, and the goal is to be the first to reach the opposite side of the board with all pieces. Each type of piece is restricted to movement along certain directions, similar to chess, and pieces can jump over others in a manner pertaining to Chinese checkers \cite{rules}.
+Traverse is a so called abstract strategy board game, that is, a game with perfect information and no elements of chance or negotiation. The full game of Traverse is for two to four players, but we will only consider two player variant. The gameplay can be described as a combination between chess and Chinese checkers. Each player controls eight pieces of four different types, initially positioned along one edge of the board of 10 x 10 squares. Players take turns moving one of their pieces, and the goal is to be the first to reach the opposite side of the board with all pieces. Each type of piece is restricted to movement along certain directions, similar to chess, and pieces can jump over others in a manner pertaining to Chinese checkers \cite{rules}.
 
-Genetic programming is a special case of genetic algorithms \cite{course_book} (pp. 116--119), where a population of computer programs is gradually evolved during a number of generations in resemblance of evolution in nature. The individuals that according to a fitness function are deemed best fitted for the problem are selected to combine into the individuals of the next generation.
+Genetic programming is a special case of genetic algorithms \cite{course_book} (pp. 116--119), where a population of computer programs is gradually evolved during a number of generations in resemblance of evolution in nature. The individuals that according to a fitness function are deemed best fitted for the problem are selected to combine into the individuals of the next generation. \cite{gpiv} provides a few examples of practical uses of genetic programming.
 
 %------------------------------------------------------------------------- 
 \Section{Key ideas}
@@ -66,7 +66,7 @@ If the task is deemed infeasible to carry out with genetic programming we will i
 %------------------------------------------------------------------------- 
 \SubSection{What interesting and related things are outside the scope of your project?}
 
-There will probably not be time to compare the genetic programming approach with agents developed through other methods, so this is outside of the scope as well. However, if time permits, we might develop another type of algorithm such as Minimax tree and compare the two approaches to see which performs best.
+There will probably not be time to compare the genetic programming approach with agents developed through other methods, so this is outside of the scope as well. However, if time permits, we might develop another type of algorithm such as minimax trees and compare the two approaches to see which performs best.
 
 %------------------------------------------------------------------------- 
 \SubSection{Why do you believe your approach will work?}
@@ -94,7 +94,7 @@ We will study these previous attempts at using genetic programming for board gam
 
 \subsection{Tools and programs}
 
-Several genetic programming frameworks exist for our intended programming language, Java [citations go here]. We will look into some of these and decide on one that seems be useful for our needs. Instead of developing the whole genetic algorithm from scratch, using such a framework will reduce the development time.
+Several genetic programming frameworks exist for our intended programming language, Java \cite{genpro}, \cite{jgap}, \cite{n-genes}. We will look into some of these and decide on one that seems be useful for our needs. Instead of developing the whole genetic algorithm from scratch, using such a framework will reduce the development time.
 
 \subsection{Benchmarks}
 
@@ -103,7 +103,7 @@ Some conceivable benchmarks are comparing our artificial intelligence with the f
 	\item{An agent that plays completely randomly}
 	\item{A simple agent that plays only by one or a few easy strategies}
 	\item{The mathematically computed optimal solution. This will most likely only be possible to calculate for very small boards or boards with no opponent and few pieces.}
-	\item{Another kind of algorithm, such as Minimax search}
+	\item{Another kind of algorithm, such as minimax search}
 	\item{Human players on different levels}
 \end{itemize}
 
@@ -147,7 +147,7 @@ We have made a program where two human players can play against each other. The 
 
 \subsection{Who will do what?}
 
-In the beginning the group will be divided in two subgroups, where one investigates the genetic programming approach further and the other looks into other search methods such as Minimax trees. Erik Levin and Max Ocklind will be studying genetic programming while the other team will consist of Hans Andersson and Erik Axelsson.
+In the beginning the group will be divided in two subgroups, where one investigates the genetic programming approach further and the other looks into other search methods such as minimax trees. Erik Levin and Max Ocklind will be studying genetic programming while the other team will consist of Hans Andersson and Erik Axelsson.
 
 \subsection{Try to define a tentative schedule showing when you will start and finish each task}
 
