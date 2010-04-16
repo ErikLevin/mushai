@@ -11,6 +11,7 @@
    * About solvable board games or something...
  * http://www.aihorizon.com/essays/basiccs/trees/minimax.htm
    * Minmax trees
+ * [http://fragrieu.free.fr/SearchingForSolutions.pdf Searching for Solutions in Games and Artificial Intelligence (book)]
 
 =Genetic Algorithms/Programming=
  * http://www.genetic-programming.com/
