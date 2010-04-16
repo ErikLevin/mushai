@@ -46,11 +46,13 @@ ocklind@student.chalmers.se
 
 
 %------------------------------------------------------------------------- 
-\Section{Summary}
+\Section{Introduction}
 
 The goal of this project is to explore how genetic programming can be used to develop an artificial intelligence that plays the board game Traverse.
 
 Traverse is a so called abstract strategy board game, that is, a game with perfect information and no elements of chance or negotiation. The full game of Traverse is for two to four players, but we will only consider two player variants. The gameplay can be described as a combination between chess and Chinese checkers. Each player controls eight pieces of four different types, initially positioned along one edge of the board of 10 x 10 squares. Players take turns moving one of their pieces, and the goal is to be the first to reach the opposite side of the board with all pieces. Each type of piece is restricted to movement along certain directions, similar to chess, and pieces can jump over others in a manner pertaining to Chinese checkers \cite{rules}.
+
+Genetic programming is a special case of genetic algorithms \cite{course_book} (pp. 116--119), where a population of computer programs is gradually evolved during a number of generations in resemblance of evolution in nature. The individuals that according to a fitness function are deemed best fitted for the problem are selected to combine into the individuals of the next generation.
 
 %------------------------------------------------------------------------- 
 \Section{Key ideas}
@@ -69,7 +71,7 @@ There will probably not be time to compare the genetic programming approach with
 %------------------------------------------------------------------------- 
 \SubSection{Why do you believe your approach will work?}
 
-There are previous research papers where genetic programming has been successful for board game playing, for instance \cite{human-competitive_gp}, in which agents playing Backgammon and chess were evolved. Since those games are is somewhat similar to Traversal, especially chess, this indicates that a similar approach should be possible by the same method.
+There are previous research papers where genetic programming has been successful for board game playing, for instance \cite{human-competitive_gp}, in which agents playing Backgammon and chess were evolved. Since those games are is somewhat similar to Traversal, especially chess, this indicates that a similar approach should be possible by the same method. Other papers about using genetic programming for board games are \cite{ mancala, othello}.
 
 %------------------------------------------------------------------------ 
 \SubSection{What will you accomplish?}
@@ -84,11 +86,11 @@ We chose the game Traverse partly for this reason, that it is interesting to inv
 \subsection{Literature}
 One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games are mentioned such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve, and by what method they can be solvable. As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which encourages trying other methods for a playing algorithm, of which one is genetic programming.
 
-In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess endgames and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained. Coevolution vs. fixed teacher...
+In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess endgames and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained. The different approaches within genetic programming are also discussed, such as using a fixed teacher program vis-à-vis implementing coevolution, where programs within a population compete against each other directly. The coevolution strategy is interesting for us, as we have no access to another artificial intelligence that plays the game, unless we construct one ourselves. The article also provides some insight into what terminals and functions they used for the genetic programming algorithms for the different games.
 
-More about GP in board games...
+A school project where students were to develop Reversi (also known as Othello) playing agents is described in \cite{othello}. There, terminals and other genetic programming components for Othello are described and methods to evaluate the students' results are described. The different methods are playing against human players, agents of other students, other agents and more.
 
-We will study these previous attempts to get inspiration and hints about how to proceed.
+We will study these previous attempts at using genetic programming for board game agents to get inspiration and hints on how to construct the genetic programming algorithm and how to evaluate our results.
 
 \subsection{Tools and programs}
 
@@ -132,14 +134,16 @@ We have made a program where two human players can play against each other. The 
 
 \subsection{What are the major tasks to accomplish?}
 
-\begin{itemize}
+\begin{enumerate}
 	\item{Create prototype program where pieces can be moved regardless of rules}
 	\item{Implement the rules}
+	\item{Further reading}
 	\item{Evaluate whether genetic programming is feasible to solve the task, or another search method should be the focus instead.}
 	\item{Implement genetic algorithm for small board, including terminals, functions and fitness function, that develops the game playing algorithm}
 	\item{Fully evolved, working game playing algorithm}
 	\item{Extend to full game}
-\end{itemize}
+	\item{Write final report}	
+\end{enumerate}
 
 \subsection{Who will do what?}
 
@@ -147,7 +151,7 @@ In the beginning the group will be divided in two subgroups, where one investiga
 
 \subsection{Try to define a tentative schedule showing when you will start and finish each task}
 
-Task 1 is done. Task 2 will be done this week (w. 19). Task 3 should be made by April 25th. The other estimations are less certain, but we will aim to finish task 4 by April 28th, task 5 by around May 5th and task 6 before the prototype release if possible, otherwise before our demo session.
+The initial prototype is done. Implementing the rules will be done this week (w. 19). Reading further about the are should be done continuously throughout the course, and choosing approach should be made by April 25th. The other estimations are less certain, but we will aim to finish the genetic algorithm for a small board by April 28th, the full artificial intelligence by around May 5th and extending the solution to the full game before the prototype release if possible, otherwise before our demo session.
 
 %-----------------------------------------------------------------------
 \section{Website}
