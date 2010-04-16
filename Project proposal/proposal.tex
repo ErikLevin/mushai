@@ -50,6 +50,8 @@ ocklind@student.chalmers.se
 
 The goal of this project is to explore how genetic programming can be used to develop an artificial intelligence that plays the board game Traverse.
 
+Traverse is a so called abstract strategy board game, that is, a game with perfect information and no elements of chance or negotiation. The full game of Traverse is for two to four players, but we will only consider two player variants. The gameplay can be described as a combination between chess and Chinese checkers. Each player controls eight pieces of four different types, initially positioned along one edge of the board of 10 x 10 squares. Players take turns moving one of their pieces, and the goal is to be the first to reach the opposite side of the board with all pieces. Each type of piece is restricted to movement along certain directions, similar to chess, and pieces can jump over others in a manner pertaining to Chinese checkers \cite{rules}.
+
 %------------------------------------------------------------------------- 
 \Section{Key ideas}
 
@@ -61,8 +63,6 @@ If the task is deemed infeasible to carry out with genetic programming we will i
 
 %------------------------------------------------------------------------- 
 \SubSection{What interesting and related things are outside the scope of your project?}
-
-One thought from our supervisor was to try and develop a program that could incrementally learn the rules of the game (and by extension, any board game) by attempting moves and letting the user confirm whether the move was legal or not. This is a very interesting area, but outside the scope of this project. We will predefine the rules of the game and not let it be up to the user.
 
 There will probably not be time to compare the genetic programming approach with agents developed through other methods, so this is outside of the scope as well. However, if time permits, we might develop another type of algorithm such as Minimax tree and compare the two approaches to see which performs best.
 
@@ -84,7 +84,7 @@ We chose the game Traverse partly for this reason, that it is interesting to inv
 \subsection{Literature}
 One paper examining the nature of solvable games is \cite{games_solved}, in which several properties of games are mentioned such as the game-theoretic value (first-player win, second-player win or draw) and whether games are divergent or convergent. The article proposes a matrix of four different categories of games, signifying how hard they are to fully solve, and by what method they can be solvable. As a pre-study in our report, we will reason about how these properties apply to Traverse to anticipate whether the game is feasible to solve with current computational power. Our hypothesis is that it is not solvable, which encourages trying other methods for a playing algorithm, of which one is genetic programming.
 
-In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess endgame and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained. Coevolution vs. fixed teacher...
+In \cite{human-competitive_gp}, genetic programming is used to develop agents that play board games such as Backgammon, chess endgames and a game called Robocode. The different types of genetic operators are discussed, and the steps of a generic genetic programming algorithm are explained. Coevolution vs. fixed teacher...
 
 More about GP in board games...
 
@@ -155,7 +155,7 @@ The project, including a wiki, report drafts and code is published under GNU Gen
 
 \url{http://code.google.com/p/mushai/wiki/Start?tm=6}
 
-\nocite{games_solved, course_book}
+%\nocite{games_solved, course_book}
 \bibliographystyle{proposal}
 \bibliography{proposal}
 

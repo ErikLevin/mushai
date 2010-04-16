@@ -1,10 +1,9 @@
 \begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
 
-\bibitem{course_book}
-S.~Russell and P.~Norvig.
-\newblock {\em Artificial Intelligence: A Modern Approach}.
-\newblock Pearson Education, Inc, Upper Saddle River, New Jersey, second
-  edition, 2003.
+\bibitem{rules}
+How to play - traverse game - game rules.
+\newblock
+  \url{http://www.educationallearninggames.com/how-to-play-traverse-game.asp}.
 
 \bibitem{human-competitive_gp}
 M.~Sipper, Y.~Azaria, A.~Hauptman, and Y.~Shichel.
