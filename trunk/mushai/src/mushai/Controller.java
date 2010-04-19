@@ -5,9 +5,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  * Controller class for game logic.
@@ -16,7 +15,6 @@ public class Controller implements ActionListener {
 
     private Playboard board;
     private Window win;
-
     private Point moveStart;
 
     public Controller(Window tWin) {
@@ -57,14 +55,14 @@ public class Controller implements ActionListener {
             if (moveStart != null) {
                 move(moveStart, presedPoint);
 
-            } else if (model.getPiece(presedPoint,board) != null) {
+            } else if (model.getPiece(presedPoint, board) != null) {
                 if (moveStart == null) {
 
                     for (int i = 0; i < Settings.getNrOfPlayers(); i++) {
                         Player pl = Settings.getPlayers().get(i);
                         if (pl.isItMyturn()) {
 
-                            if (model.getPiece(presedPoint,board).color.equals(pl.color)) {
+                            if (model.getPiece(presedPoint, board).color.equals(pl.color)) {
                                 moveStart = presedPoint;
                             }
                         }
@@ -81,19 +79,21 @@ public class Controller implements ActionListener {
 
     public void move(Point start, Point end) {
 
-        if (model.whereCanIMove2(start,board).contains(end)) {
+        if (model.whereCanIMove2(start, board).contains(end)) {
             Tile origin = board.getTiles()[start.x][start.y];
             Piece p = origin.getPiece();
             origin.setPiece(null);
             board.getTiles()[end.x][end.y].setPiece(p);
             moveStart = null;
             changePlayer();
-
-            board.update();
+            if (Settings.paintGraphics()) {
+                board.update();
+            }
         }
     }
 
     private void changePlayer() {
+        checkViktory();
 
 
         /**nollställer brädet **/
@@ -121,4 +121,41 @@ public class Controller implements ActionListener {
         }
     }
 
+    private boolean checkViktory() {
+        boolean win = true;
+        ArrayList<Point> pices = model.getYoursPieces(board);
+        int i = 0;
+        for (Player player : Settings.getPlayers()) {
+            if (player.isItMyturn()) {
+                System.out.println("i: " +i);
+                if (i == 0) {
+                    for (Point point : model.getYoursPieces(board)) {
+                        if (point.y != 0) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) {
+                        JOptionPane.showMessageDialog(board, "player 1 vann");
+                        player.addPoint();
+                    }
+                } else if (i == 1) {
+                    for (Point point : model.getYoursPieces(board)) {
+                        if (point.y != 3) {
+                            win = false;
+                            break;
+                        }
+                    }
+                    if (win) {
+                        player.addPoint();
+                        JOptionPane.showMessageDialog(board, "player 2 vann");
+                    }
+                }
+                
+            }
+            i++;
+        }
+
+        return win;
+    }
 }

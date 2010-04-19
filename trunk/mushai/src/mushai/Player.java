@@ -50,4 +50,7 @@ public class Player extends JPanel {
     public Color getColor() {
         return color;
     }
+    public void addPoint(){
+        points++;
+    }
 }
