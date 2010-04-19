@@ -128,6 +128,7 @@ public class model {
 
     public static ArrayList<Point> getYoursPieces(Playboard board) {
         Color whichPlayerTurn = null;
+
         ArrayList<Player> arL = Settings.getPlayers();
 
 

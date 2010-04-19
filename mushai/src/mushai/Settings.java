@@ -27,4 +27,7 @@ public class Settings {
     public static ArrayList<Player> getPlayers() {
         return ar;
     }
+    public static boolean paintGraphics(){
+        return true;
+    }
 }

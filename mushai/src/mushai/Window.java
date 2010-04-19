@@ -19,6 +19,7 @@ public class Window extends JFrame {
 
     Playboard pb;
     ArrayList<JButton> al;
+
     public Playboard getBoard() {
         return pb;
     }
@@ -34,7 +35,9 @@ public class Window extends JFrame {
         setResizable(false);
         setUndecorated(false);
         pb = new Playboard();
-        add(pb, BorderLayout.CENTER);
+        if (Settings.paintGraphics()) {
+            add(pb, BorderLayout.CENTER);
+        }
         JPanel playersPanel = new JPanel();
         playersPanel.setLayout(new GridLayout(Settings.getNrOfPlayers(), 1));
         for (Player pl : Settings.getPlayers()) {
@@ -45,17 +48,17 @@ public class Window extends JFrame {
 
         al = new ArrayList<JButton>();
         rigthMenu.setLayout(new BorderLayout());
-        rigthMenu.add(playersPanel,BorderLayout.CENTER);
+        rigthMenu.add(playersPanel, BorderLayout.CENTER);
         JPanel buttonMenu = new JPanel();
-        JButton endTurn=new JButton("end turn");
+        JButton endTurn = new JButton("end turn");
         endTurn.setFont(endTurn.getFont().deriveFont(8f));
         al.add(endTurn);
         buttonMenu.add(endTurn);
-        JButton resetTurn=new JButton("reset turn");
+        JButton resetTurn = new JButton("reset turn");
         resetTurn.setFont(resetTurn.getFont().deriveFont(8f));
         al.add(resetTurn);
         buttonMenu.add(resetTurn);
-        rigthMenu.add(buttonMenu,BorderLayout.SOUTH);
+        rigthMenu.add(buttonMenu, BorderLayout.SOUTH);
         add(rigthMenu, BorderLayout.EAST);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

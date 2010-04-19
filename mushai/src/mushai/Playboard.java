@@ -32,10 +32,18 @@ public class Playboard extends JPanel {
                 add(tiles[i][j]);
             }
         }
-        tiles[1][1].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
-        tiles[3][2].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
+        tiles[0][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+        tiles[1][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+        tiles[2][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+        tiles[3][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
 
+        tiles[0][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
+        tiles[1][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
         tiles[2][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
+        tiles[3][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
+
+
+
         update();
     }
 
