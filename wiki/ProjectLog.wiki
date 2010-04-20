@@ -113,7 +113,7 @@ How do we make an informed choice about which one to pick? We want:
 =Supervisor meeting 100420=
  * Klara med regler
  * Minimax
-    * [-100, 100], mät motståndarens avstånd minus sitt eget avstånd
+    * (-100, 100), mät motståndarens avstånd minus sitt eget avstånd
  * GP
     * Leker med JGap, matte-exempel
  
