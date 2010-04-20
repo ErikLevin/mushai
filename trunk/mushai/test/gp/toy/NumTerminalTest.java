@@ -50,7 +50,11 @@ public class NumTerminalTest {
         isValid(num);
     }
 
-    public void isValid(NumTerminal num){
+    /**
+     * Checks that a NumTerminal is an integer in [0, 100]
+     * @param num
+     */
+    public void isValid(NumTerminal num) {
         assertTrue(num.isIntegerType());
         int value = num.execute_int(null, 0, null);
         System.out.println("Num value: " + value);
@@ -58,7 +62,7 @@ public class NumTerminalTest {
     }
 
     @Test
-    public void testMutation() throws InvalidConfigurationException{
+    public void testStillValidAfterMutation() throws InvalidConfigurationException {
         num.applyMutation(0, 1.0);
         isValid(num);
     }
