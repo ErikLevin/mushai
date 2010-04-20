@@ -109,3 +109,11 @@ How do we make an informed choice about which one to pick? We want:
  * Split in two groups? One genetic, one that examines other search methods.
    * Genetic - Max & Erik
    * Other - Bark & Hasse
+
+=Supervisor meeting 100420=
+ * Klara med regler
+ * Minimax
+    * [-100, 100], mät motståndarens avstånd minus sitt eget avstånd
+ * GP
+    * Leker med JGap, matte-exempel
+ 
