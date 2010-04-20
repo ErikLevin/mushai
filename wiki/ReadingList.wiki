@@ -16,6 +16,7 @@
 =Genetic Algorithms/Programming=
  * http://www.genetic-programming.com/
  * http://www.geneticprogramming.com/Tutorial/ A little introduction
+ * [http://books.google.com/books?id=Bhtxo60BV0EC John R. Koza - Genetic Programming]
  * [http://books.google.com/books?id=8oZMqhey2DoC Genetic Programming IV]
 
 ==In games==
