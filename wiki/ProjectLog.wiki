@@ -117,3 +117,9 @@ How do we make an informed choice about which one to pick? We want:
  * GP
     * Leker med JGap, matte-exempel
  
+We skip the piece placement phase. Could be "Future work" in report.
+Fitness function brainstorming...
+ * Coevolution: single elimination tournament between individuals.
+ * Sensei evolution (just made that term up) - individuals train against preprogrammed agent
+   * Random
+   * Simple
