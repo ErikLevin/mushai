@@ -123,3 +123,9 @@ Fitness function brainstorming...
  * Sensei evolution (just made that term up) - individuals train against preprogrammed agent
    * Random
    * Simple
+
+==Assignment Work Division==
+ * Search: Levin
+ * ML: Hasse
+ * NLP: Max
+ * Planning: Bark
