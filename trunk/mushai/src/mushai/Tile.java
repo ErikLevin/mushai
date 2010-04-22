@@ -26,15 +26,18 @@ public class Tile extends JButton {
 
     }
 
+    /**
+     * Updates Tile (x,y). Sets its icon according to the piece on it, and updates
+     * the possible moves.
+     * @param x
+     * @param y
+     */
     public void update(int x, int y) {
         if (piece != null) {
             setIcon(piece.getIcon());
             piece.updateMoves();
-        }
-        else{
+        } else {
             setIcon(null);
         }
     }
-
-
 }

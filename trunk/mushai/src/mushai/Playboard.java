@@ -8,9 +8,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**
@@ -32,18 +29,30 @@ public class Playboard extends JPanel {
                 add(tiles[i][j]);
             }
         }
-        tiles[0][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
-        tiles[1][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
-        tiles[2][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
-        tiles[3][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+    }
 
-        tiles[0][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
-        tiles[1][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
-        tiles[2][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
-        tiles[3][3].setPiece(new Square(Settings.getPlayers().get(1).getColor()));
+    public Playboard(int noPlayer1Pieces, int noPlayer2Pieces) {
+        this();
+        initializeBoard(noPlayer1Pieces, noPlayer2Pieces);
+    }
 
+    /**
+     * Initializes the Playboard, only with Square pieces for now.
+     *
+     * @param noPlayer1Pieces - Number of pieces that player 1 controls
+     * @param noPlayer2Pieces - Number of pieces that player 2 controls
+     */
+    public void initializeBoard(int noPlayer1Pieces, int noPlayer2Pieces) {
+        clearBoard();
 
+        for (int i = 0; i < noPlayer1Pieces; i++) {
+            tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+        }
 
+        for (int i = 0; i < noPlayer2Pieces; i++) {
+            tiles[i][Settings.getPlayboardSize() - 1].setPiece(
+                    new Square(Settings.getPlayers().get(1).getColor()));
+        }
         update();
     }
 
@@ -72,5 +81,34 @@ public class Playboard extends JPanel {
 
     public Tile[][] getTiles() {
         return tiles;
+    }
+
+    public int getFitness() {
+        int fitness = 0;
+        for (int j = 0; j < Settings.getPlayboardSize(); j++) {
+            for (int i = 0; i < Settings.getPlayboardSize(); i++) {
+                Piece p = tiles[i][j].getPiece();
+                if (p != null) {
+                    if (p.color == Settings.getPlayers().get(0).getColor()) {
+                        fitness += i;
+                    } else {
+                        fitness -= i;
+                    }
+                }
+            }
+        }
+        if (fitness < 0) {
+            return 0;
+        }
+        return fitness;
+    }
+
+    private void clearBoard() {
+        for (Tile[] ts : tiles) {
+            for (Tile t : ts) {
+                t = null;
+            }
+        }
+        update();
     }
 }
