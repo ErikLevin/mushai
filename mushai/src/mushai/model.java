@@ -5,9 +5,6 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
-import mushai.Piece;
-import mushai.Player;
-import mushai.Settings;
 
 /*
  * To change this template, choose Tools | Templates
@@ -20,7 +17,7 @@ import mushai.Settings;
  */
 public class model {
 
-    private static HashSet<Point> posebleMoves = new HashSet<Point>();
+    private static HashSet<Point> possibleMoves = new HashSet<Point>();
 /*
     public static boolean canIGo(Point to,Point from, ArrayList[][] bord){
         
@@ -36,7 +33,7 @@ public class model {
 
 
     public static HashSet<Point> whereCanIMove2(Point from,Playboard board) {
-        posebleMoves = new HashSet<Point>();//nollar listan
+        possibleMoves = new HashSet<Point>();//nollar listan
         Piece pi = getPiece(from,board);
         for (Point diffPoint : pi.getMoves()) {
             Point temp = new Point(from.x + diffPoint.x, from.y + diffPoint.y);
@@ -44,15 +41,15 @@ public class model {
 
 
                 if (getPiece(temp,board) == null) {
-                    posebleMoves.add(temp);
+                    possibleMoves.add(temp);
                 }
 
             }
         }
 
-        posebleMoves.addAll(jumping(from, pi,board));
-        posebleMoves.remove(from);
-        return posebleMoves;
+        possibleMoves.addAll(jumping(from, pi,board));
+        possibleMoves.remove(from);
+        return possibleMoves;
     }
 
     private static boolean pointOnBorde(Point point) {
@@ -73,7 +70,7 @@ public class model {
 
 
         if (pointOnBorde(start)) {
-            posebleMoves.add(start);
+            possibleMoves.add(start);
 
             for (Point diffPoint : pi.getMoves()) {
                 Point posOfPice = new Point(start.x + diffPoint.x, start.y + diffPoint.y);
@@ -86,8 +83,8 @@ public class model {
                         if (pointOnBorde(posAfterJump)) {
 
                             if (getPiece(posAfterJump,board) == null) {
-                                if (!posebleMoves.contains(posAfterJump)) {
-                                    posebleMoves.addAll(jumping(posAfterJump, pi,board));
+                                if (!possibleMoves.contains(posAfterJump)) {
+                                    possibleMoves.addAll(jumping(posAfterJump, pi,board));
                                 }
 
                             }
@@ -96,7 +93,7 @@ public class model {
                 }
             }
         }
-        return posebleMoves;
+        return possibleMoves;
 
 
     }

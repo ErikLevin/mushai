@@ -5,10 +5,7 @@
 package mushai;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -29,12 +26,11 @@ public class Window extends JFrame {
         setTitle("");
         setPreferredSize(new Dimension(650, 500));
 
-
         setLayout(new BorderLayout());
 
         setResizable(false);
         setUndecorated(false);
-        pb = new Playboard();
+        pb = new Playboard(4, 4);
         if (Settings.paintGraphics()) {
             add(pb, BorderLayout.CENTER);
         }
