@@ -103,6 +103,20 @@ public class Playboard extends JPanel {
         return fitness;
     }
 
+    @Override
+    public String toString() {
+        String s = "";
+
+        for (Tile[] ts : tiles) {
+            for (Tile t : ts) {
+                s += t.getPiece() + " ";
+            }
+            s += "\n";
+        }
+
+        return s;
+    }
+
     private void clearBoard() {
         for (Tile[] ts : tiles) {
             for (Tile t : ts) {

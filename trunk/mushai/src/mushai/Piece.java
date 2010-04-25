@@ -29,13 +29,12 @@ public abstract class Piece {
     protected Color color;
 
     public Piece() {
-        color = Color.RED;
-        icon = null;
-        moves = new HashSet<Point>();
+        this(Color.RED);
     }
 
     public Piece(Color color) {
-        this();
+        icon = null;
+        moves = new HashSet<Point>();
         this.color = color;
     }
 
@@ -54,5 +53,17 @@ public abstract class Piece {
         return pontSet;
 
     }
- 
+
+    /**
+     * Primitive toString. Only makes much sense if there are two players and one kind of piece.
+     * @return
+     */
+    @Override
+    public String toString() {
+        if(color.equals(Settings.getPlayer(0).getColor()))
+        {
+            return "1";
+        }
+        return "2";
+    }
 }
