@@ -31,6 +31,15 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * Window-less constructor, with only a Playboard. Will not listen to any button clicks.
+     * 
+     * @param board
+     */
+    public Controller(Playboard board) {
+        this.board = board;
+    }
+
     public void actionPerformed(ActionEvent e) {
 
 
@@ -49,21 +58,21 @@ public class Controller implements ActionListener {
                 }
             }
 
-            Point presedPoint = new Point(xTile, yTile);
+            Point pressedPoint = new Point(xTile, yTile);
 
 
             if (moveStart != null) {
-                move(moveStart, presedPoint);
+                move(moveStart, pressedPoint);
 
-            } else if (model.getPiece(presedPoint, board) != null) {
+            } else if (Model.getPiece(pressedPoint, board) != null) {
                 if (moveStart == null) {
 
                     for (int i = 0; i < Settings.getNrOfPlayers(); i++) {
                         Player pl = Settings.getPlayers().get(i);
                         if (pl.isItMyturn()) {
 
-                            if (model.getPiece(presedPoint, board).color.equals(pl.color)) {
-                                moveStart = presedPoint;
+                            if (Model.getPiece(pressedPoint, board).color.equals(pl.color)) {
+                                moveStart = pressedPoint;
                             }
                         }
                     }
@@ -75,7 +84,7 @@ public class Controller implements ActionListener {
 
     public void move(Point start, Point end) {
 
-        if (model.whereCanIMove2(start, board).contains(end)) {
+        if (Model.whereCanIMove2(start, board).contains(end)) {
             Tile origin = board.getTiles()[start.x][start.y];
             Piece p = origin.getPiece();
             origin.setPiece(null);
@@ -89,7 +98,7 @@ public class Controller implements ActionListener {
     }
 
     private void changePlayer() {
-        checkViktory();
+        checkVictory();
 
 
         /**nollställer brädet **/
@@ -101,7 +110,7 @@ public class Controller implements ActionListener {
                 board.getTiles()[xTile][yTile].repaint();
             }
         }
-        /**räknar ut vems person det är **/
+        /**räknar ut vems tur det är **/
         for (int i = 0; i < Settings.getNrOfPlayers(); i++) {
             if (arL.get(i).isItMyturn()) {
                 arL.get(i).isNotMyTurn();
@@ -117,15 +126,15 @@ public class Controller implements ActionListener {
         }
     }
 
-    private boolean checkViktory() {
+    private boolean checkVictory() {
         boolean win = true;
-        ArrayList<Point> pices = model.getYoursPieces(board);
+        ArrayList<Point> pieces = Model.getYourPieces(board);
         int i = 0;
         for (Player player : Settings.getPlayers()) {
             if (player.isItMyturn()) {
-                System.out.println("i: " +i);
+                System.out.println("i: " + i);
                 if (i == 0) {
-                    for (Point point : model.getYoursPieces(board)) {
+                    for (Point point : Model.getYourPieces(board)) {
                         if (point.y != 0) {
                             win = false;
                             break;
@@ -136,7 +145,7 @@ public class Controller implements ActionListener {
                         player.addPoint();
                     }
                 } else if (i == 1) {
-                    for (Point point : model.getYoursPieces(board)) {
+                    for (Point point : Model.getYourPieces(board)) {
                         if (point.y != 3) {
                             win = false;
                             break;
@@ -147,7 +156,7 @@ public class Controller implements ActionListener {
                         JOptionPane.showMessageDialog(board, "player 2 vann");
                     }
                 }
-                
+
             }
             i++;
         }

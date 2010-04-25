@@ -15,7 +15,7 @@ import java.util.HashSet;
  *
  * @author bark
  */
-public class model {
+public class Model {
 
     private static HashSet<Point> possibleMoves = new HashSet<Point>();
 /*
@@ -99,7 +99,7 @@ public class model {
     }
 
     public ArrayList<ArrayList<Point>> getallPosebleMoves(Playboard board) {
-        ArrayList<Point> pices = getYoursPieces(board);
+        ArrayList<Point> pices = getYourPieces(board);
         ArrayList<ArrayList<Point>> allTheMoves = new ArrayList<ArrayList<Point>>();
 
 
@@ -123,7 +123,7 @@ public class model {
 
     }
 
-    public static ArrayList<Point> getYoursPieces(Playboard board) {
+    public static ArrayList<Point> getYourPieces(Playboard board) {
         Color whichPlayerTurn = null;
 
         ArrayList<Player> arL = Settings.getPlayers();

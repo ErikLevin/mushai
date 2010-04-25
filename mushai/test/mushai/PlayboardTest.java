@@ -2,6 +2,7 @@ package mushai;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,10 +43,7 @@ public class PlayboardTest {
     @Test
     public void testNewBoardHas0Fitness() {
         System.out.println("initializeBoard");
-        int noPlayer1Pieces = 3;
-        int noPlayer2Pieces = 3;
-        Playboard instance = new Playboard();
-        instance.initializeBoard(noPlayer1Pieces, noPlayer2Pieces);
+        Playboard instance = new Playboard(3,3);
         assertEquals(0, instance.getFitness());
     }
 
@@ -56,10 +54,10 @@ public class PlayboardTest {
     public void testGetFitness() {
         System.out.println("getFitness");
         Playboard instance = new Playboard(3,3);
+        Controller con = new Controller(instance);
+        con.move(new Point(0, 0), new Point(0, 1));
         int expResult = 0;
         int result = instance.getFitness();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 }
