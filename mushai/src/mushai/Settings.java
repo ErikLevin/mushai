@@ -27,6 +27,11 @@ public class Settings {
     public static ArrayList<Player> getPlayers() {
         return ar;
     }
+
+    public static Player getPlayer(int i){
+        return getPlayers().get(i);
+    }
+
     public static boolean paintGraphics(){
         return true;
     }

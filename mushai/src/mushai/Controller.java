@@ -71,7 +71,7 @@ public class Controller implements ActionListener {
                         Player pl = Settings.getPlayers().get(i);
                         if (pl.isItMyturn()) {
 
-                            if (Model.getPiece(pressedPoint, board).color.equals(pl.color)) {
+                            if (Model.getPiece(pressedPoint, board).color.equals(pl.getColor())) {
                                 moveStart = pressedPoint;
                             }
                         }

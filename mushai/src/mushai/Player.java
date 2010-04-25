@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 
 public class Player extends JPanel {
 
-    boolean myTurn = false;
-    String name;
-    Color color;
-    int points = 0;
-    JLabel jLmyTurn = new JLabel("");
+    private boolean myTurn = false;
+    private String name;
+    private Color color;
+    private int points = 0;
+    private JLabel jLmyTurn = new JLabel("");
 
     public Player(String tname, Color tcolor) {
         super();

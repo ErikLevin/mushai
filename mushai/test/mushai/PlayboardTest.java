@@ -56,7 +56,8 @@ public class PlayboardTest {
         Playboard instance = new Playboard(3,3);
         Controller con = new Controller(instance);
         con.move(new Point(0, 0), new Point(0, 1));
-        int expResult = 0;
+        System.out.println(instance);
+        int expResult = 1;
         int result = instance.getFitness();
         assertEquals(expResult, result);
     }
