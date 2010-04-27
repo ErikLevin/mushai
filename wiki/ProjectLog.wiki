@@ -129,3 +129,10 @@ Fitness function brainstorming...
  * ML: Hasse
  * NLP: Max
  * Planning: Bark
+
+=Supervisor meeting 100427=
+ * Next friday: prototype should be done. This means: Program should "do something". Play the game, but perhaps not well
+ * Focus on assignment for now...
+ * Then, we need to quickly get something to work
+ * Supervisor: "Go on one more week and see how it goes. I do not expect perfect results from both methods. Minimax tree should be quite straightforward."
+ * Course guy: "Could be interesting to see how a program that tries to lose works"
