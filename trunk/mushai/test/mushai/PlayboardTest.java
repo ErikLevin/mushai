@@ -21,7 +21,7 @@ public class PlayboardTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
-        Settings.addPlayer(new Player("A", Color.yellow));
+        Settings.addPlayer(new Player("A", Color.YELLOW));
         Settings.addPlayer(new Player("B", Color.BLUE));
     }
 
@@ -38,13 +38,13 @@ public class PlayboardTest {
     }
 
     /**
-     * Test of initializeBoard method, of class Playboard.
+     * Test of resetBoard method, of class Playboard.
      */
     @Test
-    public void testNewBoardHas0Fitness() {
+    public void testNewBoardHasBaseFitness() {
         System.out.println("initializeBoard");
-        Playboard instance = new Playboard(3,3);
-        assertEquals(0, instance.getFitness());
+        Playboard instance = new Playboard(3, 3);
+        assertEquals(Settings.getPlayboardSize() * Settings.getPlayboardSize(), instance.getFitness());
     }
 
     /**
@@ -53,11 +53,11 @@ public class PlayboardTest {
     @Test
     public void testGetFitness() {
         System.out.println("getFitness");
-        Playboard instance = new Playboard(3,3);
+        Playboard instance = new Playboard(3, 3);
         Controller con = new Controller(instance);
         con.move(new Point(0, 0), new Point(0, 1));
-        System.out.println(instance);
-        int expResult = 1;
+//        System.out.println(instance);
+        int expResult = Settings.getPlayboardSize() * Settings.getPlayboardSize() + 1;
         int result = instance.getFitness();
         assertEquals(expResult, result);
     }
