@@ -1,7 +1,5 @@
 package gp.toy;
 
-import org.jgap.Chromosome;
-import org.jgap.ChromosomeForTesting;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.event.GeneticEvent;
 import org.jgap.event.GeneticEventListener;
@@ -9,13 +7,11 @@ import org.jgap.gp.CommandGene;
 import org.jgap.gp.GPFitnessFunction;
 import org.jgap.gp.GPProblem;
 import org.jgap.gp.IGPProgram;
-import org.jgap.gp.function.Add;
 import org.jgap.gp.function.Multiply;
 import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DeltaGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
-import org.jgap.gp.impl.TournamentSelector;
 import org.jgap.gp.terminal.Terminal;
 
 /**
@@ -28,8 +24,8 @@ public class SimpleGP extends GPProblem {
     /**
      * The number that the evolved program should give as result.
      */
-    private static final int GOAL = 111;
-    private static final int POP_SIZE = 3;
+    private static final int GOAL = 1111000;
+    private static final int POP_SIZE = 50;
 
     /**
      * Creates the initial population.
@@ -49,11 +45,10 @@ public class SimpleGP extends GPProblem {
 
         CommandGene[][] nodes = {{
                 //Arithmetic operators as functions
-                new Add(conf, CommandGene.IntegerClass),
+                new Multiply(conf, CommandGene.IntegerClass),
                 new Subtract(conf, CommandGene.IntegerClass),
-                //new Multiply(conf, CommandGene.IntegerClass),
                 //Integers in [1,50] are the terminals
-                new Terminal(conf, CommandGene.IntegerClass, -50, 50, true, 0, true)
+                new Terminal(conf, CommandGene.IntegerClass, 1, 5, true, 0, true)
             }};
         return GPGenotype.randomInitialGenotype(conf, types, argTypes, nodes, 20, true);
     }
@@ -73,7 +68,8 @@ public class SimpleGP extends GPProblem {
 //        conf.setProgramCreationMaxTries(3);
 //        conf.setMaxCrossoverDepth(10);
 //        conf.setUseProgramCache(true);
-        conf.setMutationProb(0.01f);
+        conf.setMaxInitDepth(1000);
+        conf.setMutationProb(0.1f);
         conf.setFitnessFunction(new GPFitnessFunction() {
 
             @Override

@@ -4,7 +4,6 @@
  */
 package mushai;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -18,22 +17,24 @@ public class Playboard extends JPanel {
     private Tile[][] tiles;
 
     public Playboard() {
+        this(Settings.getPlayboardSize(), Settings.getPlayboardSize());
+    }
+
+    public Playboard(int noPlayer1Pieces, int noPlayer2Pieces) {
         super();
-        int playboardSize = Settings.getPlayboardSize();
-        tiles = new Tile[playboardSize][playboardSize];
-        setLayout(new GridLayout(playboardSize, playboardSize));
+
+        int ps = Settings.getPlayboardSize();
+        tiles = new Tile[ps][ps];
+        setLayout(new GridLayout(ps, ps));
         this.setPreferredSize(new Dimension(200, 200));
-        for (int j = 0; j < playboardSize; j++) {
-            for (int i = 0; i < playboardSize; i++) {
+        for (int j = 0; j < ps; j++) {
+            for (int i = 0; i < ps; i++) {
                 tiles[i][j] = new Tile();
                 add(tiles[i][j]);
             }
         }
-    }
 
-    public Playboard(int noPlayer1Pieces, int noPlayer2Pieces) {
-        this();
-        initializeBoard(noPlayer1Pieces, noPlayer2Pieces);
+        resetBoard(noPlayer1Pieces, noPlayer2Pieces);
     }
 
     /**
@@ -42,7 +43,7 @@ public class Playboard extends JPanel {
      * @param noPlayer1Pieces - Number of pieces that player 1 controls
      * @param noPlayer2Pieces - Number of pieces that player 2 controls
      */
-    public void initializeBoard(int noPlayer1Pieces, int noPlayer2Pieces) {
+    public void resetBoard(int noPlayer1Pieces, int noPlayer2Pieces) {
         clearBoard();
 
         for (int i = 0; i < noPlayer1Pieces; i++) {
@@ -83,16 +84,21 @@ public class Playboard extends JPanel {
         return tiles;
     }
 
+    /**
+     * The amount of steps forwards that player 0 has taken, minus the number of
+     * steps player 1 has taken forwards.
+     * @return - The fitness for player 0 for the current board.
+     */
     public int getFitness() {
-        int fitness = 0;
-        for (int j = 0; j < Settings.getPlayboardSize(); j++) {
-            for (int i = 0; i < Settings.getPlayboardSize(); i++) {
+        int fitness = baseFitness();
+        for (int j = 0; j < tiles.length; j++) {
+            for (int i = 0; i < tiles.length; i++) {
                 Piece p = tiles[i][j].getPiece();
                 if (p != null) {
                     if (p.color == Settings.getPlayers().get(0).getColor()) {
-                        fitness += i;
+                        fitness += j;
                     } else {
-                        fitness -= i;
+                        fitness -= (tiles.length - 1 - j);
                     }
                 }
             }
@@ -107,9 +113,14 @@ public class Playboard extends JPanel {
     public String toString() {
         String s = "";
 
-        for (Tile[] ts : tiles) {
-            for (Tile t : ts) {
-                s += t.getPiece() + " ";
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[0].length; j++) {
+                if (tiles[j][i].getPiece() == null) {
+                    s += "#";
+                } else {
+                    s += tiles[j][i].getPiece();
+                }
+                s += "\t";
             }
             s += "\n";
         }
@@ -124,5 +135,9 @@ public class Playboard extends JPanel {
             }
         }
         update();
+    }
+
+    private int baseFitness() {
+        return tiles.length * tiles.length;
     }
 }

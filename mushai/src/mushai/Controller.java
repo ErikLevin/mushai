@@ -84,6 +84,8 @@ public class Controller implements ActionListener {
 
     public void move(Point start, Point end) {
 
+        System.out.println("Move: " + start + " to " + end);
+
         if (Model.whereCanIMove2(start, board).contains(end)) {
             Tile origin = board.getTiles()[start.x][start.y];
             Piece p = origin.getPiece();
