@@ -89,7 +89,7 @@ public class Playboard extends JPanel {
      * steps player 1 has taken forwards.
      * @return - The fitness for player 0 for the current board.
      */
-    public int getFitness() {
+    public int getFitness() throws Exception {
         int fitness = baseFitness();
         for (int j = 0; j < tiles.length; j++) {
             for (int i = 0; i < tiles.length; i++) {
@@ -104,7 +104,7 @@ public class Playboard extends JPanel {
             }
         }
         if (fitness < 0) {
-            return 0;
+            throw new Exception("Fitness for board was negative\n" + toString());
         }
         return fitness;
     }

@@ -41,7 +41,7 @@ public class PlayboardTest {
      * Test of resetBoard method, of class Playboard.
      */
     @Test
-    public void testNewBoardHasBaseFitness() {
+    public void testNewBoardHasBaseFitness() throws Exception {
         System.out.println("initializeBoard");
         Playboard instance = new Playboard(3, 3);
         assertEquals(Settings.getPlayboardSize() * Settings.getPlayboardSize(), instance.getFitness());
@@ -51,12 +51,11 @@ public class PlayboardTest {
      * Test of getFitness method, of class Playboard.
      */
     @Test
-    public void testGetFitness() {
+    public void testGetFitness() throws Exception {
         System.out.println("getFitness");
         Playboard instance = new Playboard(3, 3);
         Controller con = new Controller(instance);
         con.move(new Point(0, 0), new Point(0, 1));
-//        System.out.println(instance);
         int expResult = Settings.getPlayboardSize() * Settings.getPlayboardSize() + 1;
         int result = instance.getFitness();
         assertEquals(expResult, result);

@@ -82,9 +82,17 @@ public class Controller implements ActionListener {
         }
     }
 
-    public void move(Point start, Point end) {
+    /**
+     * Moves a piece from one square to another. Returns true if move was successful,
+     * false if it was for some reason not possible.
+     *
+     * @param start - start square of the move
+     * @param end - end square of the move
+     * @return - true if move was successful, false otherwise
+     */
+    public boolean move(Point start, Point end) {
 
-        System.out.println("Move: " + start + " to " + end);
+//        System.out.println("Move: " + start + " to " + end);
 
         if (Model.whereCanIMove2(start, board).contains(end)) {
             Tile origin = board.getTiles()[start.x][start.y];
@@ -96,7 +104,13 @@ public class Controller implements ActionListener {
             if (Settings.paintGraphics()) {
                 board.update();
             }
+            return true;
         }
+        return false;
+    }
+
+    public boolean move(Move chosenMove) {
+        return move(chosenMove.getStart(),chosenMove.getEnd());
     }
 
     private void changePlayer() {
@@ -113,7 +127,7 @@ public class Controller implements ActionListener {
             }
         }
         /**räknar ut vems tur det är **/
-        for (int i = 0; i < Settings.getNrOfPlayers(); i++) {
+        for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyturn()) {
                 arL.get(i).isNotMyTurn();
                 if (Settings.getNrOfPlayers() - 1 != i) {
@@ -130,7 +144,7 @@ public class Controller implements ActionListener {
 
     private boolean checkVictory() {
         boolean win = true;
-        ArrayList<Point> pieces = Model.getYourPieces(board);
+//        ArrayList<Point> pieces = Model.getYourPieces(board);
         int i = 0;
         for (Player player : Settings.getPlayers()) {
             if (player.isItMyturn()) {
@@ -165,4 +179,5 @@ public class Controller implements ActionListener {
 
         return win;
     }
+
 }
