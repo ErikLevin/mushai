@@ -6,6 +6,11 @@ package mushai;
 
 import java.util.ArrayList;
 
+/**
+ * @todo - Make Singleton?
+ * 
+ * 
+ */
 public class Settings {
 
     private static int playboardSize = 4;
@@ -33,6 +38,6 @@ public class Settings {
     }
 
     public static boolean paintGraphics(){
-        return true;
+        return false;
     }
 }
