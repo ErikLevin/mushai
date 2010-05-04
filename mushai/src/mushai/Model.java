@@ -68,7 +68,7 @@ public class Model {
         return possibleMoves;
     }
 
-    private static int whoseTurnIsIt() {
+    public static int whoseTurnIsIt() {
         ArrayList<Player> arL = Settings.getPlayers();
 
         for (int i = 0; i < arL.size(); i++) {
@@ -158,6 +158,7 @@ public class Model {
     public static Playboard movePiece(Playboard board, Move move) {
         return movePiece(board, move.getStart(), move.getEnd());
     }
+
 
     public static Playboard movePiece(Playboard board, Point from, Point to) {
         Tile origin = board.getTiles()[from.x][from.y];

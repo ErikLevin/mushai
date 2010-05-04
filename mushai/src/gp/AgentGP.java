@@ -85,7 +85,7 @@ public class AgentGP extends GPProblem {
         GPConfiguration conf = new GPConfiguration();
 
         Settings.addPlayer(new Player("0", Color.YELLOW));
-        Settings.getPlayer(0).setMyTurn();
+        Settings.getPlayer(0).setMyTurn(true);
 
         conf.setPopulationSize(POP_SIZE);
         conf.setFitnessEvaluator(new DefaultGPFitnessEvaluator());
