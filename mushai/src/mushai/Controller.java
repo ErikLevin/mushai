@@ -110,7 +110,7 @@ public class Controller implements ActionListener {
     }
 
     public boolean move(Move chosenMove) {
-        return move(chosenMove.getStart(),chosenMove.getEnd());
+        return move(chosenMove.getStart(), chosenMove.getEnd());
     }
 
     private void changePlayer() {
@@ -180,4 +180,7 @@ public class Controller implements ActionListener {
         return win;
     }
 
+    public void move(int fromX, int fromY, int toX, int toY) {
+        move(new Move(fromX, fromY, toX, toY));
+    }
 }
