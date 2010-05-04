@@ -92,6 +92,35 @@ public class Model {
         return -1;
     }
 
+    /**
+     * The amount of steps forwards that player 0 has taken, minus the number of
+     * steps player 1 has taken forwards.
+     * @return - The fitness for player 0 for the current board.
+     */
+    public static int getBoardFitness(Playboard board) throws Exception {
+        int fitness = boardBaseFitness(board);
+        for (int j = 0; j < board.getTiles().length; j++) {
+            for (int i = 0; i < board.getTiles().length; i++) {
+                Piece p = board.getTiles()[i][j].getPiece();
+                if (p != null) {
+                    if (p.color == Settings.getPlayers().get(0).getColor()) {
+                        fitness += j;
+                    } else {
+                        fitness -= (board.getTiles().length - 1 - j);
+                    }
+                }
+            }
+        }
+        if (fitness < 0) {
+            throw new Exception("Fitness for board was negative\n" + board.toString());
+        }
+        return fitness;
+    }
+
+    private static int boardBaseFitness(Playboard board) {
+        return board.getTiles().length * board.getTiles().length;
+    }
+
     public List<Move> getAllPossibleMoves(Playboard board) {
         return getAllPossibleMoves(board, whoseTurnIsIt());
     }

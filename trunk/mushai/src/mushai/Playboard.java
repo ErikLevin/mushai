@@ -84,31 +84,6 @@ public class Playboard extends JPanel {
         return tiles;
     }
 
-    /**
-     * The amount of steps forwards that player 0 has taken, minus the number of
-     * steps player 1 has taken forwards.
-     * @return - The fitness for player 0 for the current board.
-     */
-    public int getFitness() throws Exception {
-        int fitness = baseFitness();
-        for (int j = 0; j < tiles.length; j++) {
-            for (int i = 0; i < tiles.length; i++) {
-                Piece p = tiles[i][j].getPiece();
-                if (p != null) {
-                    if (p.color == Settings.getPlayers().get(0).getColor()) {
-                        fitness += j;
-                    } else {
-                        fitness -= (tiles.length - 1 - j);
-                    }
-                }
-            }
-        }
-        if (fitness < 0) {
-            throw new Exception("Fitness for board was negative\n" + toString());
-        }
-        return fitness;
-    }
-
     @Override
     public String toString() {
         String s = "";
@@ -131,13 +106,9 @@ public class Playboard extends JPanel {
     private void clearBoard() {
         for (Tile[] ts : tiles) {
             for (Tile t : ts) {
-                t = null;
+                t.setPiece(null);
             }
         }
         update();
-    }
-
-    private int baseFitness() {
-        return tiles.length * tiles.length;
     }
 }
