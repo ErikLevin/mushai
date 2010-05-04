@@ -1,6 +1,7 @@
 package gp;
 
 import java.awt.Color;
+import mushai.Controller;
 import mushai.Playboard;
 import mushai.Player;
 import mushai.Settings;
@@ -30,6 +31,8 @@ import org.jgap.gp.terminal.Terminal;
 public class AgentGP extends GPProblem {
 
     private static final int POP_SIZE = 3;
+    private Playboard board;
+    private Controller controller;
 
     /**
      * Creates the initial population.
@@ -59,7 +62,7 @@ public class AgentGP extends GPProblem {
                 new Or(conf), //Returns boolean
                 new Not(conf), //Returns boolean
                 // ------- Game specific functions -------
-                //new MakeMove(conf, CommandGene.VoidClass),
+                new MakeMove(conf, controller),
                 new IsPieceAt(conf, CommandGene.BooleanClass),
                 // ------- Base terminals ---------
                 new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true)
@@ -70,15 +73,15 @@ public class AgentGP extends GPProblem {
                 20, true);
     }
 
-    public AgentGP(
-            GPConfiguration conf) throws InvalidConfigurationException {
+    public AgentGP(GPConfiguration conf, Playboard board) throws InvalidConfigurationException {
         super(conf);
-
-
+        this.board = board;
+        controller = new Controller(board);
     }
 
     public static void main(String[] args) throws InvalidConfigurationException {
         GPConfiguration conf = new GPConfiguration();
+
         Settings.addPlayer(new Player("0", Color.yellow));
 
         conf.setPopulationSize(POP_SIZE);
@@ -93,7 +96,7 @@ public class AgentGP extends GPProblem {
             }
         });
 
-        GPGenotype genotype = new AgentGP(conf).create();
+        GPGenotype genotype = new AgentGP(conf, new Playboard(1, 0)).create();
         genotype.setVerboseOutput(true);
         genotype.evolve(50);
 //        System.out.println("best guy: " + genotype.getFittestProgram().toStringNorm(0));
