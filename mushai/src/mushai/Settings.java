@@ -38,6 +38,6 @@ public class Settings {
     }
 
     public static boolean paintGraphics(){
-        return false;
+        return true;
     }
 }

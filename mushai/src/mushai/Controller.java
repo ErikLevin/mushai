@@ -16,6 +16,7 @@ public class Controller implements ActionListener {
     private Playboard board;
     private Window win;
     private Point moveStart;
+    private Player activePlayer;
 
     public Controller(Window tWin) {
         win = tWin;
@@ -69,7 +70,7 @@ public class Controller implements ActionListener {
 
                     for (int i = 0; i < Settings.getNrOfPlayers(); i++) {
                         Player pl = Settings.getPlayers().get(i);
-                        if (pl.isItMyturn()) {
+                        if (pl.isItMyTurn()) {
 
                             if (Model.getPiece(pressedPoint, board).color.equals(pl.getColor())) {
                                 moveStart = pressedPoint;
@@ -94,7 +95,9 @@ public class Controller implements ActionListener {
 
 //        System.out.println("Move: " + start + " to " + end);
 
-        if (Model.whereCanIMove2(start, board).contains(end)) {
+        if (Model.pointOnBoard(start) && Model.pointOnBoard(end)
+                && Model.getPiece(start, board) == null
+                && Model.whereCanIMove2(start, board).contains(end)) {
             Tile origin = board.getTiles()[start.x][start.y];
             Piece p = origin.getPiece();
             origin.setPiece(null);
@@ -113,9 +116,12 @@ public class Controller implements ActionListener {
         return move(chosenMove.getStart(), chosenMove.getEnd());
     }
 
+    public boolean move(int fromX, int fromY, int toX, int toY) {
+        return move(new Point(fromX, fromY), new Point(toX, toY));
+    }
+
     private void changePlayer() {
         checkVictory();
-
 
         /**nollställer brädet **/
         ArrayList<Player> arL = Settings.getPlayers();
@@ -128,16 +134,10 @@ public class Controller implements ActionListener {
         }
         /**räknar ut vems tur det är **/
         for (int i = 0; i < arL.size(); i++) {
-            if (arL.get(i).isItMyturn()) {
+            if (arL.get(i).isItMyTurn()) {
                 arL.get(i).isNotMyTurn();
-                if (Settings.getNrOfPlayers() - 1 != i) {
-                    arL.get(i + 1).isMyTurn();
-                    break;
-                } else {
-                    arL.get(0).isMyTurn();
-                    break;
-                }
-
+                activePlayer = arL.get((i + 1) % arL.size());
+                break;
             }
         }
     }
@@ -147,7 +147,7 @@ public class Controller implements ActionListener {
 //        ArrayList<Point> pieces = Model.getYourPieces(board);
         int i = 0;
         for (Player player : Settings.getPlayers()) {
-            if (player.isItMyturn()) {
+            if (player.isItMyTurn()) {
                 System.out.println("i: " + i);
                 if (i == 0) {
                     for (Point point : Model.getYourPieces(board)) {
@@ -178,9 +178,5 @@ public class Controller implements ActionListener {
         }
 
         return win;
-    }
-
-    public void move(int fromX, int fromY, int toX, int toY) {
-        move(new Move(fromX, fromY, toX, toY));
     }
 }

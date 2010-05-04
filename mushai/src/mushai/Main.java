@@ -9,7 +9,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Player bark = new Player("bark", Color.cyan);
-        bark.isMyTurn();
+        bark.setMyTurn();
         Settings.addPlayer(bark);
         Settings.addPlayer(new Player("ai", Color.ORANGE));
         Window win = new Window();
