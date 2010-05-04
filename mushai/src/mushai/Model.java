@@ -110,7 +110,7 @@ public class Model {
     }
 
     private static int boardBaseFitness(Playboard board) {
-        return board.getTiles().length * board.getTiles().length;
+        return board.getTiles().length * getYourPieces(board).size();
     }
 
     public static List<Move> getAllPossibleMoves(Playboard board) {
