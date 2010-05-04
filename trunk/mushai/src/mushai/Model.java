@@ -9,20 +9,11 @@ import java.util.List;
 public class Model {
 
     private static HashSet<Point> possibleMoves = new HashSet<Point>();
-    /*
-    public static boolean canIGo(Point to,Point from, ArrayList[][] bord){
 
-
-    }
-
-    public static ArrayList<ArrayList<Point>> getAllMoves(){
-
-
-    }
-
-     */
+    
 
     public static HashSet<Point> whereCanIMove2(Point from, Playboard board) {
+
         possibleMoves = new HashSet<Point>();//nollar listan
         Piece pi = getPiece(from, board);
         for (Point diffPoint : pi.getMoves()) {
@@ -92,6 +83,7 @@ public class Model {
         return -1;
     }
 
+
     /**
      * The amount of steps forwards that player 0 has taken, minus the number of
      * steps player 1 has taken forwards.
@@ -121,11 +113,11 @@ public class Model {
         return board.getTiles().length * board.getTiles().length;
     }
 
-    public List<Move> getAllPossibleMoves(Playboard board) {
+    public static List<Move> getAllPossibleMoves(Playboard board) {
         return getAllPossibleMoves(board, whoseTurnIsIt());
     }
 
-    public List<Move> getAllPossibleMoves(Playboard board, int player) {
+    public static List<Move> getAllPossibleMoves(Playboard board, int player) {
         ArrayList<Point> pices = getYourPieces(board, player);
         ArrayList<Move> allTheMoves = new ArrayList<Move>();
 
@@ -166,4 +158,27 @@ public class Model {
     public static Piece getPiece(Point point, Playboard board) {
         return board.getTiles()[point.x][point.y].getPiece();
     }
+
+public static Playboard movePiece(Playboard board,Move move){
+    return movePiece(board,move.getStart(),move.getEnd());
+}
+
+public static Playboard movePiece(Playboard board,Point from, Point to){
+
+
+
+            Tile origin = board.getTiles()[from.x][from.y];
+            
+            Piece p = Model.getPiece(from,board);
+            origin.setPiece(null);
+            board.getTiles()[to.x][to.y].setPiece(p);
+
+            return board;
+        
+    }
+    
+ 
+
+
+
 }
