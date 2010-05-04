@@ -96,7 +96,7 @@ public class Controller implements ActionListener {
 //        System.out.println("Move: " + start + " to " + end);
 
         if (Model.pointOnBoard(start) && Model.pointOnBoard(end)
-                && Model.getPiece(start, board) == null
+                && Model.getPiece(start, board) != null
                 && Model.whereCanIMove2(start, board).contains(end)) {
             Tile origin = board.getTiles()[start.x][start.y];
             Piece p = origin.getPiece();
