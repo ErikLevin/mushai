@@ -45,7 +45,7 @@ public class AgentGP extends GPProblem {
         GPConfiguration conf = getGPConfiguration();
 
         Class[] types = {
-            CommandGene.FloatClass
+            CommandGene.VoidClass
         };
 
         Class[][] argTypes = {{}};
@@ -55,22 +55,24 @@ public class AgentGP extends GPProblem {
                 new Add(conf, CommandGene.FloatClass),
                 new Subtract(conf, CommandGene.FloatClass),
                 new Multiply(conf, CommandGene.FloatClass),
-                new IfElse(conf, CommandGene.FloatClass), // ???
+                //new IfElse(conf, CommandGene.FloatClass), // ???
                 new GreaterThan(conf, CommandGene.FloatClass),
                 new LesserThan(conf, CommandGene.FloatClass),
-                new And(conf, CommandGene.BooleanClass), //make own logical operators, that work on numbers?
-                new Or(conf), //Returns boolean
-                new Not(conf), //Returns boolean
+                //new And(conf, CommandGene.FloatClass), //make own logical operators, that work on numbers?
+                //new Or(conf), //Returns boolean
+                //new Not(conf), //Returns boolean
                 // ------- Game specific functions -------
-                new MakeMove(conf, controller),
-                new IsPieceAt(conf, CommandGene.BooleanClass),
+                new MakeMove(conf, controller), //Is VoidClass
                 // ------- Base terminals ---------
-                new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true)
+                new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true),
+                // ------- Game specific terminals --------
+
+                // ------- Sensors --------
+                //new IsPieceAt(conf, CommandGene.FloatClass),
             }
         };
 
-        return GPGenotype.randomInitialGenotype(conf, types, argTypes, nodes,
-                20, true);
+        return GPGenotype.randomInitialGenotype(conf, types, argTypes, nodes, 100, true);
     }
 
     public AgentGP(GPConfiguration conf, Playboard board) throws InvalidConfigurationException {
@@ -82,7 +84,8 @@ public class AgentGP extends GPProblem {
     public static void main(String[] args) throws InvalidConfigurationException {
         GPConfiguration conf = new GPConfiguration();
 
-        Settings.addPlayer(new Player("0", Color.yellow));
+        Settings.addPlayer(new Player("0", Color.YELLOW));
+        Settings.getPlayer(0).setMyTurn();
 
         conf.setPopulationSize(POP_SIZE);
         conf.setFitnessEvaluator(new DefaultGPFitnessEvaluator());
@@ -92,7 +95,7 @@ public class AgentGP extends GPProblem {
 
             public void geneticEventFired(GeneticEvent a_firedEvent) {
                 GPGenotype genotype = (GPGenotype) a_firedEvent.getSource();
-                System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
+//                System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
             }
         });
 

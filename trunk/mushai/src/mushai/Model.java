@@ -10,8 +10,6 @@ public class Model {
 
     private static HashSet<Point> possibleMoves = new HashSet<Point>();
 
-    
-
     public static HashSet<Point> whereCanIMove2(Point from, Playboard board) {
 
         possibleMoves = new HashSet<Point>();//nollar listan
@@ -33,12 +31,10 @@ public class Model {
         return possibleMoves;
     }
 
-    private static boolean pointOnBoard(Point point) {
+    public static boolean pointOnBoard(Point point) {
         if (point.x >= 0 && point.x < Settings.getPlayboardSize()) {
             if (point.y >= 0 && point.y < Settings.getPlayboardSize()) {
                 return true;
-
-
             }
         }
         return false;
@@ -76,20 +72,19 @@ public class Model {
         ArrayList<Player> arL = Settings.getPlayers();
 
         for (int i = 0; i < arL.size(); i++) {
-            if (arL.get(i).isItMyturn()) {
+            if (arL.get(i).isItMyTurn()) {
                 return i;
             }
         }
         return -1;
     }
 
-
     /**
      * The amount of steps forwards that player 0 has taken, minus the number of
      * steps player 1 has taken forwards.
      * @return - The fitness for player 0 for the current board.
      */
-    public static int getBoardFitness(Playboard board) throws Exception {
+    public static int getBoardFitness(Playboard board) throws RuntimeException {
         int fitness = boardBaseFitness(board);
         for (int j = 0; j < board.getTiles().length; j++) {
             for (int i = 0; i < board.getTiles().length; i++) {
@@ -104,12 +99,13 @@ public class Model {
             }
         }
         if (fitness < 0) {
-            throw new Exception("Fitness for board was negative\n" + board.toString());
+            throw new RuntimeException("Fitness for board was negative\n" + board.toString());
         }
         return fitness;
     }
 
     private static int boardBaseFitness(Playboard board) {
+        System.out.println("Base fitness: " + board.getTiles().length * getYourPieces(board).size());
         return board.getTiles().length * getYourPieces(board).size();
     }
 
@@ -159,26 +155,18 @@ public class Model {
         return board.getTiles()[point.x][point.y].getPiece();
     }
 
-public static Playboard movePiece(Playboard board,Move move){
-    return movePiece(board,move.getStart(),move.getEnd());
-}
-
-public static Playboard movePiece(Playboard board,Point from, Point to){
-
-
-
-            Tile origin = board.getTiles()[from.x][from.y];
-            
-            Piece p = Model.getPiece(from,board);
-            origin.setPiece(null);
-            board.getTiles()[to.x][to.y].setPiece(p);
-
-            return board;
-        
+    public static Playboard movePiece(Playboard board, Move move) {
+        return movePiece(board, move.getStart(), move.getEnd());
     }
-    
- 
 
+    public static Playboard movePiece(Playboard board, Point from, Point to) {
+        Tile origin = board.getTiles()[from.x][from.y];
 
+        Piece p = Model.getPiece(from, board);
+        origin.setPiece(null);
+        board.getTiles()[to.x][to.y].setPiece(p);
 
+        return board;
+
+    }
 }

@@ -32,13 +32,12 @@ public class Player extends JPanel {
         setBackground(color);
     }
 
-    public void isMyTurn() {
+    public void setMyTurn() {
         jLmyTurn.setText("min tur");
         myTurn = true;
     }
 
-    public boolean isItMyturn() {
-
+    public boolean isItMyTurn() {
         return myTurn;
     }
 
