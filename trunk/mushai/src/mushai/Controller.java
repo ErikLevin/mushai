@@ -135,7 +135,7 @@ public class Controller implements ActionListener {
         /**räknar ut vems tur det är **/
         for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyTurn()) {
-                arL.get(i).isNotMyTurn();
+                arL.get(i).setMyTurn(false);
                 activePlayer = arL.get((i + 1) % arL.size());
                 break;
             }
