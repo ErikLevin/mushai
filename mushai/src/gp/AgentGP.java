@@ -4,7 +4,6 @@ import java.awt.Color;
 import mushai.Playboard;
 import mushai.Player;
 import mushai.Settings;
-import mushai.Window;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.event.GeneticEvent;
 import org.jgap.event.GeneticEventListener;
@@ -60,6 +59,7 @@ public class AgentGP extends GPProblem {
                 new Or(conf), //Returns boolean
                 new Not(conf), //Returns boolean
                 // ------- Game specific functions -------
+                //new MakeMove(conf, CommandGene.VoidClass),
                 new IsPieceAt(conf, CommandGene.BooleanClass),
                 // ------- Base terminals ---------
                 new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true)
@@ -80,26 +80,23 @@ public class AgentGP extends GPProblem {
     public static void main(String[] args) throws InvalidConfigurationException {
         GPConfiguration conf = new GPConfiguration();
         Settings.addPlayer(new Player("0", Color.yellow));
-        Playboard board = new Playboard(1, 0);
 
         conf.setPopulationSize(POP_SIZE);
         conf.setFitnessEvaluator(new DefaultGPFitnessEvaluator());
-        conf.setFitnessFunction(new TraverseFitnessFunction(board));
+        conf.setFitnessFunction(new TraverseFitnessFunction(1, 0));
 
         conf.getEventManager().addEventListener(GeneticEvent.GPGENOTYPE_NEW_BEST_SOLUTION, new GeneticEventListener() {
 
             public void geneticEventFired(GeneticEvent a_firedEvent) {
                 GPGenotype genotype = (GPGenotype) a_firedEvent.getSource();
                 System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
-
-
             }
         });
 
         GPGenotype genotype = new AgentGP(conf).create();
-        genotype.setVerboseOutput(false);
-        genotype.evolve(100);
-        System.out.println("best guy: " + genotype.getFittestProgram().toStringNorm(0));
+        genotype.setVerboseOutput(true);
+        genotype.evolve(50);
+//        System.out.println("best guy: " + genotype.getFittestProgram().toStringNorm(0));
 //        genotype.calcFitness();
 
     }

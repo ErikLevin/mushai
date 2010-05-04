@@ -1,7 +1,6 @@
 package mushai;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Point;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,7 +43,7 @@ public class PlayboardTest {
     public void testNewBoardHasBaseFitness() throws Exception {
         System.out.println("initializeBoard");
         Playboard instance = new Playboard(3, 3);
-        assertEquals(Settings.getPlayboardSize() * Settings.getPlayboardSize(), instance.getFitness());
+        assertEquals(Settings.getPlayboardSize() * Settings.getPlayboardSize(), Model.getBoardFitness(instance));
     }
 
     /**
@@ -57,7 +56,15 @@ public class PlayboardTest {
         Controller con = new Controller(instance);
         con.move(new Point(0, 0), new Point(0, 1));
         int expResult = Settings.getPlayboardSize() * Settings.getPlayboardSize() + 1;
-        int result = instance.getFitness();
+        int result = Model.getBoardFitness(instance);
+        assertEquals(expResult, result);
+
+        instance = new Playboard(1, 0);
+        con = new Controller(instance);
+        con.move(new Point(0, 0), new Point(0, 1));
+        System.out.println("Board after move :\n" + instance);
+        expResult = Settings.getPlayboardSize() * Settings.getPlayboardSize() + 1;
+        result = Model.getBoardFitness(instance);
         assertEquals(expResult, result);
     }
 }
