@@ -55,7 +55,7 @@ public class AgentGP extends GPProblem {
                 new Add(conf, CommandGene.FloatClass),
                 new Subtract(conf, CommandGene.FloatClass),
                 new Multiply(conf, CommandGene.FloatClass),
-                //new IfElse(conf, CommandGene.FloatClass), // ???
+                //new IfElse(conf, CommandGene.FloatClass), // Can't return float... Make our own?
                 new GreaterThan(conf, CommandGene.FloatClass),
                 new LesserThan(conf, CommandGene.FloatClass),
                 //new And(conf, CommandGene.FloatClass), //make own logical operators, that work on numbers?
