@@ -14,6 +14,11 @@ import javax.swing.JOptionPane;
 public class Controller implements ActionListener {
 
     private Playboard board;
+
+    public Playboard getBoard() {
+        return board;
+    }
+    
     private Window win;
     private Point moveStart;
     private Player activePlayer;
@@ -121,7 +126,7 @@ public class Controller implements ActionListener {
     }
 
     private void changePlayer() {
-        checkVictory();
+        //checkVictory();
 
         /**nollställer brädet **/
         ArrayList<Player> arL = Settings.getPlayers();
@@ -142,6 +147,12 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * Checks if someone has won.
+     *
+     * @TODO - Doesn't seem to work correctly...
+     * @return
+     */
     private boolean checkVictory() {
         boolean win = true;
 //        ArrayList<Point> pieces = Model.getYourPieces(board);
@@ -172,7 +183,6 @@ public class Controller implements ActionListener {
                         JOptionPane.showMessageDialog(board, "player 2 vann");
                     }
                 }
-
             }
             i++;
         }

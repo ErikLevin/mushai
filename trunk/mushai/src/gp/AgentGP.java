@@ -11,13 +11,9 @@ import org.jgap.event.GeneticEventListener;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.GPProblem;
 import org.jgap.gp.function.Add;
-import org.jgap.gp.function.And;
 import org.jgap.gp.function.GreaterThan;
-import org.jgap.gp.function.IfElse;
 import org.jgap.gp.function.LesserThan;
 import org.jgap.gp.function.Multiply;
-import org.jgap.gp.function.Not;
-import org.jgap.gp.function.Or;
 import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DefaultGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
@@ -30,7 +26,7 @@ import org.jgap.gp.terminal.Terminal;
  */
 public class AgentGP extends GPProblem {
 
-    private static final int POP_SIZE = 3;
+    private static final int POP_SIZE = 100;
     private Playboard board;
     private Controller controller;
 
@@ -62,13 +58,11 @@ public class AgentGP extends GPProblem {
                 //new Or(conf), //Returns boolean
                 //new Not(conf), //Returns boolean
                 // ------- Game specific functions -------
-                new MakeMove(conf, controller), //Is VoidClass
+                new MakeMove(conf, new Controller(board)), //Is VoidClass
                 // ------- Base terminals ---------
-                new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true),
-                // ------- Game specific terminals --------
-
-                // ------- Sensors --------
-                //new IsPieceAt(conf, CommandGene.FloatClass),
+                new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true), // ------- Game specific terminals --------
+            // ------- Sensors --------
+            //new IsPieceAt(conf, CommandGene.FloatClass),
             }
         };
 
@@ -78,7 +72,7 @@ public class AgentGP extends GPProblem {
     public AgentGP(GPConfiguration conf, Playboard board) throws InvalidConfigurationException {
         super(conf);
         this.board = board;
-        controller = new Controller(board);
+        //controller = new Controller(board);
     }
 
     public static void main(String[] args) throws InvalidConfigurationException {
@@ -99,11 +93,12 @@ public class AgentGP extends GPProblem {
             }
         });
 
-        GPGenotype genotype = new AgentGP(conf, new Playboard(1, 0)).create();
+        AgentGP gpProblem = new AgentGP(conf, new Playboard(1, 0));
+        GPGenotype genotype = gpProblem.create();
         genotype.setVerboseOutput(true);
         genotype.evolve(50);
-//        System.out.println("best guy: " + genotype.getFittestProgram().toStringNorm(0));
+        System.out.println("best guy: " + genotype.getAllTimeBest().toStringNorm(0) + " with fitness "
+                + genotype.getAllTimeBest().getFitnessValue());
 //        genotype.calcFitness();
-
     }
 }
