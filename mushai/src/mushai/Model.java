@@ -105,8 +105,7 @@ public class Model {
     }
 
     private static int boardBaseFitness(Playboard board) {
-        System.out.println("Base fitness: " + board.getTiles().length * getYourPieces(board).size());
-        return board.getTiles().length * getYourPieces(board).size();
+        return board.getTiles().length; // * getYourPieces(board).size();
     }
 
     public static List<Move> getAllPossibleMoves(Playboard board) {
@@ -125,6 +124,12 @@ public class Model {
         return allTheMoves;
     }
 
+    /**
+     * Get the pieces of the active player.
+     *
+     * @param board
+     * @return - The pieces of the player whose turn it is.
+     */
     public static ArrayList<Point> getYourPieces(Playboard board) {
         return getYourPieces(board, whoseTurnIsIt());
     }

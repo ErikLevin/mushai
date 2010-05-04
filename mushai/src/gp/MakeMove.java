@@ -1,54 +1,26 @@
 package gp;
 
 import mushai.Controller;
+import mushai.Model;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
-import org.jgap.gp.function.Add;
-import org.jgap.gp.function.GreaterThan;
-import org.jgap.gp.function.LesserThan;
-import org.jgap.gp.function.Multiply;
-import org.jgap.gp.function.SubProgram;
-import org.jgap.gp.function.Subtract;
+import org.jgap.gp.IGPProgram;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
-import org.jgap.gp.terminal.Terminal;
 
-class MakeMove extends SubProgram {
+class MakeMove extends CommandGene {
 
     Controller controller;
 
     public MakeMove(GPConfiguration conf, Controller controller) throws InvalidConfigurationException {
 //        super(conf, 4, CommandGene.FloatClass);
-        super(conf, 4, CommandGene.FloatClass);
+        super(conf, 4, CommandGene.VoidClass);
         this.controller = controller;
+    }
 
-         Class[] types = {
-            CommandGene.VoidClass
-        };
-
-        Class[][] argTypes = {{}};
-
-        CommandGene[][] nodes = {{
-                // ----- Base functions ------
-                new Add(conf, CommandGene.FloatClass),
-                new Subtract(conf, CommandGene.FloatClass),
-                new Multiply(conf, CommandGene.FloatClass),
-                //new IfElse(conf, CommandGene.FloatClass), // Can't return float... Make our own?
-                new GreaterThan(conf, CommandGene.FloatClass),
-                new LesserThan(conf, CommandGene.FloatClass),
-                //new And(conf, CommandGene.FloatClass), //make own logical operators, that work on numbers?
-                //new Or(conf), //Returns boolean
-                //new Not(conf), //Returns boolean
-                // ------- Game specific functions -------
-                new MakeMove(conf, controller), //Is VoidClass
-                // ------- Base terminals ---------
-                new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true),
-                // ------- Game specific terminals --------
-
-                // ------- Sensors --------
-                //new IsPieceAt(conf, CommandGene.FloatClass),
-            }
-        };
+    @Override
+    public Class getChildType(IGPProgram a_ind, int a_chromNum) {
+        return CommandGene.FloatClass;
     }
 
     @Override
@@ -59,7 +31,9 @@ class MakeMove extends SubProgram {
         int toX = Math.round(c.execute_float(n, 2, args));
         int toY = Math.round(c.execute_float(n, 3, args));
 
-        controller.move(fromX, fromY, toX, toY);
+        if (controller.move(fromX, fromY, toX, toY)) {
+            System.out.println("Moved! \n" + controller.getBoard() + "\n"+Model.getBoardFitness(controller.getBoard()));
+        }
     }
 
     /**
@@ -77,6 +51,6 @@ class MakeMove extends SubProgram {
 
     @Override
     public String toString() {
-        return "MakeMove";
+        return "MakeMove (&1, &2, &3, &4)";
     }
 }

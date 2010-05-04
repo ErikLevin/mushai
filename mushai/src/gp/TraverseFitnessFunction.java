@@ -34,6 +34,9 @@ class TraverseFitnessFunction extends GPFitnessFunction {
 //            }
 //        }
         int hej = Model.getBoardFitness(board);
+        if(hej == 5){
+            System.out.println("OMG!!!!! 5 FITNESS!!!!!");
+        }
         return hej;
     }
 }
