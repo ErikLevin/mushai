@@ -1,31 +1,63 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gp;
 
+import java.util.Random;
+import mushai.Playboard;
+import mushai.Settings;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.RandomGenerator;
 import org.jgap.gp.CommandGene;
+import org.jgap.gp.IMutateable;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
+import org.jgap.gp.terminal.Terminal;
 
 /**
+ * When initialized, chooses a random position on the playboard. When executed,
+ * returns 1 if there is a piece on that position, 0 otherwise.
  *
- * @author Erik Levin
+ * Only supported for return type FloatClass and execute_float!
+ *
+ * @author MushAI
  */
-class IsPieceAt extends CommandGene {
+class IsPieceAt extends CommandGene implements IMutateable{
 
-    public IsPieceAt(GPConfiguration conf, Class BooleanClass) throws InvalidConfigurationException {
-        super(conf, 1, BooleanClass, 1);
+    int x, y;
+
+    public IsPieceAt(GPConfiguration a_conf, Class a_returnType) throws InvalidConfigurationException {
+        super(a_conf, 0, a_returnType);
+        randomize(a_conf);
     }
 
+    private void randomize(GPConfiguration a_conf) {
+        x = a_conf.getRandomGenerator().nextInt(Settings.getPlayboardSize());
+        y = a_conf.getRandomGenerator().nextInt(Settings.getPlayboardSize());
+    }
+
+    /**
+     * Returns 1 if there is a piece on this sensor's position.
+     *
+     * @param c - ignored
+     * @param n - ignored
+     * @param args - first argument is the playboard to inspect
+     * @return - 1 if there is piece on (x,y) on this playboard, 0 otherwise
+     */
     @Override
     public float execute_float(ProgramChromosome c, int n, Object[] args) {
-        return super.execute_float(c, n, args);
+        Playboard board = (Playboard) args[0];
+        if (board.getTiles()[x][y].getPiece() == null) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "IsPieceAt (" + x + ", " + y + ")";
+    }
+
+    public CommandGene applyMutation(int a_index, double a_percentage) throws InvalidConfigurationException {
+        randomize(getGPConfiguration());
+        return this; //Safe???
     }
 }

@@ -81,7 +81,7 @@ public class Model {
     }
     public static int checkWin(Playboard board) {
         int win = 0;
-        for (int i = 0; i <= Settings.getPlayers().size(); i++) {
+        for (int i = 0; i < Settings.getPlayers().size(); i++) {
             if (i == 0) {
                 win = 1;
                 for (Point point : Model.getYourPieces(board, i)) {
