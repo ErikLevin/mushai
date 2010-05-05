@@ -19,7 +19,23 @@ public class Playboard extends JPanel {
     public Playboard() {
         this(Settings.getPlayboardSize(), Settings.getPlayboardSize());
     }
+    public Playboard(int noPlayer1Pieces, int noPlayer2Pieces, int size) {
+        super();
 
+        int ps = size;
+        Settings.setPlayboardSize(size);
+        tiles = new Tile[ps][ps];
+        setLayout(new GridLayout(ps, ps));
+        this.setPreferredSize(new Dimension(200, 200));
+        for (int j = 0; j < ps; j++) {
+            for (int i = 0; i < ps; i++) {
+                tiles[i][j] = new Tile();
+                add(tiles[i][j]);
+            }
+        }
+
+        resetBoard(noPlayer1Pieces, noPlayer2Pieces);
+    }
     public Playboard(int noPlayer1Pieces, int noPlayer2Pieces) {
         super();
 

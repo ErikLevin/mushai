@@ -19,7 +19,9 @@ public class Settings {
     public static int getPlayboardSize() {
         return playboardSize;
     }
-
+    public static void setPlayboardSize(int size){
+        playboardSize = size;
+    }
     public static int getNrOfPlayers() {
         return 2;
     }

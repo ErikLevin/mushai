@@ -24,30 +24,34 @@ public class MiniMax {
     private Controller controller;
     private Playboard playboard;
 
-    public MiniMax(Controller c, Playboard pb){
+    public MiniMax(Controller c, Playboard pb) {
         controller = c;
         playboard = pb;
     }
-    public Move findBestMove(int depth){
-        int turn = Model.whoseTurnIsIt();
-        
-        Move move = findBestMove(depth,null).move;
 
+    public Move findBestMove(int depth) {
+        int turn = Model.whoseTurnIsIt();
+        MoveAndFitness maf = findBestMove(depth, null);
+        Move move = maf.move;
+        //System.out.println(maf.fitness);
         ArrayList<Player> arL = Settings.getPlayers();
-        if (turn == 0){
+        if (turn == 0) {
+            arL.get(0).setMyTurn(true);
+            arL.get(1).setMyTurn(false);
+        } else if (turn == 1) {
             arL.get(0).setMyTurn(false);
             arL.get(1).setMyTurn(true);
         }
-        else if (turn == 1){
-            arL.get(0).setMyTurn(true);
-            arL.get(1).setMyTurn(false);
-        }
+
         return move;
     }
-    private MoveAndFitness findBestMove(int depth, Move lastMove){
-        if (depth == 0){
+
+    private MoveAndFitness findBestMove(int depth, Move lastMove) {
+        if (depth == 0 || Model.getBoardFitness(playboard) > 1000 || Model.getBoardFitness(playboard) == 0) {
+            //System.out.println(Model.getBoardFitness(playboard));
+            if (lastMove == null) System.out.println("HORRIBLE");
             try {
-                return new MoveAndFitness(lastMove,Model.getBoardFitness(playboard));
+                return new MoveAndFitness(lastMove, Model.getBoardFitness(playboard));
             } catch (Exception ex) {
                 Logger.getLogger(MiniMax.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -56,38 +60,55 @@ public class MiniMax {
         Move bestMove;
         turn = Model.whoseTurnIsIt();
         List<Move> possibleMoves = Model.getAllPossibleMoves(playboard);
-        if (possibleMoves.isEmpty())
+        if (possibleMoves.isEmpty()) {
             throw new RuntimeException("CRITICAL ERROR EXCEPTION! NO POSSIBLE MOVES :(((((");
+        }
 
         Move firstMove = possibleMoves.remove(0);
         controller.move(firstMove);
-        MoveAndFitness maf = findBestMove(depth-1,firstMove);
+        //if (lastMove!=null)System.out.println("LAST: "+lastMove.getStart() + " ---> " + lastMove.getEnd() + ":::" + Model.getBoardFitness(playboard));
+        //System.out.println(firstMove.getStart() + " ---> " + firstMove.getEnd() + ":::" + Model.getBoardFitness(playboard));
+        MoveAndFitness maf = findBestMove(depth - 1, firstMove);
         bestValue = maf.fitness;
         Model.movePiece(playboard, firstMove.getEnd(), firstMove.getStart());
+        controller.changePlayer();
+        if (maf.fitness > 1000 || maf.fitness == 0) {
+            //return new MoveAndFitness(firstMove, maf.fitness);
+        }
         bestMove = firstMove;
-
-        for (Move move : possibleMoves){
+        for (Move move : possibleMoves) {
+            if (depth == 4) System.out.println(move.getStart() + "--->"+ move.getEnd());
             //domove
             controller.move(move);
-            maf = findBestMove(depth-1,move);
+            //Model.movePiece(playboard, move.getStart(), move.getEnd()); controller.changePlayer();
+            
+            maf = findBestMove(depth - 1, move);
             value = maf.fitness;
+            if (depth == 4) System.out.println(value);
             //undomove
             Model.movePiece(playboard, move.getEnd(), move.getStart());
-            if (turn == 0){
-                if (value > bestValue){
+            controller.changePlayer();
+            if (maf.fitness > 1000 || maf.fitness == 0) {
+                //return new MoveAndFitness(move, maf.fitness);
+            }
+            if (turn == 0) {
+                if (value > bestValue) {
+                    //if (lastMove!=null)System.out.println("LAST: "+lastMove.getStart() + " ---> " + lastMove.getEnd() + ":::" + Model.getBoardFitness(playboard));
+                    //System.out.println(move.getStart() + " ---> " + move.getEnd() + ":::" + Model.getBoardFitness(playboard));
                     bestValue = value;
                     bestMove = move;
+                    //System.out.println("depth: " + depth + " value: " + bestValue);
                 }
-            }
-            else if (turn == 1){
-                if (value < bestValue){
+            } else if (turn == 1) {
+                if (value < bestValue) {
                     bestValue = value;
                     bestMove = move;
                 }
             }
         }
-        return new MoveAndFitness(bestMove,bestValue);
+        return new MoveAndFitness(bestMove, bestValue);
     }
+
     public int findBestOfMyMoves(Playboard board, int deap) {
         int bestMove = 0;
         if (deap == 0) {
@@ -106,6 +127,7 @@ public class MiniMax {
         }
         return bestMove;
     }
+
     public int findBestOfEnemysMoves(Playboard board, int deap) {
         int lowestPoint = +1000;
         for (Move move : Model.getAllPossibleMoves(board)) {
@@ -132,11 +154,13 @@ public class MiniMax {
         }
         return -1;
     }
-    
-    private class MoveAndFitness{
+
+    private class MoveAndFitness {
+
         Move move;
         int fitness;
-        public MoveAndFitness(Move m, int f){
+
+        public MoveAndFitness(Move m, int f) {
             move = m;
             fitness = f;
         }

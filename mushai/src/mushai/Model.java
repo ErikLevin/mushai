@@ -70,15 +70,48 @@ public class Model {
 
     public static int whoseTurnIsIt() {
         ArrayList<Player> arL = Settings.getPlayers();
-
         for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyTurn()) {
                 return i;
             }
         }
+        System.out.println("player 0: " + arL.get(0).isItMyTurn());
+        System.out.println("player 1: " + arL.get(1).isItMyTurn());
         return -1;
     }
+    public static int checkWin(Playboard board) {
+        int win = 0;
+        for (int i = 0; i <= Settings.getPlayers().size(); i++) {
+            if (i == 0) {
+                win = 1;
+                for (Point point : Model.getYourPieces(board, i)) {
+                    if (point.y != Settings.getPlayboardSize() - 1) {
+                        win = 0;
+                        break;
+                    }
+                }
+                if (win == 1){
+                    System.out.println("player 1 won");
+                    return win;
+                }
 
+            }
+            if (i == 1) {
+                win = -1;
+                for (Point point : Model.getYourPieces(board, i)) {
+                    if (point.y != 0) {
+                        win = 0;
+                        break;
+                    }
+                }
+                if (win == -1){
+                    System.out.println("player 2 won");
+                    return win;
+                }
+            } 
+        }
+        return win;
+    }
     /**
      * The amount of steps forwards that player 0 has taken, minus the number of
      * steps player 1 has taken forwards.
@@ -86,17 +119,32 @@ public class Model {
      */
     public static int getBoardFitness(Playboard board) throws RuntimeException {
         int fitness = boardBaseFitness(board);
+
         for (int j = 0; j < board.getTiles().length; j++) {
             for (int i = 0; i < board.getTiles().length; i++) {
                 Piece p = board.getTiles()[i][j].getPiece();
                 if (p != null) {
                     if (p.color == Settings.getPlayers().get(0).getColor()) {
                         fitness += j;
+                        if (j == board.getTiles().length-1){
+                            //fitness += 100;
+                            //System.out.println(fitness);
+                        }
                     } else {
                         fitness -= (board.getTiles().length - 1 - j);
+                        if (j == 0){
+                            //fitness -= 100;
+                        }
                     }
                 }
             }
+        }
+        int winner = checkWin(board);
+        if (winner > 0){
+            fitness = 10000;
+        }
+        else if (winner < 0){
+            fitness = 0;
         }
         if (fitness < 0) {
             throw new RuntimeException("Fitness for board was negative\n" + board.toString());
@@ -105,7 +153,8 @@ public class Model {
     }
 
     private static int boardBaseFitness(Playboard board) {
-        return board.getTiles().length; // * getYourPieces(board).size();
+        return board.getTiles().length * getYourPieces(board).size();
+
     }
 
     public static List<Move> getAllPossibleMoves(Playboard board) {
@@ -167,7 +216,6 @@ public class Model {
 
     public static Playboard movePiece(Playboard board, Point from, Point to) {
         Tile origin = board.getTiles()[from.x][from.y];
-
         Piece p = Model.getPiece(from, board);
         origin.setPiece(null);
         board.getTiles()[to.x][to.y].setPiece(p);

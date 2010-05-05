@@ -125,7 +125,8 @@ public class Controller implements ActionListener {
         return move(new Point(fromX, fromY), new Point(toX, toY));
     }
 
-    private void changePlayer() {
+
+    public void changePlayer() {
         //checkVictory();
 
         /**nollställer brädet **/
@@ -141,7 +142,7 @@ public class Controller implements ActionListener {
         for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyTurn()) {
                 arL.get(i).setMyTurn(false);
-                activePlayer = arL.get((i + 1) % arL.size());
+                arL.get((i + 1) % arL.size()).setMyTurn(true);
                 break;
             }
         }
@@ -173,7 +174,7 @@ public class Controller implements ActionListener {
                     }
                 } else if (i == 1) {
                     for (Point point : Model.getYourPieces(board)) {
-                        if (point.y != 3) {
+                        if (point.y != Settings.getPlayboardSize() - 1) {
                             win = false;
                             break;
                         }
