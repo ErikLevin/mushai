@@ -25,6 +25,11 @@ class MakeMove extends CommandGene {
 
     @Override
     public void execute_void(ProgramChromosome c, int n, Object[] args) {
+        execute_object(c, n, args);
+    }
+
+    @Override
+    public Object execute_object(ProgramChromosome c, int n, Object[] args) {
         check(c);
         int fromX = Math.round(c.execute_float(n, 0, args));
         int fromY = Math.round(c.execute_float(n, 1, args));
@@ -34,7 +39,11 @@ class MakeMove extends CommandGene {
         if (controller.move(fromX, fromY, toX, toY)) {
             System.out.println("Moved! \n" + controller.getBoard() + "\n"+Model.getBoardFitness(controller.getBoard()));
         }
+
+        return controller.getBoard();
     }
+
+
 
     /**
      * Useless float representation that JGap needs to not crash...

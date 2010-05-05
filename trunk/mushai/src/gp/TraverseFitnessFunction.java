@@ -8,20 +8,18 @@ import org.jgap.gp.IGPProgram;
 
 class TraverseFitnessFunction extends GPFitnessFunction {
 
-    private Playboard board;
-    private Controller controller;
+//    private Controller controller;
     int noPlayer1Pieces, noPlayer2Pieces;
 
-    public TraverseFitnessFunction(int noPlayer1Pieces, int noPlayer2Pieces) {
-        this.board = new Playboard(noPlayer1Pieces, noPlayer2Pieces);
-        this.controller = new Controller(board);
+    public TraverseFitnessFunction(int noPlayer1Pieces, int noPlayer2Pieces){
+//        this.controller = new Controller(AgentGP.board);
         this.noPlayer1Pieces = noPlayer1Pieces;
         this.noPlayer2Pieces = noPlayer2Pieces;
     }
 
     @Override
     protected double evaluate(IGPProgram individual) {
-        board.resetBoard(noPlayer1Pieces, noPlayer2Pieces);
+        AgentGP.board.resetBoard(noPlayer1Pieces, noPlayer2Pieces);
         individual.execute_void(0, null);
 
 //        float result = individual.execute_float(0, null);
@@ -33,10 +31,7 @@ class TraverseFitnessFunction extends GPFitnessFunction {
 //                System.out.println("Board after move: \n" + board);
 //            }
 //        }
-        int hej = Model.getBoardFitness(board);
-        if(hej == 5){
-            System.out.println("OMG!!!!! 5 FITNESS!!!!!");
-        }
+        int hej = Model.getBoardFitness(AgentGP.board);
         return hej;
     }
 }
