@@ -2,6 +2,7 @@ package gp;
 
 import mushai.Controller;
 import mushai.Model;
+import mushai.Playboard;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.IGPProgram;
@@ -10,12 +11,9 @@ import org.jgap.gp.impl.ProgramChromosome;
 
 class MakeMove extends CommandGene {
 
-    Controller controller;
-
-    public MakeMove(GPConfiguration conf, Controller controller) throws InvalidConfigurationException {
+    public MakeMove(GPConfiguration conf) throws InvalidConfigurationException {
 //        super(conf, 4, CommandGene.FloatClass);
         super(conf, 4, CommandGene.VoidClass);
-        this.controller = controller;
     }
 
     @Override
@@ -31,19 +29,22 @@ class MakeMove extends CommandGene {
     @Override
     public Object execute_object(ProgramChromosome c, int n, Object[] args) {
         check(c);
+
+        Controller controller = new Controller((Playboard) args[0]);
+
         int fromX = Math.round(c.execute_float(n, 0, args));
         int fromY = Math.round(c.execute_float(n, 1, args));
         int toX = Math.round(c.execute_float(n, 2, args));
         int toY = Math.round(c.execute_float(n, 3, args));
-
-        if (controller.move(fromX, fromY, toX, toY)) {
-            System.out.println("Moved! \n" + controller.getBoard() + "\n"+Model.getBoardFitness(controller.getBoard()));
+        if (!controller.move(fromX, fromY, toX, toY)) {
+            //System.out.println("Couldn't move! Will choose first possible move...");
+            controller.move(Model.getAllPossibleMoves(controller.getBoard()).get(0));
+        } else {
+            System.out.println("Could MOVE HORRAYYY!");
         }
 
         return controller.getBoard();
     }
-
-
 
     /**
      * Useless float representation that JGap needs to not crash...
