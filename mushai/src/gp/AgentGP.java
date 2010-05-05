@@ -14,6 +14,7 @@ import org.jgap.gp.function.Add;
 import org.jgap.gp.function.GreaterThan;
 import org.jgap.gp.function.LesserThan;
 import org.jgap.gp.function.Multiply;
+import org.jgap.gp.function.Or;
 import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DefaultGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
@@ -27,7 +28,7 @@ import org.jgap.gp.terminal.Terminal;
 public class AgentGP extends GPProblem {
 
     private static final int POP_SIZE = 100;
-    private Playboard board;
+    public static Playboard board;
     private Controller controller;
 
     /**
@@ -51,14 +52,14 @@ public class AgentGP extends GPProblem {
                 new Add(conf, CommandGene.FloatClass),
                 new Subtract(conf, CommandGene.FloatClass),
                 new Multiply(conf, CommandGene.FloatClass),
-                //new IfElse(conf, CommandGene.FloatClass), // Can't return float... Make our own?
+                new IfNotZero(conf, CommandGene.FloatClass),
                 new GreaterThan(conf, CommandGene.FloatClass),
-                new LesserThan(conf, CommandGene.FloatClass),
-                //new And(conf, CommandGene.FloatClass), //make own logical operators, that work on numbers?
-                //new Or(conf), //Returns boolean
+                new FloatLesserThan(conf, CommandGene.FloatClass),
+                new FloatAnd(conf, CommandGene.FloatClass), //make own logical operators, that work on numbers?
+                new FloatOr(conf, CommandGene.FloatClass), //Returns boolean
                 //new Not(conf), //Returns boolean
                 // ------- Game specific functions -------
-                new MakeMove(conf, new Controller(board)), //Is VoidClass
+                new MakeMove(conf, new Controller(AgentGP.board)), //Is VoidClass
                 // ------- Base terminals ---------
                 new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true), // ------- Game specific terminals --------
             // ------- Sensors --------
@@ -71,7 +72,7 @@ public class AgentGP extends GPProblem {
 
     public AgentGP(GPConfiguration conf, Playboard board) throws InvalidConfigurationException {
         super(conf);
-        this.board = board;
+        AgentGP.board = board;
         //controller = new Controller(board);
     }
 

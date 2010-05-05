@@ -61,7 +61,7 @@ public class Playboard extends JPanel {
      */
     public void resetBoard(int noPlayer1Pieces, int noPlayer2Pieces) {
         clearBoard();
-
+        
         for (int i = 0; i < noPlayer1Pieces; i++) {
             tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
         }
