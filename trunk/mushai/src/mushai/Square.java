@@ -5,41 +5,30 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Square extends Piece {
 
     public Square(Color color) {
         super(color);
         icon = new SquareIcon(color);
-        updateMoves();
     }
 
-    protected void updateMoves() {
+    public Set<Point> getMoves() {
+        Set<Point> pontSet= new HashSet<Point>();
+
         Point forward = null, backward = null, left = null, right = null;
-        moves = new HashSet<Point>();
+        forward = new Point(0,  - 1);
+        backward = new Point(0,  1);
+        left = new Point(- 1, 0);
+        right = new Point( 1, 0);
+        pontSet.add(forward);
+        pontSet.add(backward);
+        pontSet.add(left);
+        pontSet.add(right);
+        return pontSet;
 
-        if (color == Color.RED) {
-            forward = new Point(0,  - 1);
-            backward = new Point(0,  1);
-            left = new Point(- 1, 0);
-            right = new Point( 1, 0);
-
-
-
-        } else if (color == Color.BLACK) {
-            forward = new Point(0,  1);
-            backward = new Point(0, - 1);
-            left = new Point(1, 0);
-            right = new Point( - 1, 0);
-
-
-        }
-        moves.add(forward);
-        moves.add(backward);
-        moves.add(left);
-        moves.add(right);
     }
-
     private class SquareIcon extends PieceIcon {
 
         public SquareIcon(Color color) {

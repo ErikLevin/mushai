@@ -31,7 +31,7 @@ public class TestMiniMax {
                 Move bestMove = m.findBestMove(1);
                 c.move(bestMove);
             } else{
-                Move bestMove = m.findBestMove(4);
+                Move bestMove = m.findBestMove(1);
                 c.move(bestMove);
                 
                 /*moves = Model.getAllPossibleMoves(pb);
