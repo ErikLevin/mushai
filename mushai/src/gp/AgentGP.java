@@ -45,6 +45,7 @@ public class AgentGP extends GPProblem {
             }
         }
     }
+    
     private Controller controller;
     private static final int player1Pieces = 1;
     private static final int player2Pieces = 1;
