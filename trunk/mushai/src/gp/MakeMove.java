@@ -40,7 +40,7 @@ class MakeMove extends CommandGene {
             //System.out.println("Couldn't move! Will choose first possible move...");
             controller.move(Model.getAllPossibleMoves(controller.getBoard()).get(0));
         } else {
-            System.out.println("Could MOVE HORRAYYY!");
+//            System.out.println("Could MOVE HORRAYYY!");
         }
 
         return controller.getBoard();

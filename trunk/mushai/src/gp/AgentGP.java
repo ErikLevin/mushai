@@ -1,6 +1,9 @@
 package gp;
 
 import java.awt.Color;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import mushai.Controller;
 import mushai.Playboard;
 import mushai.Player;
@@ -12,15 +15,12 @@ import org.jgap.gp.CommandGene;
 import org.jgap.gp.GPProblem;
 import org.jgap.gp.function.Add;
 import org.jgap.gp.function.GreaterThan;
-import org.jgap.gp.function.IfElse;
 import org.jgap.gp.function.Multiply;
 import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DefaultGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
 import org.jgap.gp.terminal.Terminal;
-import org.jgap.impl.CauchyRandomGenerator;
-import org.jgap.impl.GaussianRandomGenerator;
 import org.jgap.impl.StockRandomGenerator;
 
 /**
@@ -30,6 +30,21 @@ import org.jgap.impl.StockRandomGenerator;
 public class AgentGP extends GPProblem {
 
     private static final int POP_SIZE = 20;
+
+    private static void saveBestGuy(GPGenotype genotype) throws IOException, Exception {
+        Writer writer = null;
+        try {
+            writer = new FileWriter("mushai.gt");
+            String bestGuy = genotype.getAllTimeBest().getChromosome(0).getPersistentRepresentation();
+
+            System.out.println("Best guy to save: " + bestGuy);
+            writer.write(bestGuy);
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
+    }
     private Controller controller;
     private static final int player1Pieces = 1;
     private static final int player2Pieces = 1;
@@ -67,27 +82,19 @@ public class AgentGP extends GPProblem {
                 // ------- Basic terminals ---------
                 new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true),
                 // ------- Sensors --------
-
                 new IsPieceAt(conf, CommandGene.FloatClass), //                new CurrentBoardStatus(conf, CommandGene.FloatClass)
             }
         };
 
-
-
         return GPGenotype.randomInitialGenotype(conf, types, argTypes, nodes, 100, true);
-
-
     }
 
-    public AgentGP(
-            GPConfiguration conf) throws InvalidConfigurationException {
+    public AgentGP(GPConfiguration conf) throws InvalidConfigurationException {
         super(conf);
         //controller = new Controller(board);
-
-
     }
 
-    public static void main(String[] args) throws InvalidConfigurationException {
+    public static void main(String[] args) throws InvalidConfigurationException, IOException, Exception {
         Settings.addPlayer(new Player("0", Color.YELLOW));
         Settings.addPlayer(new Player("1", Color.GREEN));
         Settings.getPlayer(0).setMyTurn(true);
@@ -106,8 +113,6 @@ public class AgentGP extends GPProblem {
             public void geneticEventFired(GeneticEvent a_firedEvent) {
                 GPGenotype genotype = (GPGenotype) a_firedEvent.getSource();
 //                System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
-
-
             }
         });
 
@@ -117,7 +122,7 @@ public class AgentGP extends GPProblem {
         genotype.evolve(20);
         System.out.println("best guy: " + genotype.getAllTimeBest().toStringNorm(0) + " with fitness "
                 + genotype.getAllTimeBest().getFitnessValue());
-//        genotype.calcFitness();
 
+        saveBestGuy(genotype);
     }
 }
