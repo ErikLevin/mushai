@@ -38,6 +38,15 @@ public class PlayboardModel {
         squareMoves = sq.getMoves();
         playerTurn = turn;
     }
+    private PlayboardModel(int[][] pb, int turn){
+        board = pb.clone();
+        Square sq = new Square(null);
+        squareMoves = sq.getMoves();
+        playerTurn = turn;
+    }
+    public PlayboardModel clone(){
+        return new PlayboardModel(board,playerTurn);
+    }
 
     public int[][] getBoard(Playboard pb) {
         Color player1Color = Settings.getPlayers().get(0).getColor();
