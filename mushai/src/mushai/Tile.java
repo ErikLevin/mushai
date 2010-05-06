@@ -35,7 +35,6 @@ public class Tile extends JButton {
     public void update(int x, int y) {
         if (piece != null) {
             setIcon(piece.getIcon());
-            piece.updateMoves();
         } else {
             setIcon(null);
         }

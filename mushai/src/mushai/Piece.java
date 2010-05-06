@@ -21,7 +21,6 @@ public abstract class Piece {
      * @param x
      * @param y
      */
-    protected abstract void updateMoves();
     protected Color color;
 
     public Piece() {
@@ -34,21 +33,7 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public Set<Point> getMoves() {
-        Set<Point> pontSet= new HashSet<Point>();
-        
-        Point forward = null, backward = null, left = null, right = null;
-        forward = new Point(0,  - 1);
-        backward = new Point(0,  1);
-        left = new Point(- 1, 0);
-        right = new Point( 1, 0);
-        pontSet.add(forward);
-        pontSet.add(backward);
-        pontSet.add(left);
-        pontSet.add(right);
-        return pontSet;
-
-    }
+    public abstract Set<Point> getMoves();
 
     /**
      * Primitive toString. Only makes much sense if there are two players and one kind of piece.
@@ -61,5 +46,8 @@ public abstract class Piece {
             return "1";
         }
         return "2";
+    }
+    public Color getColor(){
+        return color;
     }
 }

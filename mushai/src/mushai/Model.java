@@ -91,7 +91,7 @@ public class Model {
                     }
                 }
                 if (win == 1){
-                    System.out.println("player 1 won");
+                    //System.out.println("player 1 won");
                     return win;
                 }
 
@@ -105,7 +105,7 @@ public class Model {
                     }
                 }
                 if (win == -1){
-                    System.out.println("player 2 won");
+                    //System.out.println("player 2 won");
                     return win;
                 }
             } 

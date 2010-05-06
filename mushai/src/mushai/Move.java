@@ -42,4 +42,9 @@ public class Move {
     public int getEndY() {
         return end.y;
     }
+    public String toString(){
+        String from = "[x: " + start.x + ", y: " + start.y + "]";
+        String to = "[x: " + end.x + ", y: " + end.y + "]";
+        return from + "--->" + to;
+    }
 }
