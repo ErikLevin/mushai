@@ -5,8 +5,11 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import minmax.MiniMax;
 
 /**
  * Controller class for game logic.
@@ -14,11 +17,11 @@ import javax.swing.JOptionPane;
 public class Controller implements ActionListener {
 
     private Playboard board;
+    private MiniMax minimax;
 
     public Playboard getBoard() {
         return board;
     }
-    
     private Window win;
     private Point moveStart;
     private Player activePlayer;
@@ -26,7 +29,7 @@ public class Controller implements ActionListener {
     public Controller(Window tWin) {
         win = tWin;
         this.board = win.getBoard();
-
+        minimax = new MiniMax(this, board);
         for (JButton temp : win.getButtons()) {
             temp.addActionListener(this);
         }
@@ -108,10 +111,13 @@ public class Controller implements ActionListener {
             origin.setPiece(null);
             board.getTiles()[end.x][end.y].setPiece(p);
             moveStart = null;
-            changePlayer();
             if (Settings.paintGraphics()) {
+
                 board.update();
+
             }
+
+            changePlayer();
             return true;
         }
         return false;
@@ -124,7 +130,6 @@ public class Controller implements ActionListener {
     public boolean move(int fromX, int fromY, int toX, int toY) {
         return move(new Point(fromX, fromY), new Point(toX, toY));
     }
-
 
     public void changePlayer() {
         //checkVictory();
@@ -142,10 +147,23 @@ public class Controller implements ActionListener {
         for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyTurn()) {
                 arL.get(i).setMyTurn(false);
-                arL.get((i + 1) % arL.size()).setMyTurn(true);
+                Player ThisPlayer = arL.get((i + 1) % arL.size());
+                ThisPlayer.setMyTurn(true);
+                if (ThisPlayer.ai) { //sätter igång ai om det behövs,
+                    if (ThisPlayer.minMax) {
+
+                        move(minimax.findBestMove(5));
+                    } else {
+                        System.err.print("not implimented yet");
+                    }
+
+                }
                 break;
             }
         }
+
+
+
     }
 
     /**
