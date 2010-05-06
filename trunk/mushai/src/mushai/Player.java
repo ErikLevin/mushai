@@ -16,6 +16,8 @@ public class Player extends JPanel {
     private Color color;
     private int points = 0;
     private JLabel jLmyTurn = new JLabel("");
+    boolean ai= false;
+    boolean minMax= true;
 
     public Player(String tname, Color tcolor) {
         super();
@@ -31,6 +33,13 @@ public class Player extends JPanel {
         add(jLmyTurn);
         setBackground(color);
     }
+    public void setAi(Boolean tai){
+        ai=tai;
+    }
+    public void setMinMax(Boolean tminMax){
+        minMax=tminMax;
+    }
+
 
     public void setMyTurn(boolean b) {
         if (b)
