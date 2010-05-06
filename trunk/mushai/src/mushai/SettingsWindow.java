@@ -53,9 +53,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
         JButton ok = new JButton("ok");
         ok.addActionListener(this);
         add(ok, 0, 4);
-        System.out.println(player2list.getSelectedItem().toString());
-        ;
-
+  
 
         pack();
         setVisible(true);
@@ -82,7 +80,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
             player2.setAi(true);
             player2.setMinMax(false);
         }
-Window win = new Window();
+        Window win = new Window();
         Controller controller = new Controller(win);
 	this.dispose();
     }
