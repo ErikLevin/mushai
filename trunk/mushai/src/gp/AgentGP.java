@@ -20,6 +20,7 @@ import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DefaultGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
+import org.jgap.gp.impl.ProgramChromosome;
 import org.jgap.gp.terminal.Terminal;
 import org.jgap.impl.StockRandomGenerator;
 
@@ -30,6 +31,7 @@ import org.jgap.impl.StockRandomGenerator;
 public class AgentGP extends GPProblem {
 
     private static final int POP_SIZE = 20;
+    private static GPConfiguration conf;
 
     private static void saveBestGuy(GPGenotype genotype) throws IOException, Exception {
         Writer writer = null;
@@ -37,8 +39,12 @@ public class AgentGP extends GPProblem {
             writer = new FileWriter("mushai.gt");
             String bestGuy = genotype.getAllTimeBest().getChromosome(0).getPersistentRepresentation();
 
-            System.out.println("Best guy to save: " + bestGuy);
-            writer.write(bestGuy);
+            ProgramChromosome chrom = new ProgramChromosome(conf);
+            chrom.setValueFromPersistentRepresentation(bestGuy);
+
+            System.out.println("Saved and restored guy: " + chrom.toStringNorm(0));
+//            System.out.println("Best guy to save: " + bestGuy);
+//            writer.write(bestGuy);
         } finally {
             if (writer != null) {
                 writer.close();
@@ -101,7 +107,7 @@ public class AgentGP extends GPProblem {
         Settings.getPlayer(0).setMyTurn(true);
         Playboard board = new Playboard(player1Pieces, player2Pieces);
 
-        GPConfiguration conf = new GPConfiguration();
+        conf = new GPConfiguration();
 
         conf.setPopulationSize(POP_SIZE);
         conf.setFitnessEvaluator(new DefaultGPFitnessEvaluator());

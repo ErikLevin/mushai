@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import minmax.MiniMax;
@@ -32,13 +33,14 @@ public class MinimaxVsGenetic {
         // <editor-fold defaultstate="collapsed" desc="Setup agents">
         BufferedReader reader = null;
         MiniMax miniMax = null;
+        ProgramChromosome genetic = null;
         try {
             miniMax = new MiniMax(c, pb);
             reader = new BufferedReader(new FileReader("mushai.gt"));
-            ProgramChromosome genetic = new ProgramChromosome(new GPConfiguration());
+            genetic = new ProgramChromosome(new GPConfiguration());
             String s = "";
             String bestGuyString = "";
-            while((s = reader.readLine()) != null){
+            while ((s = reader.readLine()) != null) {
                 bestGuyString += s;
             }
             genetic.setValueFromPersistentRepresentation(bestGuyString);
@@ -51,27 +53,26 @@ public class MinimaxVsGenetic {
         } catch (InvalidConfigurationException ex) {
             Logger.getLogger(MinimaxVsGenetic.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            
         }
         // </editor-fold>
 
-//        List<Move> moves;
-//        for (int i = 0; i < 50; i++) {
-//            if (i % 2 == 0) {
-//                System.out.println("-------------------");
-//                System.out.println("Round: " + (1 + (i / 2)));
-//                Move bestMove = miniMax.findBestMove(1);
-//                c.move(bestMove);
-//            } else {
-//                Move bestMove = miniMax.findBestMove(1);
-//                c.move(bestMove);
-//            }
-//            System.out.println(pb);
-//            System.out.println("Fitness after move: " + Model.getBoardFitness(pb));
-//            System.out.println("\n\n");
+        List<Move> moves;
+        for (int i = 0; i < 50; i++) {
+            if (i % 2 == 0) {
+                System.out.println("-------------------");
+                System.out.println("Round: " + (1 + (i / 2)));
+                Move bestMove = miniMax.findBestMove(1);
+                c.move(bestMove);
+            } else {
+                genetic.execute_void(0, 0, new Playboard[]{c.getBoard()});
+            }
+            System.out.println(pb);
+            System.out.println("Fitness after move: " + Model.getBoardFitness(pb));
+            System.out.println("\n\n");
             if (Model.getBoardFitness(pb) > 1000 || Model.getBoardFitness(pb) == 0) {
 //                break;
             }
         }
     }
-//}
+}
+
