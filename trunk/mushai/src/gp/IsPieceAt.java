@@ -58,6 +58,6 @@ class IsPieceAt extends CommandGene implements IMutateable{
 
     public CommandGene applyMutation(int a_index, double a_percentage) throws InvalidConfigurationException {
         randomize(getGPConfiguration());
-        return this; //Safe???
+        return this;
     }
 }
