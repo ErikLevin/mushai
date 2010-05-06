@@ -2,6 +2,7 @@ package gp;
 
 import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
+import org.jgap.UnsupportedRepresentationException;
 import org.jgap.gp.function.IfElse;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
@@ -27,5 +28,15 @@ public class IfNotZero extends IfElse {
             child = 2;                          //Else return second branch
         }
         return c.execute_float(n, child, args);
+    }
+
+    @Override
+    public void setValueFromPersistentRepresentation(String a_representation) throws UnsupportedRepresentationException {
+        super.setValueFromPersistentRepresentation(a_representation);
+    }
+
+    @Override
+    public String toString() {
+        return "if &1 != 0 then &2 else &3";
     }
 }
