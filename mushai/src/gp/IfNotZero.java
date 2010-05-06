@@ -1,5 +1,6 @@
 package gp;
 
+import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.function.IfElse;
 import org.jgap.gp.impl.GPConfiguration;
