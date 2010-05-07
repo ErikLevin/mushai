@@ -24,14 +24,14 @@ public class TestMiniMax {
         Controller c = new Controller(pb);
         MiniMax m = new MiniMax(c,pb);
         List<Move> moves;
-        for (int i = 0; i < 50; i++){
+        for (int i = 0; i < 100; i++){
             if (i%2 == 0){
                 System.out.println("-------------------");
                 System.out.println("Round: " + (1+(i/2)));
                 Move bestMove = m.findBestMove(1);
                 c.move(bestMove);
             } else{
-                Move bestMove = m.findBestMove(1);
+                Move bestMove = m.findBestMove(3);
                 c.move(bestMove);
                 
                 /*moves = Model.getAllPossibleMoves(pb);
