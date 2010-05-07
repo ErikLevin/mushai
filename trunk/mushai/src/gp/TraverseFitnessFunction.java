@@ -1,11 +1,9 @@
 package gp;
 
 import java.io.Serializable;
-import java.util.List;
 import minmax.MiniMax;
 import mushai.Controller;
 import mushai.Model;
-import mushai.Move;
 import mushai.Playboard;
 import org.jgap.gp.GPFitnessFunction;
 import org.jgap.gp.IGPProgram;
