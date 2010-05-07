@@ -2,6 +2,7 @@ package gp;
 
 import java.io.Serializable;
 import minmax.MiniMax;
+import minmax.PlayboardModel;
 import mushai.Controller;
 import mushai.Model;
 import mushai.Playboard;
@@ -27,6 +28,10 @@ class TraverseFitnessFunction extends GPFitnessFunction implements Serializable 
         this.minimax = new MiniMax(controller, board);
     }
 
+    TraverseFitnessFunction(PlayboardModel board, int player1Pieces, int player2Pieces) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     @Override
     protected double evaluate(IGPProgram individual) {
         board.resetBoard(noPlayer1Pieces, noPlayer2Pieces);
@@ -38,7 +43,7 @@ class TraverseFitnessFunction extends GPFitnessFunction implements Serializable 
 //                System.out.println("Round: " + (1 + (i / 2)));
                 individual.execute_void(0, new Object[]{board});
             } else { //Random player
-                controller.move(minimax.findBestMove(3));
+                controller.move(minimax.findBestMove(1));
             }
 
             fitness = Model.getBoardFitness(board);
@@ -47,7 +52,7 @@ class TraverseFitnessFunction extends GPFitnessFunction implements Serializable 
 //            System.out.println("Fitness after move: " + fitness);
 //            System.out.println("\n\n");
 
-            if (fitness > 1000 || fitness == 0) {
+            if (fitness > 1000 || fitness < -1000) {
                 return fitness;
             }
         }

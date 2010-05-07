@@ -5,7 +5,7 @@ import java.awt.Point;
 /**
  * Represents a move, including the start and end points.
  */
-public class Move  {
+public class Move {
 
     private final Point start;
     private final Point end;
@@ -42,21 +42,30 @@ public class Move  {
     public int getEndY() {
         return end.y;
     }
-    public String toString(){
+
+    @Override
+    public String toString() {
         String from = "[x: " + start.x + ", y: " + start.y + "]";
         String to = "[x: " + end.x + ", y: " + end.y + "]";
         return from + "--->" + to;
     }
 
-
     @Override
     public boolean equals(Object o) {
-       if(o instanceof Move){
-           Move other =((Move)o);
-           if(other.getEnd()==getEnd()&&other.getStart()==getStart()){
-            return true;
-           }
-       }
+        if (o instanceof Move) {
+            Move other = ((Move) o);
+            if (other.getEnd() == getEnd() && other.getStart() == getStart()) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + (this.start != null ? this.start.hashCode() : 0);
+        hash = 29 * hash + (this.end != null ? this.end.hashCode() : 0);
+        return hash;
     }
 }

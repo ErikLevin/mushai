@@ -1,7 +1,6 @@
 package gp;
 
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.util.List;
 import minmax.MiniMax;
 import mushai.Controller;
