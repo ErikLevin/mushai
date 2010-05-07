@@ -157,6 +157,14 @@ public class PlayboardModel implements Cloneable{
             jumping(pos, pieceMoves, possibleMoves);
             possibleMoves.remove(pos);
         //}
+
+             HashSet<Point> removePoints = new HashSet<Point>();
+        for(int j=0;j<Settings.getPlayboardSize();j++){
+            removePoints.add(new Point(0, j));
+            removePoints.add(new Point(Settings.getPlayboardSize()-1, j));
+
+        }
+        possibleMoves.removeAll(removePoints);
         return possibleMoves;
     }
     //DONE!
@@ -279,41 +287,6 @@ public class PlayboardModel implements Cloneable{
     }
 
 
-    /*
-    public int checkWin() {
-    int win = 0;
-    for (int i = 0; i <= Settings.getPlayers().size(); i++) {
-    if (i == 0) {
-    win = 1;
-    for (Point point : getYourPieces(i)) {
-    if (point.y != Settings.getPlayboardSize() - 1) {
-    win = 0;
-    break;
-    }
-    }
-    if (win == 1) {
-    //System.out.println("player 1 won");
-    return win;
-    }
-
-    }
-    if (i == 1) {
-    win = -1;
-    for (Point point : getYourPieces(i)) {
-    if (point.y != 0) {
-    win = 0;
-    break;
-    }
-    }
-    if (win == -1) {
-    //System.out.println("player 2 won");
-    return win;
-    }
-    }
-    }
-    return win;
-    }
-     */
     public void movePiece(Point from, Point to) {
         int origin = board[from.x][from.y];
         board[from.x][from.y] = EMPTY_TILE;
