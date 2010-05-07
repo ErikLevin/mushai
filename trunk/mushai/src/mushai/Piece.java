@@ -12,6 +12,7 @@ public abstract class Piece {
     protected Set<Point> moves;
     private boolean outOfStartArea;
     private boolean marked=false;
+    protected int direction;
 
     public Icon getIcon() {
         return icon;
@@ -25,13 +26,13 @@ public abstract class Piece {
     protected Color color;
 
     public Piece() {
-        this(Color.RED);
+        this(Color.RED,1);
     }
-
-    public Piece(Color color) {
+    public Piece(Color color,int dir) {
         icon = null;
         moves = new HashSet<Point>();
         this.color = color;
+        direction = dir;
     }
 
 

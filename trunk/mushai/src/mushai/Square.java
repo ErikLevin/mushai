@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class Square extends Piece {
 
-    public Square(Color color) {
-        super(color);
+    public Square(Color color, int dir) {
+        super(color, dir);
         icon = new SquareIcon(color);
     }
 
@@ -18,10 +18,10 @@ public class Square extends Piece {
         Set<Point> pontSet= new HashSet<Point>();
 
         Point forward = null, backward = null, left = null, right = null;
-        forward = new Point(0,  - 1);
-        backward = new Point(0,  1);
-        left = new Point(- 1, 0);
-        right = new Point( 1, 0);
+        forward = new Point(0,  - 1*direction);
+        backward = new Point(0,  1*direction);
+        left = new Point(- 1*direction, 0);
+        right = new Point( 1*direction, 0);
         pontSet.add(forward);
         pontSet.add(backward);
         pontSet.add(left);

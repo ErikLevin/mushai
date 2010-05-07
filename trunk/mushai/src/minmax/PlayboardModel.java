@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package minmax;
 
 import java.awt.Color;
@@ -16,7 +12,7 @@ import mushai.*;
  *
  * @author Hasse
  */
-public class PlayboardModel implements Cloneable {
+public class PlayboardModel implements Cloneable{
 
     static final int EMPTY_TILE = 0;
     static final int PLAYER1_SQUARE = 1;
@@ -30,30 +26,40 @@ public class PlayboardModel implements Cloneable {
     int[][] board;
     Set<Point> squareMoves,triangleMoves,circleMoves;
     int playerTurn;
-
+    int DOWNWARDS = -1;
+    int UPWARDS = 1;
     public PlayboardModel(Playboard pb, int turn) {
         board = getBoard(pb);
-
-        Piece sq = new Square(null);
+        int direction;
+        if (turn == 0)
+            direction = DOWNWARDS;
+        else
+            direction = UPWARDS;
+        Piece sq = new Square(null,direction);
         squareMoves = sq.getMoves();
-        sq = new Circle(null);
+        sq = new Circle(null,direction);
         circleMoves = sq.getMoves();
-        sq = new Triangle(null);
+        sq = new Triangle(null,direction);
         triangleMoves = sq.getMoves();
         playerTurn = turn;
     }
 
     private PlayboardModel(int[][] pb, int turn) {
         board = pb.clone();
-        Piece sq = new Square(null);
+        int direction;
+        if (turn == 0)
+            direction = DOWNWARDS;
+        else
+            direction = UPWARDS;
+        Piece sq = new Square(null,direction);
         squareMoves = sq.getMoves();
-        sq = new Circle(null);
+        sq = new Circle(null,direction);
         circleMoves = sq.getMoves();
-        sq = new Triangle(null);
+        sq = new Triangle(null,direction);
         triangleMoves = sq.getMoves();
         playerTurn = turn;
     }
-
+    @Override
     public PlayboardModel clone() {
         return new PlayboardModel(board, playerTurn);
     }
@@ -129,7 +135,8 @@ public class PlayboardModel implements Cloneable {
         int piece = board[pos.x][pos.y];
         if (piece == PLAYER1_SQUARE || piece == PLAYER2_SQUARE) {
             pieceMoves = squareMoves;
-        } else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
+        }
+        else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
             pieceMoves = circleMoves;
         }
         else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
@@ -147,8 +154,8 @@ public class PlayboardModel implements Cloneable {
             }
         }
         //if(piece != EMPTY_TILE){
-        jumping(pos, pieceMoves, possibleMoves);
-        possibleMoves.remove(pos);
+            jumping(pos, pieceMoves, possibleMoves);
+            possibleMoves.remove(pos);
         //}
         return possibleMoves;
     }
@@ -187,15 +194,22 @@ public class PlayboardModel implements Cloneable {
 
     public int getBoardFitness() throws RuntimeException {
         //int fitness = boardBaseFitness(board);
-        int fitness = 0;
+        int fitness = 50;
         for (int x = 0; x < Settings.getPlayboardSize(); x++) {
             for (int y = 0; y < Settings.getPlayboardSize(); y++) {
                 int p = board[x][y];
                 if (p != EMPTY_TILE) {
                     if (p > 0 && p < 5) {
                         fitness += y;
+                        if (y == Settings.getPlayboardSize() - 1) {
+                            //fitness += 100;
+                            //System.out.println(fitness);
+                        }
                     } else {
                         fitness -= (Settings.getPlayboardSize() - 1 - y);
+                        if (y == 0) {
+                            //fitness -= 100;
+                        }
                     }
                 }
             }
@@ -206,19 +220,9 @@ public class PlayboardModel implements Cloneable {
         } else if (winner < 0) {
             fitness = -10000;
         }
-//        if (fitness < 0) {
-//            throw new RuntimeException("Fitness for board was negative\n" + board.toString());
-//        }
         return fitness;
     }
 
-    /**
-     * Checks whether the game has been won by a player.
-     *
-     * @return 1  if player whose turn it is won,
-     *         -1 if the other player won,
-     *         0  if no one has won yet
-     */
     public int checkWin() {
         int win = 0;
         for (int i = 0; i < Settings.getPlayers().size(); i++) {

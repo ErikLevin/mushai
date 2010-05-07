@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class Triangle extends Piece {
 
-    public Triangle(Color color) {
-        super(color);
+    public Triangle(Color color, int dir) {
+        super(color,dir);
         icon = new SquareIcon(color);
     }
 
@@ -19,9 +19,9 @@ public class Triangle extends Piece {
 
         Point backward, forwardLeft, forwardRight;
         
-        forwardLeft = new Point(-1,-1);
-        forwardRight = new Point(1,-1);
-        backward = new Point(0,  1);
+        forwardLeft = new Point(-1*direction,-1*direction);
+        forwardRight = new Point(1*direction,-1*direction);
+        backward = new Point(0,  1*direction);
         pointSet.add(forwardLeft);
         pointSet.add(forwardRight);
         pointSet.add(backward);
