@@ -123,6 +123,7 @@ public class Controller implements ActionListener {
     }
 
     public boolean move(Move chosenMove) {
+
         return move(chosenMove.getStart(), chosenMove.getEnd());
     }
 
@@ -163,8 +164,13 @@ public class Controller implements ActionListener {
             }
         }
 
-
-
+        int win=Model.checkWin(board);
+        if(win==1){
+            JOptionPane.showMessageDialog(board, "player 1 won");
+            
+        }else if(win==-1){
+            JOptionPane.showMessageDialog(board, "player 2 won");
+            }
     }
 
     /**
@@ -175,11 +181,11 @@ public class Controller implements ActionListener {
      */
     private boolean checkVictory() {
         boolean win = true;
-//        ArrayList<Point> pieces = Model.getYourPieces(board);
         int i = 0;
+        System.out.println("det är denna perssonens tur check winning: " + i);
         for (Player player : Settings.getPlayers()) {
             if (player.isItMyTurn()) {
-                System.out.println("i: " + i);
+                System.out.println("det är denna perssonens tur check winning: " + i);
                 if (i == 0) {
                     for (Point point : Model.getYourPieces(board)) {
                         if (point.y != 0) {
