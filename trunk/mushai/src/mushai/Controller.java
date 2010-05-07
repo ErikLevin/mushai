@@ -37,6 +37,7 @@ public class Controller implements ActionListener {
                 board.getTiles()[i][j].addActionListener(this);
             }
         }
+        changePlayer();
     }
 
     /**

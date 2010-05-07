@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Settings {
 
-    private static int playboardSize = 4;
+    private static int playboardSize = 10;
     private static ArrayList<Player> ar = new ArrayList<Player>();
 
     public static int getPlayboardSize() {

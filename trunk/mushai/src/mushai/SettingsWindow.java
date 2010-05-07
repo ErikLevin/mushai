@@ -68,9 +68,10 @@ public class SettingsWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
 //            player1.setType(Player.PlayerType.GENETIC);
         }
-        player1.setMyTurn(true);
-
+       
         Player player2 = new Player(player2Name.getText(), Color.cyan);
+        player2.setMyTurn(true);
+
         Settings.addPlayer(player2);
         if (player2list.getSelectedIndex() == 1) {
             player2.setType(Player.PlayerType.MINIMAX);

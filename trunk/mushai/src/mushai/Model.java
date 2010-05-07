@@ -85,13 +85,13 @@ public class Model {
         System.out.println("check win");
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
             if (i == 0) {
-                
+
                 boolean goalIsFull = true;
                 for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
                     //System.out.println("do loop");
-                    if (getPiece(new Point(j,Settings.getPlayboardSize() - 1), board) == null) {
+                    if (getPiece(new Point(j, Settings.getPlayboardSize() - 1), board) == null) {
                         goalIsFull = false;
-                        System.out.println(j+" :nr the gool is not full player 1");
+                        System.out.println(j + " :nr the gool is not full player 1");
                     }
                 }
 
@@ -99,7 +99,7 @@ public class Model {
                     win = 1;
                     System.out.println("målet är fult gubbe 1");
                     for (Point point : Model.getYourPieces(board, i)) {
-                        if (point.y != Settings.getPlayboardSize() - 1  &&  point.y != Settings.getPlayboardSize() - 2) {
+                        if (point.y != Settings.getPlayboardSize() - 1 && point.y != Settings.getPlayboardSize() - 2) {
                             win = 0;
                             break;
                         }
@@ -114,78 +114,68 @@ public class Model {
 
                 boolean goalIsFull = true;
                 for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
-                    if (getPiece(new Point(j,0), board) == null) {
+                    if (getPiece(new Point(j, 0), board) == null) {
                         goalIsFull = false;
                     }
                 }
 
                 if (goalIsFull) {
-                    System.out.println("målet är fullt gubbe 2");
-                }
-                win = -1;
-                for (Point point : Model.getYourPieces(board, i)) {
-                    if (point.y != 0 && point.y != 1 ) {
-                        win = 0;
-                        break;
-                    }
-                }
-                if (win == -1) {
-                    //System.out.println("player 1 won");
-                    return win;
-                }
 
+                    win = -1;
+                    for (Point point : Model.getYourPieces(board, i)) {
+                        if (point.y != 0 && point.y != 1) {
+                            win = 0;
+                            break;
+                        }
+                    }
+                    if (win == -1) {
+                        return win;
+                    }
+
+                }
             }
         }
         return 0;
     }
 
+    /*
+    win = 1;
+    for (Point point : Model.getYourPieces(board, i)) {
+    if (point.y != Settings.getPlayboardSize() - 1) {
+    win = 0;
+    break;
+    }
+    }
+    if (win == 1){
+    //System.out.println("player 1 won");
+    return win;
+    }
 
+    }
+    if (i == 1) {
+    win = -1;
+    for (Point point : Model.getYourPieces(board, i)) {
+    if (point.y != 0) {
+    win = 0;
+    break;
+    }
+    }
+    if (win == -1){
+    //System.out.println("player 2 won");
+    return win;
+    }
+    }
+    }
+    return win;
+    }
 
-
-
-
-
-
-            /*
-            win = 1;
-            for (Point point : Model.getYourPieces(board, i)) {
-            if (point.y != Settings.getPlayboardSize() - 1) {
-            win = 0;
-            break;
-            }
-            }
-            if (win == 1){
-            //System.out.println("player 1 won");
-            return win;
-            }
-
-            }
-            if (i == 1) {
-            win = -1;
-            for (Point point : Model.getYourPieces(board, i)) {
-            if (point.y != 0) {
-            win = 0;
-            break;
-            }
-            }
-            if (win == -1){
-            //System.out.println("player 2 won");
-            return win;
-            }
-            } 
-            }
-            return win;
-            }
-
-             */
-            /**
-             * The amount of steps forwards that player 0 has taken, minus the number of
-             * steps player 1 has taken forwards.
-             * @return - The fitness for player 0 for the current board.
-             */
-    public
-
-    static int getBoardFitness(Playboard board) throws RuntimeException {
+     */
+    /**
+     * The amount of steps forwards that player 0 has taken, minus the number of
+     * steps player 1 has taken forwards.
+     * @return - The fitness for player 0 for the current board.
+     */
+    public static int getBoardFitness(Playboard board) throws RuntimeException {
         int fitness = 4; //boardBaseFitness(board);
 
         for (int j = 0; j < board.getTiles().length; j++) {
