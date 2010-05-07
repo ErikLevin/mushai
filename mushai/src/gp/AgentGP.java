@@ -8,6 +8,7 @@ import mushai.Controller;
 import mushai.Playboard;
 import mushai.Player;
 import mushai.Settings;
+import org.jgap.Chromosome;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.event.GeneticEvent;
 import org.jgap.event.GeneticEventListener;
@@ -30,19 +31,31 @@ import org.jgap.impl.StockRandomGenerator;
  */
 public class AgentGP extends GPProblem {
 
-    private static final int POP_SIZE = 20;
+    private static final int POP_SIZE = 50;
     private static GPConfiguration conf;
+    private ProgramChromosome bestGuy = null;
+    public ProgramChromosome getBestGuy() {
+        return bestGuy;
+    }
 
+    /**
+     * For saving the best chromosome to a file. Doesn't work.
+     *
+     * @param genotype - Genotype to save best individual from
+     * @throws IOException
+     * @throws Exception
+     */
     private static void saveBestGuy(GPGenotype genotype) throws IOException, Exception {
         Writer writer = null;
         try {
             writer = new FileWriter("mushai.gt");
-            String bestGuy = genotype.getAllTimeBest().getChromosome(0).getPersistentRepresentation();
+            String bestGuy = genotype.getFittestProgram().getChromosome(0).getPersistentRepresentation();
 
-            ProgramChromosome chrom = new ProgramChromosome(conf);
+            Chromosome chrom = new Chromosome(conf);
             chrom.setValueFromPersistentRepresentation(bestGuy);
 
-            System.out.println("Saved and restored guy: " + chrom.toStringNorm(0));
+
+            System.out.println("Saved and restored guy: " + chrom.toString());
 //            System.out.println("Best guy to save: " + bestGuy);
 //            writer.write(bestGuy);
         } finally {
@@ -51,7 +64,6 @@ public class AgentGP extends GPProblem {
             }
         }
     }
-    
     private Controller controller;
     private static final int player1Pieces = 1;
     private static final int player2Pieces = 1;
@@ -64,8 +76,6 @@ public class AgentGP extends GPProblem {
      */
     @Override
     public GPGenotype create() throws InvalidConfigurationException {
-        GPConfiguration conf = getGPConfiguration();
-
         Class[] types = {
             CommandGene.VoidClass
         };
@@ -96,12 +106,8 @@ public class AgentGP extends GPProblem {
         return GPGenotype.randomInitialGenotype(conf, types, argTypes, nodes, 100, true);
     }
 
-    public AgentGP(GPConfiguration conf) throws InvalidConfigurationException {
-        super(conf);
-        //controller = new Controller(board);
-    }
-
-    public static void main(String[] args) throws InvalidConfigurationException, IOException, Exception {
+    public AgentGP() throws InvalidConfigurationException {
+        super();
         Settings.addPlayer(new Player("0", Color.YELLOW));
         Settings.addPlayer(new Player("1", Color.GREEN));
         Settings.getPlayer(0).setMyTurn(true);
@@ -116,20 +122,25 @@ public class AgentGP extends GPProblem {
         conf.setMutationProb(0.5f);
 
         conf.getEventManager().addEventListener(GeneticEvent.GPGENOTYPE_NEW_BEST_SOLUTION, new GeneticEventListener() {
-
+            @Override
             public void geneticEventFired(GeneticEvent a_firedEvent) {
                 GPGenotype genotype = (GPGenotype) a_firedEvent.getSource();
 //                System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
             }
         });
 
-        AgentGP gpProblem = new AgentGP(conf);
-        GPGenotype genotype = gpProblem.create();
+        this.setGPConfiguration(conf);
+
+        GPGenotype genotype = create();
         genotype.setVerboseOutput(true);
-        genotype.evolve(20);
+        genotype.evolve(50);
+        bestGuy = genotype.getAllTimeBest().getChromosome(0);
         System.out.println("best guy: " + genotype.getAllTimeBest().toStringNorm(0) + " with fitness "
                 + genotype.getAllTimeBest().getFitnessValue());
+    }
 
-        saveBestGuy(genotype);
+    public static void main(String[] args) throws InvalidConfigurationException, IOException, Exception {
+        AgentGP gpProblem = new AgentGP();
+//        saveBestGuy(genotype);
     }
 }

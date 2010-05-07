@@ -4,6 +4,7 @@
  */
 package gp;
 
+import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.impl.GPConfiguration;
@@ -13,7 +14,7 @@ import org.jgap.gp.impl.ProgramChromosome;
  *
  * @author Erik Levin
  */
-class FloatNot extends CommandGene {
+class FloatNot extends CommandGene implements Serializable {
 
     public FloatNot(GPConfiguration conf, Class FloatClass) throws InvalidConfigurationException {
         super(conf, 1, CommandGene.FloatClass);

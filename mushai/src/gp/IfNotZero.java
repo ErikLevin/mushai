@@ -2,7 +2,6 @@ package gp;
 
 import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
-import org.jgap.UnsupportedRepresentationException;
 import org.jgap.gp.function.IfElse;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
@@ -11,7 +10,7 @@ import org.jgap.gp.impl.ProgramChromosome;
  *
  * @author MushAI
  */
-public class IfNotZero extends IfElse {
+public class IfNotZero extends IfElse implements Serializable {
 
     public IfNotZero(GPConfiguration a_conf, Class a_type) throws InvalidConfigurationException {
         super(a_conf, a_type);
@@ -28,11 +27,6 @@ public class IfNotZero extends IfElse {
             child = 2;                          //Else return second branch
         }
         return c.execute_float(n, child, args);
-    }
-
-    @Override
-    public void setValueFromPersistentRepresentation(String a_representation) throws UnsupportedRepresentationException {
-        super.setValueFromPersistentRepresentation(a_representation);
     }
 
     @Override

@@ -16,9 +16,6 @@ import mushai.Move;
  */
 public class Minmaxtree {
 
-    
-
-
     public int findBestOfMyMoves(Playboard board, int deap) {
         int bestMove = 0;
         if (deap == 0) {

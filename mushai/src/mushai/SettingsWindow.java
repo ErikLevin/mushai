@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -53,7 +54,6 @@ public class SettingsWindow extends JFrame implements ActionListener {
         JButton ok = new JButton("ok");
         ok.addActionListener(this);
         add(ok, 0, 4);
-  
 
         pack();
         setVisible(true);
@@ -63,25 +63,23 @@ public class SettingsWindow extends JFrame implements ActionListener {
         Player player1 = new Player(player1Name.getText(), Color.yellow);
         Settings.addPlayer(player1);
         if (player1list.getSelectedIndex() == 1) {
-            player1.setAi(true);
-            player1.setMinMax(true);
+            player1.setType(Player.PlayerType.MINIMAX);
         } else if (player1list.getSelectedIndex() == 2) {
-            player1.setAi(true);
-            player1.setMinMax(false);
+            JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
+//            player1.setType(Player.PlayerType.GENETIC);
         }
         player1.setMyTurn(true);
 
         Player player2 = new Player(player2Name.getText(), Color.cyan);
         Settings.addPlayer(player2);
         if (player2list.getSelectedIndex() == 1) {
-            player2.setAi(true);
-            player2.setMinMax(true);
-        } else if (player1list.getSelectedIndex() == 2) {
-            player2.setAi(true);
-            player2.setMinMax(false);
+            player2.setType(Player.PlayerType.MINIMAX);
+        } else if (player2list.getSelectedIndex() == 2) {
+            JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
+//            player2.setType(Player.PlayerType.GENETIC);
         }
         Window win = new Window();
         Controller controller = new Controller(win);
-	this.dispose();
+        this.dispose();
     }
 }
