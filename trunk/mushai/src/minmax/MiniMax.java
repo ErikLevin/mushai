@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package minmax;
 
 import java.util.ArrayList;
@@ -18,7 +14,7 @@ import mushai.Settings;
 
 /**
  *
- * @author bark
+ * @author MushAI
  */
 public class MiniMax {
 
@@ -37,6 +33,8 @@ public class MiniMax {
         MoveAndFitness maf = findBestMove(depth, null);
         Move move = maf.move;
         //Move move = breadthFirst(depth);
+//        Move move = minimaxDecision(depth, playboard);
+
         ArrayList<Player> arL = Settings.getPlayers();
         if (turn == 0) {
             arL.get(0).setMyTurn(true);
@@ -227,6 +225,103 @@ public class MiniMax {
         }
         System.out.println("move chosen: " + bestMove);
         return bestMove;
+    }
+
+    private Move minimaxDecision(int depth, PlayboardModel playboard) {
+        int turn = Model.whoseTurnIsIt(); // ???
+        List<Move> goodMoves = new LinkedList<Move>();
+        int bestVal = Integer.MIN_VALUE;
+        List<Move> successors = playboard.getAllPossibleMoves(turn);
+        System.out.println("Turn: " + turn);
+
+        for (Move m : successors) {
+            PlayboardModel temp = playboard.clone();
+            temp.movePiece(m);
+            int v = maxValue(depth - 1, temp, turn);
+            if (v == bestVal) {
+                goodMoves.add(m);
+            } else if (v > bestVal) {
+                bestVal = v;
+                goodMoves.clear();
+                goodMoves.add(m);
+            }
+        }
+        if (goodMoves.isEmpty()) {
+            throw new RuntimeException("Minimax search didn't find a move!");
+        } else {
+            return goodMoves.get((int) (Math.random() * goodMoves.size()));
+        }
+    }
+
+    private int maxValue(int depth, PlayboardModel playboard, int rootPlayer) {
+        if (terminalTest(depth, playboard)) { // If game is over or max depth reached
+//            if (rootPlayer == 0) {
+            if (playboard.getBoardFitness() > 100) {
+                return playboard.getBoardFitness() + 10 * depth;
+            } else {
+                return playboard.getBoardFitness();
+            }
+//            } else {
+//                return -playboard.getBoardFitness() - depth;
+//            }
+        }
+
+        int v = Integer.MIN_VALUE;
+        List<Move> successors = playboard.getAllPossibleMoves(Model.whoseTurnIsIt()); // ??
+
+        for (Move m : successors) {
+            PlayboardModel temp = playboard.clone();
+            temp.movePiece(m);
+            v = Math.max(v, minValue(depth - 1, temp, rootPlayer));
+        }
+        return v;
+    }
+
+    private int minValue(int depth, PlayboardModel playboard, int rootPlayer) {
+        if (terminalTest(depth, playboard)) { // If game is over or max depth reached
+//            if (rootPlayer == 0) {
+            if (playboard.getBoardFitness() > 100) {
+                return playboard.getBoardFitness() + 10 * depth;
+            } else {
+                return playboard.getBoardFitness();
+            }//            } else {
+//                return -playboard.getBoardFitness() - depth;
+//            }
+        }
+
+        int v = Integer.MAX_VALUE;
+        List<Move> successors = playboard.getAllPossibleMoves(Model.whoseTurnIsIt()); // whose turn??
+
+        for (Move m : successors) {
+            PlayboardModel temp = playboard.clone();
+            temp.movePiece(m);
+            v = Math.min(v, maxValue(depth - 1, temp, rootPlayer));
+        }
+        return v;
+    }
+
+    private boolean terminalTest(int depth, PlayboardModel playboard) {
+        return depth < 1 || playboard.checkWin() != 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     private class MoveAndPrevMoves {

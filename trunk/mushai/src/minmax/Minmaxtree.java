@@ -12,7 +12,7 @@ import mushai.Move;
 
 /**
  *
- * @author bark
+ * @author MushAI
  */
 public class Minmaxtree {
 
