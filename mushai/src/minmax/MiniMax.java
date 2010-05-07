@@ -32,6 +32,9 @@ public class MiniMax {
         playboard = new PlayboardModel(originalPlayboard, turn);
         MoveAndFitness maf = findBestMove(depth, null);
         Move move = maf.move;
+        if(maf.fitness > 1000){
+            System.out.println("ZOMG 100000 fitness!!!!");
+        }
         //Move move = breadthFirst(depth);
 //        Move move = minimaxDecision(depth, playboard);
 
@@ -50,7 +53,7 @@ public class MiniMax {
     private MoveAndFitness findBestMove(int depth, Move lastMove) {
         if (lastMove != null) //System.out.println("after move: " + lastMove + " fitness is: " + playboard.getBoardFitness());
         {
-            if (depth == 0 || playboard.getBoardFitness() > 1000 || playboard.getBoardFitness() == 0) {
+            if (depth == 0 || playboard.getBoardFitness() > 1000 || playboard.getBoardFitness() < -1000) {
                 try {
                     return new MoveAndFitness(lastMove, playboard.getBoardFitness());
                 } catch (Exception ex) {
@@ -68,14 +71,9 @@ public class MiniMax {
 
         Move firstMove = possibleMoves.remove(0);
         playboard.movePiece(firstMove.getStart(), firstMove.getEnd());
-        //if (lastMove!=null)System.out.println("LAST: "+lastMove.getStart() + " ---> " + lastMove.getEnd() + ":::" + Model.getBoardFitness(playboard));
-        //System.out.println(firstMove.getStart() + " ---> " + firstMove.getEnd() + ":::" + Model.getBoardFitness(playboard));
         MoveAndFitness maf = findBestMove(depth - 1, firstMove);
         bestValue = maf.fitness;
         playboard.movePiece(firstMove.getEnd(), firstMove.getStart());
-        if (maf.fitness > 1000 || maf.fitness == 0) {
-            //return new MoveAndFitness(firstMove, maf.fitness);
-        }
         bestMove = firstMove;
         for (Move move : possibleMoves) {
             //if (depth == 4) System.out.println(move.getStart() + "--->"+ move.getEnd());
@@ -85,9 +83,6 @@ public class MiniMax {
             value = maf.fitness;
             //undomove
             playboard.movePiece(move.getEnd(), move.getStart());
-            if (maf.fitness > 1000 || maf.fitness == 0) {
-                //return new MoveAndFitness(move, maf.fitness);
-            }
             if (value == -10000 || value == 10000) {
                 value += depth;
                 maf.fitness += depth;
@@ -98,7 +93,6 @@ public class MiniMax {
                         bestValue = value;
                         bestMove = move;
                     }
-                    //System.out.println("depth: " + depth + " value: " + bestValue);
                 }
             } else if (turn == 1) {
                 if (value <= bestValue) {

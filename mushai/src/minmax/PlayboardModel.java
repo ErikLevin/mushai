@@ -12,7 +12,7 @@ import mushai.*;
  *
  * @author Hasse
  */
-public class PlayboardModel implements Cloneable{
+public class PlayboardModel implements Cloneable {
 
     static final int EMPTY_TILE = 0;
     static final int PLAYER1_SQUARE = 1;
@@ -24,22 +24,24 @@ public class PlayboardModel implements Cloneable{
     static final int PLAYER2_TRIANGLE = 7;
     static final int PLAYER2_RHOMBUS = 8;
     int[][] board;
-    Set<Point> squareMoves,triangleMoves,circleMoves;
+    Set<Point> squareMoves, triangleMoves, circleMoves;
     int playerTurn;
     int DOWNWARDS = -1;
     int UPWARDS = 1;
+
     public PlayboardModel(Playboard pb, int turn) {
         board = getBoard(pb);
         int direction;
-        if (turn == 0)
+        if (turn == 0) {
             direction = DOWNWARDS;
-        else
+        } else {
             direction = UPWARDS;
-        Piece sq = new Square(null,direction);
+        }
+        Piece sq = new Square(null, direction);
         squareMoves = sq.getMoves();
-        sq = new Circle(null,direction);
+        sq = new Circle(null, direction);
         circleMoves = sq.getMoves();
-        sq = new Triangle(null,direction);
+        sq = new Triangle(null, direction);
         triangleMoves = sq.getMoves();
         playerTurn = turn;
     }
@@ -47,18 +49,20 @@ public class PlayboardModel implements Cloneable{
     private PlayboardModel(int[][] pb, int turn) {
         board = pb.clone();
         int direction;
-        if (turn == 0)
+        if (turn == 0) {
             direction = DOWNWARDS;
-        else
+        } else {
             direction = UPWARDS;
-        Piece sq = new Square(null,direction);
+        }
+        Piece sq = new Square(null, direction);
         squareMoves = sq.getMoves();
-        sq = new Circle(null,direction);
+        sq = new Circle(null, direction);
         circleMoves = sq.getMoves();
-        sq = new Triangle(null,direction);
+        sq = new Triangle(null, direction);
         triangleMoves = sq.getMoves();
         playerTurn = turn;
     }
+
     @Override
     public PlayboardModel clone() {
         return new PlayboardModel(board, playerTurn);
@@ -135,18 +139,15 @@ public class PlayboardModel implements Cloneable{
         int piece = board[pos.x][pos.y];
         if (piece == PLAYER1_SQUARE || piece == PLAYER2_SQUARE) {
             pieceMoves = squareMoves;
-        }
-        else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
+        } else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
             pieceMoves = circleMoves;
-        }
-        else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
+        } else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
             pieceMoves = triangleMoves;
-        }
-        else{
+        } else {
             pieceMoves = new HashSet<Point>();
         }
         for (Point diffPoint : pieceMoves) {
-                Point temp = new Point(pos.x + diffPoint.x, pos.y + diffPoint.y);
+            Point temp = new Point(pos.x + diffPoint.x, pos.y + diffPoint.y);
             if (pointOnBoard(temp)) {
                 if (board[temp.x][temp.y] == EMPTY_TILE) {
                     possibleMoves.add(temp);
@@ -154,14 +155,14 @@ public class PlayboardModel implements Cloneable{
             }
         }
         //if(piece != EMPTY_TILE){
-            jumping(pos, pieceMoves, possibleMoves);
-            possibleMoves.remove(pos);
+        jumping(pos, pieceMoves, possibleMoves);
+        possibleMoves.remove(pos);
         //}
 
-             HashSet<Point> removePoints = new HashSet<Point>();
-        for(int j=0;j<Settings.getPlayboardSize();j++){
+        HashSet<Point> removePoints = new HashSet<Point>();
+        for (int j = 0; j < Settings.getPlayboardSize(); j++) {
             removePoints.add(new Point(0, j));
-            removePoints.add(new Point(Settings.getPlayboardSize()-1, j));
+            removePoints.add(new Point(Settings.getPlayboardSize() - 1, j));
 
         }
         possibleMoves.removeAll(removePoints);
@@ -202,7 +203,7 @@ public class PlayboardModel implements Cloneable{
 
     public int getBoardFitness() throws RuntimeException {
         //int fitness = boardBaseFitness(board);
-        int fitness = 50;
+        int fitness = 0;
         for (int x = 0; x < Settings.getPlayboardSize(); x++) {
             for (int y = 0; y < Settings.getPlayboardSize(); y++) {
                 int p = board[x][y];
@@ -237,7 +238,7 @@ public class PlayboardModel implements Cloneable{
             if (i == 0) {
 
                 boolean goalIsFull = true;
-                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                for (int j = 1; Settings.getPlayboardSize() - 1 > j; j++) {//kollar om målet är fullt med saker
 
                     if (board[j][Settings.getPlayboardSize() - 1] == EMPTY_TILE) {
                         goalIsFull = false;
@@ -261,7 +262,7 @@ public class PlayboardModel implements Cloneable{
             } else if (i == 1) {
 
                 boolean goalIsFull = true;
-                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                for (int j = 1; Settings.getPlayboardSize() - 1 > j; j++) {//kollar om målet är fullt med saker
                     if (board[j][0] == EMPTY_TILE) {
                         goalIsFull = false;
                     }
@@ -285,7 +286,6 @@ public class PlayboardModel implements Cloneable{
         }
         return 0;
     }
-
 
     public void movePiece(Point from, Point to) {
         int origin = board[from.x][from.y];
