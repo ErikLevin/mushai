@@ -88,9 +88,9 @@ public class MiniMax {
             if (maf.fitness > 1000 || maf.fitness == 0) {
                 //return new MoveAndFitness(move, maf.fitness);
             }
-            if (value == 0 || value == 10000) {
-                value -= depth;
-                maf.fitness -= depth;
+            if (value == -10000 || value == 10000) {
+                value += depth;
+                maf.fitness += depth;
             }
             if (turn == 0) {
                 if (value >= bestValue) {

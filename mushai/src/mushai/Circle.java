@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class Circle extends Piece {
 
-    public Circle(Color color) {
-        super(color);
+    public Circle(Color color, int direction) {
+        super(color,direction);
         icon = new SquareIcon(color);
     }
 
@@ -18,14 +18,14 @@ public class Circle extends Piece {
         Set<Point> pointSet= new HashSet<Point>();
 
         Point forward = null, backward = null, left = null, right = null, forwardLeft, forwardRight, backLeft, backRight;
-        forward = new Point(0,  - 1);
-        backward = new Point(0,  1);
-        left = new Point(- 1, 0);
-        right = new Point( 1, 0);
-        forwardLeft = new Point(-1,-1);
-        forwardRight = new Point(1,-1);
-        backLeft = new Point(-1,1);
-        backRight = new Point(1,1);
+        forward = new Point(0,  - 1*direction);
+        backward = new Point(0,  1*direction);
+        left = new Point(- 1*direction, 0);
+        right = new Point( 1*direction, 0);
+        forwardLeft = new Point(-1*direction,-1*direction);
+        forwardRight = new Point(1*direction,-1*direction);
+        backLeft = new Point(-1*direction,1*direction);
+        backRight = new Point(1*direction,1*direction);
         pointSet.add(forward);
         pointSet.add(backward);
         pointSet.add(left);
