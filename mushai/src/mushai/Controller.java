@@ -152,7 +152,7 @@ public class Controller implements ActionListener {
                 thisPlayer.setMyTurn(true);
                 switch (thisPlayer.getType()) {
                     case MINIMAX:
-                        move(minimax.findBestMove(5));
+                        move(minimax.findBestMove(4));
                         break;
                     case GENETIC:
                         thisPlayer.makeMove(board);
