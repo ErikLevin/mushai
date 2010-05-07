@@ -29,8 +29,12 @@ public class Model {
         possibleMoves.addAll(jumping(from, pi, board));
         possibleMoves.remove(from);
         HashSet<Point> removePoints = new HashSet<Point>();
-        //removePoints.add(new Point(0, 0));
-       // possibleMoves.removeAll(possibleMoves);
+        for(int j=0;j<Settings.getPlayboardSize();j++){
+            removePoints.add(new Point(0, j));
+            removePoints.add(new Point(Settings.getPlayboardSize()-1, j));
+
+        }
+        possibleMoves.removeAll(removePoints);
         return possibleMoves;
     }
 
@@ -139,38 +143,6 @@ public class Model {
         return 0;
     }
 
-    /*
-    win = 1;
-    for (Point point : Model.getYourPieces(board, i)) {
-    if (point.y != Settings.getPlayboardSize() - 1) {
-    win = 0;
-    break;
-    }
-    }
-    if (win == 1){
-    //System.out.println("player 1 won");
-    return win;
-    }
-
-    }
-    if (i == 1) {
-    win = -1;
-    for (Point point : Model.getYourPieces(board, i)) {
-    if (point.y != 0) {
-    win = 0;
-    break;
-    }
-    }
-    if (win == -1){
-    //System.out.println("player 2 won");
-    return win;
-    }
-    }
-    }
-    return win;
-    }
-
-     */
     /**
      * The amount of steps forwards that player 0 has taken, minus the number of
      * steps player 1 has taken forwards.
