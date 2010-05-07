@@ -1,15 +1,13 @@
 package gp;
 
-import java.util.Random;
+import java.io.Serializable;
 import mushai.Playboard;
 import mushai.Settings;
 import org.jgap.InvalidConfigurationException;
-import org.jgap.RandomGenerator;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.IMutateable;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
-import org.jgap.gp.terminal.Terminal;
 
 /**
  * When initialized, chooses a random position on the playboard. When executed,
@@ -19,7 +17,7 @@ import org.jgap.gp.terminal.Terminal;
  *
  * @author MushAI
  */
-class IsPieceAt extends CommandGene implements IMutateable{
+class IsPieceAt extends CommandGene implements IMutateable, Serializable {
 
     int x, y;
 

@@ -1,8 +1,8 @@
 package gp;
 
+import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
-import org.jgap.gp.function.And;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
 
@@ -13,7 +13,7 @@ import org.jgap.gp.impl.ProgramChromosome;
  *
  * @author MushAI
  */
-public class FloatAnd extends CommandGene {
+public class FloatAnd extends CommandGene implements Serializable {
 
     public FloatAnd(GPConfiguration a_conf, Class a_returnType) throws InvalidConfigurationException {
         super(a_conf, 2, a_returnType);

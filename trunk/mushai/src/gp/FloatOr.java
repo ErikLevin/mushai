@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gp;
 
+import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.impl.GPConfiguration;
@@ -14,7 +14,7 @@ import org.jgap.gp.impl.ProgramChromosome;
  *
  * @author Erik Levin
  */
-class FloatOr extends CommandGene{
+class FloatOr extends CommandGene implements Serializable {
 
     public FloatOr(GPConfiguration a_conf, Class a_returnType) throws InvalidConfigurationException {
         super(a_conf, 2, a_returnType);
@@ -33,5 +33,4 @@ class FloatOr extends CommandGene{
     public String toString() {
         return "&1 || &2";
     }
-
 }

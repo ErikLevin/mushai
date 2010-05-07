@@ -1,6 +1,8 @@
 package gp;
 
+import java.io.Serializable;
 import java.util.List;
+import minmax.MiniMax;
 import mushai.Controller;
 import mushai.Model;
 import mushai.Move;
@@ -8,11 +10,12 @@ import mushai.Playboard;
 import org.jgap.gp.GPFitnessFunction;
 import org.jgap.gp.IGPProgram;
 
-class TraverseFitnessFunction extends GPFitnessFunction {
+class TraverseFitnessFunction extends GPFitnessFunction implements Serializable {
 
     private Controller controller;
     private Playboard board;
-    int noPlayer1Pieces, noPlayer2Pieces;
+    private MiniMax minimax;
+    private int noPlayer1Pieces, noPlayer2Pieces;
 
     public TraverseFitnessFunction(int noPlayer1Pieces, int noPlayer2Pieces) {
         this(new Playboard(noPlayer1Pieces, noPlayer2Pieces), noPlayer1Pieces, noPlayer2Pieces);
@@ -23,6 +26,7 @@ class TraverseFitnessFunction extends GPFitnessFunction {
         this.controller = new Controller(board);
         this.noPlayer1Pieces = player1Pieces;
         this.noPlayer2Pieces = player2Pieces;
+        this.minimax = new MiniMax(controller, board);
     }
 
     @Override
@@ -36,9 +40,7 @@ class TraverseFitnessFunction extends GPFitnessFunction {
 //                System.out.println("Round: " + (1 + (i / 2)));
                 individual.execute_void(0, new Object[]{board});
             } else { //Random player
-                List<Move> moves = Model.getAllPossibleMoves(board);
-                Move move = moves.get((int) Math.random() * moves.size());
-                controller.move(move);
+                controller.move(minimax.findBestMove(3));
             }
 
             fitness = Model.getBoardFitness(board);

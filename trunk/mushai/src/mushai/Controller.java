@@ -5,11 +5,10 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import minmax.MiniMax;
+import mushai.Player.PlayerType;
 
 /**
  * Controller class for game logic.
@@ -147,17 +146,19 @@ public class Controller implements ActionListener {
         for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyTurn()) {
                 arL.get(i).setMyTurn(false);
-                Player ThisPlayer = arL.get((i + 1) % arL.size());
-                ThisPlayer.setMyTurn(true);
-                if (ThisPlayer.ai) { //sätter igång ai om det behövs,
-                    if (ThisPlayer.minMax) {
-
+                Player thisPlayer = arL.get((i + 1) % arL.size());
+                thisPlayer.setMyTurn(true);
+                switch (thisPlayer.getType()) {
+                    case MINIMAX:
                         move(minimax.findBestMove(5));
-                    } else {
-                        System.err.print("not implimented yet");
-                    }
-
+                        break;
+                    case GENETIC:
+                        thisPlayer.makeMove(board);
+                        break;
+                    default:
+                        System.out.println("You're human. Do your move.");
                 }
+
                 break;
             }
         }

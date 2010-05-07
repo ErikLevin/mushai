@@ -118,7 +118,7 @@ public class Model {
      * @return - The fitness for player 0 for the current board.
      */
     public static int getBoardFitness(Playboard board) throws RuntimeException {
-        int fitness = boardBaseFitness(board);
+        int fitness = 4; //boardBaseFitness(board);
 
         for (int j = 0; j < board.getTiles().length; j++) {
             for (int i = 0; i < board.getTiles().length; i++) {

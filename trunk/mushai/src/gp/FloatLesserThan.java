@@ -4,9 +4,9 @@
  */
 package gp;
 
+import java.io.Serializable;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
-import org.jgap.gp.function.LesserThan;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.ProgramChromosome;
 
@@ -14,7 +14,7 @@ import org.jgap.gp.impl.ProgramChromosome;
  *
  * @author Erik Levin
  */
-class FloatLesserThan extends CommandGene {
+class FloatLesserThan extends CommandGene implements Serializable {
 
     public FloatLesserThan(GPConfiguration a_conf, Class a_returnType) throws InvalidConfigurationException {
         super(a_conf, 2, a_returnType);
