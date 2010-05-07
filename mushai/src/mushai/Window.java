@@ -46,7 +46,7 @@ public class Window extends JFrame {
         rigthMenu.setLayout(new BorderLayout());
         rigthMenu.add(playersPanel, BorderLayout.CENTER);
         JPanel buttonMenu = new JPanel();
-        JButton endTurn = new JButton("end turn");
+        JButton endTurn = new JButton("end game");
         endTurn.setFont(endTurn.getFont().deriveFont(8f));
         al.add(endTurn);
         buttonMenu.add(endTurn);

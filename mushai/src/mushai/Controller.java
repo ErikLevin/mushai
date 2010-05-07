@@ -55,6 +55,12 @@ public class Controller implements ActionListener {
             board.getTiles()[moveStart.x][moveStart.y].repaint();
             moveStart = null;
         }
+         if (((JButton) e.getSource()).getText().equals("end game")) {
+            new SettingsWindow();
+            this.win.dispose();
+        }
+
+
 
         System.out.println(((JButton) e.getSource()).getText());
 
