@@ -63,12 +63,21 @@ public class Playboard extends JPanel {
         clearBoard();
         
         for (int i = 0; i < noPlayer1Pieces; i++) {
-            tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+            if (i%2==0){
+                tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
+            }else{
+                tiles[i][0].setPiece(new Circle(Settings.getPlayers().get(0).getColor()));
+            }
         }
 
         for (int i = 0; i < noPlayer2Pieces; i++) {
-            tiles[i][Settings.getPlayboardSize() - 1].setPiece(
-                    new Square(Settings.getPlayers().get(1).getColor()));
+            if(i%2==0){
+                tiles[i][Settings.getPlayboardSize() - 1].setPiece(
+                        new Square(Settings.getPlayers().get(1).getColor()));
+            }else{
+                tiles[i][Settings.getPlayboardSize() - 1].setPiece(
+                        new Circle(Settings.getPlayers().get(1).getColor()));
+            }
         }
         update();
     }

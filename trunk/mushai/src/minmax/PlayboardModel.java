@@ -29,19 +29,24 @@ public class PlayboardModel {
     static final int PLAYER2_RHOMBUS = 8;
     int[][] board;
     Set<Point> squareMoves;
+    Set<Point> circleMoves;
     int playerTurn;
 
     public PlayboardModel(Playboard pb, int turn) {
         board = getBoard(pb);
 
-        Square sq = new Square(null);
+        Piece sq = new Square(null);
         squareMoves = sq.getMoves();
+        sq = new Circle(null);
+        circleMoves = sq.getMoves();
         playerTurn = turn;
     }
     private PlayboardModel(int[][] pb, int turn){
         board = pb.clone();
-        Square sq = new Square(null);
+        Piece sq = new Square(null);
         squareMoves = sq.getMoves();
+        sq = new Circle(null);
+        circleMoves = sq.getMoves();
         playerTurn = turn;
     }
     public PlayboardModel clone(){
@@ -63,6 +68,12 @@ public class PlayboardModel {
                     } else {
                         intPlayboard[i][j] = PLAYER2_SQUARE;
                     }
+                }  else if (p instanceof Circle) {
+                    if (p.getColor().equals(player1Color)) {
+                        intPlayboard[i][j] = PLAYER1_CIRCLE;
+                    } else {
+                        intPlayboard[i][j] = PLAYER2_CIRCLE;
+                    }
                 }
             }
         }
@@ -78,7 +89,7 @@ public class PlayboardModel {
                 allTheMoves.add(new Move(p, i));
             }
         }
-        
+
         return allTheMoves;
     }
     //DONE!
@@ -88,6 +99,8 @@ public class PlayboardModel {
         for (int x = 0; x < Settings.getPlayboardSize(); x++) {
             for (int y = 0; y < Settings.getPlayboardSize(); y++) {
                 piece = board[x][y];
+//                if (piece == 6 && player == 1)
+//                    System.out.println((player == 1 && piece >= 5));
                 if ((player == 0 && piece > 0 && piece < 5) || (player == 1 && piece >= 5)) {
                     yourPieces.add(new Point(x, y));
                 }
@@ -98,19 +111,29 @@ public class PlayboardModel {
     //ROUGHLY TESTED!
     private Set<Point> possibleMovesFromPosition(Point pos) {
         HashSet<Point> possibleMoves = new HashSet<Point>();
+        Set<Point> pieceMoves;
         int piece = board[pos.x][pos.y];
         if (piece == PLAYER1_SQUARE || piece == PLAYER2_SQUARE) {
-            for (Point diffPoint : squareMoves) {
+            pieceMoves = squareMoves;
+        }
+        else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
+            pieceMoves = circleMoves;
+        }
+        else{
+            pieceMoves = new HashSet<Point>();
+        }
+        for (Point diffPoint : pieceMoves) {
             Point temp = new Point(pos.x + diffPoint.x, pos.y + diffPoint.y);
-                if (pointOnBoard(temp)) {
-                    if (board[temp.x][temp.y] == EMPTY_TILE) {
-                        possibleMoves.add(temp);
-                    }
+            if (pointOnBoard(temp)) {
+                if (board[temp.x][temp.y] == EMPTY_TILE) {
+                    possibleMoves.add(temp);
                 }
             }
-            jumping(pos, squareMoves, possibleMoves);
         }
-        possibleMoves.remove(pos);
+        //if(piece != EMPTY_TILE){
+            jumping(pos, pieceMoves, possibleMoves);
+            possibleMoves.remove(pos);
+        //}
         return possibleMoves;
     }
     //DONE!
