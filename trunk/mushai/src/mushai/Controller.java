@@ -187,13 +187,11 @@ public class Controller implements ActionListener {
         int win = Model.checkWin(board);
         if (win == 1) {
             JOptionPane.showMessageDialog(board, "player 1 won");
-            new Main();
-            this.win.dispose();
+            board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
+//            this.win.dispose();
         } else if (win == -1) {
             JOptionPane.showMessageDialog(board, "player 2 won");
-
-            new Main();
-            this.win.dispose();
+            board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
         }
     }
 
