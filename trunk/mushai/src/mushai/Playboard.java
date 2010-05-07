@@ -19,6 +19,7 @@ public class Playboard extends JPanel {
     public Playboard() {
         this(Settings.getPlayboardSize(), Settings.getPlayboardSize());
     }
+
     public Playboard(int noPlayer1Pieces, int noPlayer2Pieces, int size) {
         super();
 
@@ -36,6 +37,7 @@ public class Playboard extends JPanel {
 
         resetBoard(noPlayer1Pieces, noPlayer2Pieces);
     }
+
     public Playboard(int noPlayer1Pieces, int noPlayer2Pieces) {
         super();
 
@@ -52,7 +54,6 @@ public class Playboard extends JPanel {
 
         resetBoard(noPlayer1Pieces, noPlayer2Pieces);
     }
-
     /**
      * Initializes the Playboard, only with Square pieces for now.
      *
@@ -61,34 +62,33 @@ public class Playboard extends JPanel {
      */
     int DOWNWARDS = -1;
     int UPWARDS = 1;
+
     public void resetBoard(int noPlayer1Pieces, int noPlayer2Pieces) {
         clearBoard();
         noPlayer1Pieces = Settings.getPlayboardSize();
         noPlayer2Pieces = Settings.getPlayboardSize();
 
-        for (int i = 1; i < noPlayer1Pieces-1; i++) {
+        for (int i = 1; i < noPlayer1Pieces - 1; i++) {
 
-            if (i%3==0){
-                tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor(),DOWNWARDS));
-            }else if(i%3==1){
-                tiles[i][0].setPiece(new Triangle(Settings.getPlayers().get(0).getColor(),DOWNWARDS));
-            }
-            else{
-                tiles[i][0].setPiece(new Circle(Settings.getPlayers().get(0).getColor(),DOWNWARDS));
+            if (i % 3 == 0) {
+                tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+            } else if (i % 3 == 1) {
+                tiles[i][0].setPiece(new Triangle(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+            } else {
+                tiles[i][0].setPiece(new Circle(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
             }
         }
 
-        for (int i = 1; i < noPlayer2Pieces-1; i++) {
-            if(i%3==2){
+        for (int i = 1; i < noPlayer2Pieces - 1; i++) {
+            if (i % 3 == 2) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
-                        new Square(Settings.getPlayers().get(1).getColor(),UPWARDS));
-            }else if(i%2==1){
+                        new Square(Settings.getPlayers().get(1).getColor(), UPWARDS));
+            } else if (i % 2 == 1) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
-                        new Triangle(Settings.getPlayers().get(1).getColor(),UPWARDS));
-            }
-            else{
+                        new Triangle(Settings.getPlayers().get(1).getColor(), UPWARDS));
+            } else {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
-                        new Circle(Settings.getPlayers().get(1).getColor(),UPWARDS));
+                        new Circle(Settings.getPlayers().get(1).getColor(), UPWARDS));
             }
         }
         update();

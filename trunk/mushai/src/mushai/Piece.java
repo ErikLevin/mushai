@@ -11,13 +11,12 @@ public abstract class Piece {
     protected Icon icon;
     protected Set<Point> moves;
     private boolean outOfStartArea;
-    private boolean marked=false;
+    private boolean marked = false;
     protected int direction;
 
     public Icon getIcon() {
         return icon;
     }
-
     /**
      *
      * @param x
@@ -26,15 +25,15 @@ public abstract class Piece {
     protected Color color;
 
     public Piece() {
-        this(Color.RED,1);
+        this(Color.RED, 1);
     }
-    public Piece(Color color,int dir) {
+
+    public Piece(Color color, int dir) {
         icon = null;
         moves = new HashSet<Point>();
         this.color = color;
         direction = dir;
     }
-
 
     public abstract Set<Point> getMoves();
 
@@ -44,13 +43,13 @@ public abstract class Piece {
      */
     @Override
     public String toString() {
-        if(color.equals(Settings.getPlayer(0).getColor()))
-        {
+        if (color.equals(Settings.getPlayer(0).getColor())) {
             return "1";
         }
         return "2";
     }
-    public Color getColor(){
+
+    public Color getColor() {
         return color;
     }
 }

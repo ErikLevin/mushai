@@ -1,9 +1,12 @@
 package gp;
 
 import java.awt.Color;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Writer;
+import minmax.PlayboardModel;
 import mushai.Controller;
 import mushai.Playboard;
 import mushai.Player;
@@ -34,6 +37,7 @@ public class AgentGP extends GPProblem {
     private static final int POP_SIZE = 50;
     private static GPConfiguration conf;
     private ProgramChromosome bestGuy = null;
+
     public ProgramChromosome getBestGuy() {
         return bestGuy;
     }
@@ -45,19 +49,18 @@ public class AgentGP extends GPProblem {
      * @throws IOException
      * @throws Exception
      */
-    private static void saveBestGuy(GPGenotype genotype) throws IOException, Exception {
-        Writer writer = null;
+    private static void saveChromosome(ProgramChromosome bestGuy) throws IOException, Exception {
+        ObjectOutputStream writer = null;
         try {
-            writer = new FileWriter("mushai.gt");
-            String bestGuy = genotype.getFittestProgram().getChromosome(0).getPersistentRepresentation();
+            writer = new ObjectOutputStream(new FileOutputStream("mushai.guy"));
 
-            Chromosome chrom = new Chromosome(conf);
-            chrom.setValueFromPersistentRepresentation(bestGuy);
+//            Chromosome chrom = new Chromosome(conf);
+//            chrom.setValueFromPersistentRepresentation(bestGuy);
 
 
-            System.out.println("Saved and restored guy: " + chrom.toString());
+//            System.out.println("Saved and restored guy: " + chrom.toString());
 //            System.out.println("Best guy to save: " + bestGuy);
-//            writer.write(bestGuy);
+            writer.writeObject(bestGuy);
         } finally {
             if (writer != null) {
                 writer.close();
@@ -111,7 +114,8 @@ public class AgentGP extends GPProblem {
         Settings.addPlayer(new Player("0", Color.YELLOW));
         Settings.addPlayer(new Player("1", Color.GREEN));
         Settings.getPlayer(0).setMyTurn(true);
-        Playboard board = new Playboard(player1Pieces, player2Pieces);
+        Playboard graphicalBoard = new Playboard(player1Pieces, player2Pieces);
+        PlayboardModel board = new PlayboardModel(graphicalBoard, 0);
 
         conf = new GPConfiguration();
 
@@ -121,13 +125,13 @@ public class AgentGP extends GPProblem {
         conf.setRandomGenerator(new StockRandomGenerator());
         conf.setMutationProb(0.5f);
 
-        conf.getEventManager().addEventListener(GeneticEvent.GPGENOTYPE_NEW_BEST_SOLUTION, new GeneticEventListener() {
-            @Override
-            public void geneticEventFired(GeneticEvent a_firedEvent) {
-                GPGenotype genotype = (GPGenotype) a_firedEvent.getSource();
-//                System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
-            }
-        });
+//        conf.getEventManager().addEventListener(GeneticEvent.GPGENOTYPE_NEW_BEST_SOLUTION, new GeneticEventListener() {
+//            @Override
+//            public void geneticEventFired(GeneticEvent a_firedEvent) {
+//                GPGenotype genotype = (GPGenotype) a_firedEvent.getSource();
+////                System.out.println("New best guy: " + genotype.getAllTimeBest().execute_int(0, null));
+//            }
+//        });
 
         this.setGPConfiguration(conf);
 
@@ -141,6 +145,6 @@ public class AgentGP extends GPProblem {
 
     public static void main(String[] args) throws InvalidConfigurationException, IOException, Exception {
         AgentGP gpProblem = new AgentGP();
-//        saveBestGuy(genotype);
+        saveChromosome(gpProblem.getBestGuy());
     }
 }

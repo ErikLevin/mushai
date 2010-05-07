@@ -12,7 +12,7 @@ public class Main {
 //        SettingsWindow setWindow = new SettingsWindow();
 
 
-         Settings.nullPlayers();
+        Settings.nullPlayers();
         Player player1 = new Player("You", Color.yellow);
         Settings.addPlayer(player1);
 

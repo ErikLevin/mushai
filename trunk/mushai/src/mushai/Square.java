@@ -15,13 +15,13 @@ public class Square extends Piece {
     }
 
     public Set<Point> getMoves() {
-        Set<Point> pontSet= new HashSet<Point>();
+        Set<Point> pontSet = new HashSet<Point>();
 
         Point forward = null, backward = null, left = null, right = null;
-        forward = new Point(0,  - 1*direction);
-        backward = new Point(0,  1*direction);
-        left = new Point(- 1*direction, 0);
-        right = new Point( 1*direction, 0);
+        forward = new Point(0, - 1 * direction);
+        backward = new Point(0, 1 * direction);
+        left = new Point(- 1 * direction, 0);
+        right = new Point(1 * direction, 0);
         pontSet.add(forward);
         pontSet.add(backward);
         pontSet.add(left);
@@ -29,16 +29,16 @@ public class Square extends Piece {
         return pontSet;
 
     }
+
     private class SquareIcon extends PieceIcon {
 
         public SquareIcon(Color color) {
             super(color);
         }
- 
 
         @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
-            
+
             super.paintIcon(c, g, x, y);
 
             g.fillRect(x, y, getIconWidth(), getIconHeight());

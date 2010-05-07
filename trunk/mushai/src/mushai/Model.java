@@ -29,9 +29,9 @@ public class Model {
         possibleMoves.addAll(jumping(from, pi, board));
         possibleMoves.remove(from);
         HashSet<Point> removePoints = new HashSet<Point>();
-        for(int j=0;j<Settings.getPlayboardSize();j++){
+        for (int j = 0; j < Settings.getPlayboardSize(); j++) {
             removePoints.add(new Point(0, j));
-            removePoints.add(new Point(Settings.getPlayboardSize()-1, j));
+            removePoints.add(new Point(Settings.getPlayboardSize() - 1, j));
 
         }
         possibleMoves.removeAll(removePoints);
@@ -89,12 +89,12 @@ public class Model {
 
     public static int checkWin(Playboard board) {
         int win = 0;
-        System.out.println("check win");
+//        System.out.println("check win");
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
             if (i == 0) {
 
                 boolean goalIsFull = true;
-                for (int j = 1; Settings.getPlayboardSize()-1 > j; j++) {//kollar om målet är fullt med saker
+                for (int j = 1; Settings.getPlayboardSize() - 1 > j; j++) {//kollar om målet är fullt med saker
                     //System.out.println("do loop");
                     if (getPiece(new Point(j, Settings.getPlayboardSize() - 1), board) == null) {
                         goalIsFull = false;
@@ -118,7 +118,7 @@ public class Model {
             } else if (i == 1) {
 
                 boolean goalIsFull = true;
-                for (int j = 1; Settings.getPlayboardSize()-1 > j; j++) {//kollar om målet är fullt med saker
+                for (int j = 1; Settings.getPlayboardSize() - 1 > j; j++) {//kollar om målet är fullt med saker
                     if (getPiece(new Point(j, 0), board) == null) {
                         goalIsFull = false;
                     }
@@ -149,7 +149,7 @@ public class Model {
      * @return - The fitness for player 0 for the current board.
      */
     public static int getBoardFitness(Playboard board) throws RuntimeException {
-        int fitness = 4; //boardBaseFitness(board);
+        int fitness = boardBaseFitness(board);
 
         for (int j = 0; j < board.getTiles().length; j++) {
             for (int i = 0; i < board.getTiles().length; i++) {
@@ -197,9 +197,9 @@ public class Model {
 
         for (Point p : pices) {
             for (Point i : whereCanIMove2(p, board)) {
-               
-                    allTheMoves.add(new Move(p, i));
-                
+
+                allTheMoves.add(new Move(p, i));
+
             }
         }
         return allTheMoves;

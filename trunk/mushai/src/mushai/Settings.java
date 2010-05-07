@@ -15,15 +15,19 @@ public class Settings {
 
     private static int playboardSize = 10;
     private static ArrayList<Player> ar = new ArrayList<Player>();
+
     public static void nullPlayers() {
-        ar=new ArrayList<Player>();;
+        ar = new ArrayList<Player>();
     }
+
     public static int getPlayboardSize() {
         return playboardSize;
     }
-    public static void setPlayboardSize(int size){
+
+    public static void setPlayboardSize(int size) {
         playboardSize = size;
     }
+
     public static int getNrOfPlayers() {
         return 2;
     }
@@ -37,11 +41,11 @@ public class Settings {
         return ar;
     }
 
-    public static Player getPlayer(int i){
+    public static Player getPlayer(int i) {
         return getPlayers().get(i);
     }
 
-    public static boolean paintGraphics(){
+    public static boolean paintGraphics() {
         return true;
     }
 }

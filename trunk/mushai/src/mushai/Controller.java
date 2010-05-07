@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import minmax.MiniMax;
-import mushai.Player.PlayerType;
 
 /**
  * Controller class for game logic.
@@ -23,7 +22,6 @@ public class Controller implements ActionListener {
     }
     private Window win;
     private Point moveStart;
-    private Player activePlayer;
 
     public Controller(Window tWin) {
         win = tWin;
@@ -184,12 +182,12 @@ public class Controller implements ActionListener {
             }
         }
 
-        int win = Model.checkWin(board);
-        if (win == 1) {
+        int gameWin = Model.checkWin(board);
+        if (gameWin == 1) {
             JOptionPane.showMessageDialog(board, "player 1 won");
             board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
 //            this.win.dispose();
-        } else if (win == -1) {
+        } else if (gameWin == -1) {
             JOptionPane.showMessageDialog(board, "player 2 won");
             board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
         }
@@ -202,29 +200,29 @@ public class Controller implements ActionListener {
      * @return
      */
     private boolean checkVictory() {
-        boolean win = true;
+        boolean gameWin = true;
         int i = 0;
         for (Player player : Settings.getPlayers()) {
             if (player.isItMyTurn()) {
                 if (i == 0) {
                     for (Point point : Model.getYourPieces(board)) {
                         if (point.y != 0) {
-                            win = false;
+                            gameWin = false;
                             break;
                         }
                     }
-                    if (win) {
+                    if (gameWin) {
                         JOptionPane.showMessageDialog(board, "player 1 vann");
                         player.addPoint();
                     }
                 } else if (i == 1) {
                     for (Point point : Model.getYourPieces(board)) {
                         if (point.y != Settings.getPlayboardSize() - 1) {
-                            win = false;
+                            gameWin = false;
                             break;
                         }
                     }
-                    if (win) {
+                    if (gameWin) {
                         player.addPoint();
                         JOptionPane.showMessageDialog(board, "player 2 vann");
                     }
@@ -233,6 +231,6 @@ public class Controller implements ActionListener {
             i++;
         }
 
-        return win;
+        return gameWin;
     }
 }

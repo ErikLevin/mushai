@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 public class SettingsWindow extends JFrame implements ActionListener {
 
     JComboBox player1list, player2list;
-    JTextField player1Name, player2Name,nrOfSqares;
+    JTextField player1Name, player2Name, nrOfSqares;
 
     public SettingsWindow() {
         setPreferredSize(new Dimension(400, 200));
@@ -34,7 +34,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
         jp.add(new JLabel("player 1 name:"), 0, 0);
         player1Name = new JTextField("name:");
         jp.add(player1Name, 1, 0);
-        
+
         add(jp, 0, 0);
         String[] player1 = {"human", "ai minmax", "generisk"};
         player1list = new JComboBox(player1);
@@ -56,7 +56,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
         ok.addActionListener(this);
 
         JPanel jp2 = new JPanel(new GridLayout(1, 2));
-         nrOfSqares = new JTextField("8");
+        nrOfSqares = new JTextField("8");
         jp2.add(new JLabel("playboard size:"), 0, 0);
         jp2.add(nrOfSqares, 0, 1);
         add(jp2, 2, 2);
@@ -86,15 +86,15 @@ public class SettingsWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
 //            player2.setType(Player.PlayerType.GENETIC);
         }
-        
-        int size= Integer.parseInt(nrOfSqares.getText());
 
-        
-            System.out.println(size+"size");
-        
+        int size = Integer.parseInt(nrOfSqares.getText());
+
+
+        System.out.println(size + "size");
+
 
         Settings.setPlayboardSize(size);
-        
+
         Window win = new Window();
         Controller controller = new Controller(win);
         this.dispose();
