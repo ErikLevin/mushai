@@ -32,7 +32,7 @@ public class MiniMax {
         playboard = new PlayboardModel(originalPlayboard, turn);
         MoveAndFitness maf = findBestMove(depth, null);
         Move move = maf.move;
-        if(maf.fitness > 1000){
+        if (maf.fitness > 1000) {
             System.out.println("ZOMG 100000 fitness!!!!");
         }
         //Move move = breadthFirst(depth);
@@ -84,19 +84,24 @@ public class MiniMax {
             //undomove
             playboard.movePiece(move.getEnd(), move.getStart());
             if (value == -10000 || value == 10000) {
-                value += depth;
-                maf.fitness += depth;
+                if (turn == 0) {
+                    value += depth;
+                    maf.fitness += depth;
+                } else {
+                    value -= depth;
+                    maf.fitness -= depth;
+                }
             }
             if (turn == 0) {
                 if (value >= bestValue) {
-                    if (! (value == bestValue && Math.random() > 0.5)){
+                    if (!(value == bestValue && Math.random() > 0.5)) {
                         bestValue = value;
                         bestMove = move;
                     }
                 }
             } else if (turn == 1) {
                 if (value <= bestValue) {
-                    if (! (value == bestValue && Math.random() > 0.5)){
+                    if (!(value == bestValue && Math.random() > 0.5)) {
                         bestValue = value;
                         bestMove = move;
                     }

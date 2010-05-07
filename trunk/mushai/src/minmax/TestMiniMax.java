@@ -28,19 +28,19 @@ public class TestMiniMax {
             if (i % 2 == 0) {
                 System.out.println("-------------------");
                 System.out.println("Round: " + (1 + (i / 2)));
-                Move bestMove = m.findBestMove(4);
+                Move bestMove = m.findBestMove(2);
                 c.move(bestMove);
             } else {
-                Move bestMove = m.findBestMove(1);
+                Move bestMove = m.findBestMove(5);
                 c.move(bestMove);
 
                 /*moves = Model.getAllPossibleMoves(pb);
                 int randomMove = (int)Math.round(Math.random()*(moves.size()-1));
                 c.move(moves.get(randomMove));*/
             }
-//            System.out.println(pb);
-//            System.out.println("Fitness after move: " + Model.getBoardFitness(pb));
-//            System.out.println("\n\n");
+            System.out.println(pb);
+            System.out.println("Fitness after move: " + Model.getBoardFitness(pb));
+            System.out.println("\n\n");
 //            if(Model.getBoardFitness(pb) > 1000 || Model.getBoardFitness(pb) == 0)
 //                break;
         }

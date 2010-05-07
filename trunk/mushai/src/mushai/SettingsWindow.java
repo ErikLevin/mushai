@@ -9,8 +9,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -35,33 +33,34 @@ public class SettingsWindow extends JFrame implements ActionListener {
         JPanel jp = new JPanel(new GridLayout(1, 2));
         jp.add(new JLabel("player 1 name:"), 0, 0);
         player1Name = new JTextField("name:");
-        jp.add(player1Name, 0, 1);
+        jp.add(player1Name, 1, 0);
+        
         add(jp, 0, 0);
         String[] player1 = {"human", "ai minmax", "generisk"};
         player1list = new JComboBox(player1);
         player1list.setSelectedIndex(0);
-        add(player1list, 0, 1);
+        //add(player1list, 0, 1);
 
         //rigth side
         JPanel jpr = new JPanel(new GridLayout(1, 2));
-        jpr.add(new JLabel("player 1 name:"), 0, 0);
+        jpr.add(new JLabel("player 2 name:"), 0, 0);
         player2Name = new JTextField("name:");
         jpr.add(player2Name, 0, 1);
-        add(jpr, 1, 0);
+        add(jpr, 0, 1);
         String[] player2 = {"human", "ai minmax", "generisk"};
         player2list = new JComboBox(player2);
-        player2list.setSelectedIndex(0);
-        add(player2list, 1, 1);
+        player2list.setSelectedIndex(1);
+        //add(player2list, 1, 1);
         /////
         JButton ok = new JButton("ok");
         ok.addActionListener(this);
 
         JPanel jp2 = new JPanel(new GridLayout(1, 2));
-         nrOfSqares = new JTextField("4");
+         nrOfSqares = new JTextField("8");
         jp2.add(new JLabel("playboard size:"), 0, 0);
         jp2.add(nrOfSqares, 0, 1);
-        add(jp2, 3, 4);
-        add(ok, 3, 5);
+        add(jp2, 2, 2);
+        add(ok, 3, 2);
         pack();
         setVisible(true);
     }
