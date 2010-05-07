@@ -15,7 +15,9 @@ public class Settings {
 
     private static int playboardSize = 10;
     private static ArrayList<Player> ar = new ArrayList<Player>();
-
+    public static void nullPlayers() {
+        ar=new ArrayList<Player>();;
+    }
     public static int getPlayboardSize() {
         return playboardSize;
     }
