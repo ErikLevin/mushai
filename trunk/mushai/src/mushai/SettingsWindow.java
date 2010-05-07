@@ -67,6 +67,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
+        Settings.nullPlayers();
         Player player1 = new Player(player1Name.getText(), Color.yellow);
         Settings.addPlayer(player1);
         if (player1list.getSelectedIndex() == 1) {
