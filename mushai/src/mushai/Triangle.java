@@ -7,9 +7,9 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Circle extends Piece {
+public class Triangle extends Piece {
 
-    public Circle(Color color) {
+    public Triangle(Color color) {
         super(color);
         icon = new SquareIcon(color);
     }
@@ -17,23 +17,14 @@ public class Circle extends Piece {
     public Set<Point> getMoves() {
         Set<Point> pointSet= new HashSet<Point>();
 
-        Point forward = null, backward = null, left = null, right = null, forwardLeft, forwardRight, backLeft, backRight;
-        forward = new Point(0,  - 1);
-        backward = new Point(0,  1);
-        left = new Point(- 1, 0);
-        right = new Point( 1, 0);
+        Point backward, forwardLeft, forwardRight;
+        
         forwardLeft = new Point(-1,-1);
         forwardRight = new Point(1,-1);
-        backLeft = new Point(-1,1);
-        backRight = new Point(1,1);
-        pointSet.add(forward);
-        pointSet.add(backward);
-        pointSet.add(left);
-        pointSet.add(right);
+        backward = new Point(0,  1);
         pointSet.add(forwardLeft);
         pointSet.add(forwardRight);
-        pointSet.add(backLeft);
-        pointSet.add(backRight);
+        pointSet.add(backward);
         return pointSet;
 
     }
@@ -47,9 +38,11 @@ public class Circle extends Piece {
         @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
             super.paintIcon(c, g, x, y);
-
-            g.fillOval(x, y, getIconWidth(), getIconHeight());
-            
+            int w = getIconWidth()/5;
+            int h = getIconHeight()/5;
+            int[] xs = {x*w,0,x*w/2};
+            int[] ys = {0,0,y*h/2};
+            g.fillPolygon(xs,ys,3);
         }
     }
 }

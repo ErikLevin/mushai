@@ -28,8 +28,7 @@ public class PlayboardModel {
     static final int PLAYER2_TRIANGLE = 7;
     static final int PLAYER2_RHOMBUS = 8;
     int[][] board;
-    Set<Point> squareMoves;
-    Set<Point> circleMoves;
+    Set<Point> squareMoves,triangleMoves,circleMoves;
     int playerTurn;
 
     public PlayboardModel(Playboard pb, int turn) {
@@ -39,6 +38,8 @@ public class PlayboardModel {
         squareMoves = sq.getMoves();
         sq = new Circle(null);
         circleMoves = sq.getMoves();
+        sq = new Triangle(null);
+        triangleMoves = sq.getMoves();
         playerTurn = turn;
     }
 
@@ -48,6 +49,8 @@ public class PlayboardModel {
         squareMoves = sq.getMoves();
         sq = new Circle(null);
         circleMoves = sq.getMoves();
+        sq = new Triangle(null);
+        triangleMoves = sq.getMoves();
         playerTurn = turn;
     }
 
@@ -70,11 +73,17 @@ public class PlayboardModel {
                     } else {
                         intPlayboard[i][j] = PLAYER2_SQUARE;
                     }
-                }  else if (p instanceof Circle) {
+                } else if (p instanceof Circle) {
                     if (p.getColor().equals(player1Color)) {
                         intPlayboard[i][j] = PLAYER1_CIRCLE;
                     } else {
                         intPlayboard[i][j] = PLAYER2_CIRCLE;
+                    }
+                } else if (p instanceof Triangle) {
+                    if (p.getColor().equals(player1Color)) {
+                        intPlayboard[i][j] = PLAYER1_TRIANGLE;
+                    } else {
+                        intPlayboard[i][j] = PLAYER2_TRIANGLE;
                     }
                 }
             }
@@ -123,6 +132,9 @@ public class PlayboardModel {
         }
         else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
             pieceMoves = circleMoves;
+        }
+        else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
+            pieceMoves = triangleMoves;
         }
         else{
             pieceMoves = new HashSet<Point>();
