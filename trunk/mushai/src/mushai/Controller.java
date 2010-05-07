@@ -55,8 +55,8 @@ public class Controller implements ActionListener {
             board.getTiles()[moveStart.x][moveStart.y].repaint();
             moveStart = null;
         }
-         if (((JButton) e.getSource()).getText().equals("end game")) {
-            new SettingsWindow();
+        if (((JButton) e.getSource()).getText().equals("end game")) {
+            new Main();
             this.win.dispose();
         }
 
@@ -152,9 +152,16 @@ public class Controller implements ActionListener {
         ArrayList<Player> arL = Settings.getPlayers();
         int xTile = 0, yTile = 0;
         for (xTile = 0; xTile < Settings.getPlayboardSize(); xTile++) {//målar om hela brädet
-            for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
-                board.getTiles()[xTile][yTile].setBackground(Color.lightGray);
-                board.getTiles()[xTile][yTile].repaint();
+            if (xTile == 0 || xTile == Settings.getPlayboardSize() - 1) {
+                for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
+                    board.getTiles()[xTile][yTile].setBackground(Color.GRAY);
+                    board.getTiles()[xTile][yTile].repaint();
+                }
+            } else {
+                for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
+                    board.getTiles()[xTile][yTile].setBackground(Color.lightGray);
+                    board.getTiles()[xTile][yTile].repaint();
+                }
             }
         }
         /**räknar ut vems tur det är **/
@@ -184,7 +191,7 @@ public class Controller implements ActionListener {
             this.win.dispose();
         } else if (win == -1) {
             JOptionPane.showMessageDialog(board, "player 2 won");
-            
+
             new Main();
             this.win.dispose();
         }
