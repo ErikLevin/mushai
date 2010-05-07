@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -24,7 +26,7 @@ import javax.swing.JTextField;
 public class SettingsWindow extends JFrame implements ActionListener {
 
     JComboBox player1list, player2list;
-    JTextField player1Name, player2Name;
+    JTextField player1Name, player2Name,nrOfSqares;
 
     public SettingsWindow() {
         setPreferredSize(new Dimension(400, 200));
@@ -53,8 +55,14 @@ public class SettingsWindow extends JFrame implements ActionListener {
         /////
         JButton ok = new JButton("ok");
         ok.addActionListener(this);
-        add(ok, 0, 4);
 
+        JPanel jp2 = new JPanel(new GridLayout(1, 2));
+         nrOfSqares = new JTextField("4");
+
+        jp2.add(new JLabel("playboard size:"), 0, 0);
+        jp2.add(nrOfSqares, 0, 1);
+        add(jp2, 3, 4);
+        add(ok, 3, 5);
         pack();
         setVisible(true);
     }
@@ -68,7 +76,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
 //            player1.setType(Player.PlayerType.GENETIC);
         }
-       
+
         Player player2 = new Player(player2Name.getText(), Color.cyan);
         player2.setMyTurn(true);
 
@@ -79,6 +87,14 @@ public class SettingsWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
 //            player2.setType(Player.PlayerType.GENETIC);
         }
+        int size= Integer.parseInt(nrOfSqares.getText());
+
+        
+            System.out.println(size+"size");
+        
+
+        Settings.setPlayboardSize(size);
+        
         Window win = new Window();
         Controller controller = new Controller(win);
         this.dispose();
