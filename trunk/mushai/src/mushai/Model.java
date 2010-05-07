@@ -28,6 +28,9 @@ public class Model {
 
         possibleMoves.addAll(jumping(from, pi, board));
         possibleMoves.remove(from);
+        HashSet<Point> removePoints = new HashSet<Point>();
+        //removePoints.add(new Point(0, 0));
+        possibleMoves.removeAll(possibleMoves);
         return possibleMoves;
     }
 
@@ -87,17 +90,15 @@ public class Model {
             if (i == 0) {
 
                 boolean goalIsFull = true;
-                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                for (int j = 1; Settings.getPlayboardSize()-1 > j; j++) {//kollar om målet är fullt med saker
                     //System.out.println("do loop");
                     if (getPiece(new Point(j, Settings.getPlayboardSize() - 1), board) == null) {
                         goalIsFull = false;
-                        System.out.println(j + " :nr the gool is not full player 1");
                     }
                 }
 
                 if (goalIsFull) {
                     win = 1;
-                    System.out.println("målet är fult gubbe 1");
                     for (Point point : Model.getYourPieces(board, i)) {
                         if (point.y != Settings.getPlayboardSize() - 1 && point.y != Settings.getPlayboardSize() - 2) {
                             win = 0;
@@ -113,7 +114,7 @@ public class Model {
             } else if (i == 1) {
 
                 boolean goalIsFull = true;
-                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                for (int j = 1; Settings.getPlayboardSize()-1 > j; j++) {//kollar om målet är fullt med saker
                     if (getPiece(new Point(j, 0), board) == null) {
                         goalIsFull = false;
                     }
@@ -224,7 +225,9 @@ public class Model {
 
         for (Point p : pices) {
             for (Point i : whereCanIMove2(p, board)) {
-                allTheMoves.add(new Move(p, i));
+               
+                    allTheMoves.add(new Move(p, i));
+                
             }
         }
         return allTheMoves;
