@@ -58,7 +58,6 @@ public class SettingsWindow extends JFrame implements ActionListener {
 
         JPanel jp2 = new JPanel(new GridLayout(1, 2));
          nrOfSqares = new JTextField("4");
-
         jp2.add(new JLabel("playboard size:"), 0, 0);
         jp2.add(nrOfSqares, 0, 1);
         add(jp2, 3, 4);
@@ -87,6 +86,7 @@ public class SettingsWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
 //            player2.setType(Player.PlayerType.GENETIC);
         }
+        
         int size= Integer.parseInt(nrOfSqares.getText());
 
         

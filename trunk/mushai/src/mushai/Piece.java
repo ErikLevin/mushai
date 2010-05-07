@@ -11,6 +11,7 @@ public abstract class Piece {
     protected Icon icon;
     protected Set<Point> moves;
     private boolean outOfStartArea;
+    private boolean marked=false;
 
     public Icon getIcon() {
         return icon;
@@ -32,6 +33,7 @@ public abstract class Piece {
         moves = new HashSet<Point>();
         this.color = color;
     }
+
 
     public abstract Set<Point> getMoves();
 
