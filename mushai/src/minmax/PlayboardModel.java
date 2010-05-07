@@ -41,7 +41,8 @@ public class PlayboardModel {
         circleMoves = sq.getMoves();
         playerTurn = turn;
     }
-    private PlayboardModel(int[][] pb, int turn){
+
+    private PlayboardModel(int[][] pb, int turn) {
         board = pb.clone();
         Piece sq = new Square(null);
         squareMoves = sq.getMoves();
@@ -49,8 +50,9 @@ public class PlayboardModel {
         circleMoves = sq.getMoves();
         playerTurn = turn;
     }
-    public PlayboardModel clone(){
-        return new PlayboardModel(board,playerTurn);
+
+    public PlayboardModel clone() {
+        return new PlayboardModel(board, playerTurn);
     }
 
     public int[][] getBoard(Playboard pb) {
@@ -81,6 +83,7 @@ public class PlayboardModel {
         return intPlayboard;
     }
     //ROUGHLY TESTED!
+
     public List<Move> getAllPossibleMoves(int player) {
         ArrayList<Point> pieces = getYourPieces(player);
         ArrayList<Move> allTheMoves = new ArrayList<Move>();
@@ -93,6 +96,7 @@ public class PlayboardModel {
         return allTheMoves;
     }
     //DONE!
+
     private ArrayList<Point> getYourPieces(int player) {
         int piece;
         ArrayList<Point> yourPieces = new ArrayList<Point>();
@@ -109,6 +113,7 @@ public class PlayboardModel {
         return yourPieces;
     }
     //ROUGHLY TESTED!
+
     private Set<Point> possibleMovesFromPosition(Point pos) {
         HashSet<Point> possibleMoves = new HashSet<Point>();
         Set<Point> pieceMoves;
@@ -123,7 +128,7 @@ public class PlayboardModel {
             pieceMoves = new HashSet<Point>();
         }
         for (Point diffPoint : pieceMoves) {
-            Point temp = new Point(pos.x + diffPoint.x, pos.y + diffPoint.y);
+                Point temp = new Point(pos.x + diffPoint.x, pos.y + diffPoint.y);
             if (pointOnBoard(temp)) {
                 if (board[temp.x][temp.y] == EMPTY_TILE) {
                     possibleMoves.add(temp);
@@ -137,6 +142,7 @@ public class PlayboardModel {
         return possibleMoves;
     }
     //DONE!
+
     private boolean pointOnBoard(Point point) {
         if (point.x >= 0 && point.x < Settings.getPlayboardSize()) {
             if (point.y >= 0 && point.y < Settings.getPlayboardSize()) {
@@ -146,6 +152,7 @@ public class PlayboardModel {
         return false;
     }
     //ROUGHLY TESTED!
+
     private void jumping(Point start, Set<Point> pieceMoves, HashSet<Point> possibleMoves) {
         if (pointOnBoard(start)) {
             possibleMoves.add(start);
@@ -203,38 +210,95 @@ public class PlayboardModel {
 
     public int checkWin() {
         int win = 0;
-        for (int i = 0; i <= Settings.getPlayers().size(); i++) {
+        for (int i = 0; i < Settings.getPlayers().size(); i++) {
             if (i == 0) {
-                win = 1;
-                for (Point point : getYourPieces(i)) {
-                    if (point.y != Settings.getPlayboardSize() - 1) {
-                        win = 0;
-                        break;
+
+                boolean goalIsFull = true;
+                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+
+                    if (board[j][Settings.getPlayboardSize() - 1] == EMPTY_TILE) {
+                        goalIsFull = false;
                     }
-                }
-                if (win == 1) {
-                    //System.out.println("player 1 won");
-                    return win;
                 }
 
-            }
-            if (i == 1) {
-                win = -1;
-                for (Point point : getYourPieces(i)) {
-                    if (point.y != 0) {
-                        win = 0;
-                        break;
+                if (goalIsFull) {
+                    win = 1;
+                    for (Point point : getYourPieces(i)) {
+                        if (point.y != Settings.getPlayboardSize() - 1 && point.y != Settings.getPlayboardSize() - 2) {
+                            win = 0;
+                            break;
+                        }
+                    }
+                    if (win == 1) {
+                        //System.out.println("player 1 won");
+                        return win;
+                    }
+
+                }
+            } else if (i == 1) {
+
+                boolean goalIsFull = true;
+                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                    if (board[j][0] == EMPTY_TILE) {
+                        goalIsFull = false;
                     }
                 }
-                if (win == -1) {
-                    //System.out.println("player 2 won");
-                    return win;
+
+                if (goalIsFull) {
+
+                    win = -1;
+                    for (Point point : getYourPieces(i)) {
+                        if (point.y != 0 && point.y != 1) {
+                            win = 0;
+                            break;
+                        }
+                    }
+                    if (win == -1) {
+                        return win;
+                    }
+
                 }
             }
         }
-        return win;
+        return 0;
     }
 
+
+    /*
+    public int checkWin() {
+    int win = 0;
+    for (int i = 0; i <= Settings.getPlayers().size(); i++) {
+    if (i == 0) {
+    win = 1;
+    for (Point point : getYourPieces(i)) {
+    if (point.y != Settings.getPlayboardSize() - 1) {
+    win = 0;
+    break;
+    }
+    }
+    if (win == 1) {
+    //System.out.println("player 1 won");
+    return win;
+    }
+
+    }
+    if (i == 1) {
+    win = -1;
+    for (Point point : getYourPieces(i)) {
+    if (point.y != 0) {
+    win = 0;
+    break;
+    }
+    }
+    if (win == -1) {
+    //System.out.println("player 2 won");
+    return win;
+    }
+    }
+    }
+    return win;
+    }
+     */
     public void movePiece(Point from, Point to) {
         int origin = board[from.x][from.y];
         board[from.x][from.y] = EMPTY_TILE;

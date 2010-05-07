@@ -50,7 +50,11 @@ public class Controller implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-
+        if (((JButton) e.getSource()).getText().equals("reset turn")) {
+            board.getTiles()[moveStart.x][moveStart.y].setBackground(Color.lightGray);
+            board.getTiles()[moveStart.x][moveStart.y].repaint();
+            moveStart = null;
+        }
 
         System.out.println(((JButton) e.getSource()).getText());
 
@@ -82,6 +86,9 @@ public class Controller implements ActionListener {
 
                             if (Model.getPiece(pressedPoint, board).color.equals(pl.getColor())) {
                                 moveStart = pressedPoint;
+                                System.out.println("runing marked");
+                                board.getTiles()[pressedPoint.x][pressedPoint.y].setBackground(Color.lightGray.darker());
+                                board.getTiles()[pressedPoint.x][pressedPoint.y].repaint();
                             }
                         }
                     }
@@ -158,20 +165,19 @@ public class Controller implements ActionListener {
                         thisPlayer.makeMove(board);
                         break;
                     default:
-                        System.out.println("You're human. Do your move.");
                 }
 
                 break;
             }
         }
 
-        int win=Model.checkWin(board);
-        if(win==1){
+        int win = Model.checkWin(board);
+        if (win == 1) {
             JOptionPane.showMessageDialog(board, "player 1 won");
-            
-        }else if(win==-1){
+
+        } else if (win == -1) {
             JOptionPane.showMessageDialog(board, "player 2 won");
-            }
+        }
     }
 
     /**
@@ -183,10 +189,8 @@ public class Controller implements ActionListener {
     private boolean checkVictory() {
         boolean win = true;
         int i = 0;
-        System.out.println("det är denna perssonens tur check winning: " + i);
         for (Player player : Settings.getPlayers()) {
             if (player.isItMyTurn()) {
-                System.out.println("det är denna perssonens tur check winning: " + i);
                 if (i == 0) {
                     for (Point point : Model.getYourPieces(board)) {
                         if (point.y != 0) {

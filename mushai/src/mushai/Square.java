@@ -38,6 +38,7 @@ public class Square extends Piece {
 
         @Override
         public void paintIcon(Component c, Graphics g, int x, int y) {
+            
             super.paintIcon(c, g, x, y);
 
             g.fillRect(x, y, getIconWidth(), getIconHeight());
