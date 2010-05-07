@@ -30,7 +30,7 @@ public class Model {
         possibleMoves.remove(from);
         HashSet<Point> removePoints = new HashSet<Point>();
         //removePoints.add(new Point(0, 0));
-        possibleMoves.removeAll(possibleMoves);
+       // possibleMoves.removeAll(possibleMoves);
         return possibleMoves;
     }
 
