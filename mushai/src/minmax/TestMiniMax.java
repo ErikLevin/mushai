@@ -20,7 +20,7 @@ public class TestMiniMax {
         player.setMyTurn(true);
         Settings.addPlayer(player);
         Settings.addPlayer(new Player("1", Color.blue));
-        Playboard pb = new Playboard(4, 4, 6);
+        Playboard pb = new Playboard(4, 4, 8);
         Controller c = new Controller(pb);
         MiniMax m = new MiniMax(c, pb);
         List<Move> moves;
