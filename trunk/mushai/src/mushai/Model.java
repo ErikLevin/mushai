@@ -79,45 +79,113 @@ public class Model {
         System.out.println("player 1: " + arL.get(1).isItMyTurn());
         return -1;
     }
+
     public static int checkWin(Playboard board) {
         int win = 0;
+        System.out.println("check win");
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
             if (i == 0) {
-                win = 1;
+                
+                boolean goalIsFull = true;
+                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                    //System.out.println("do loop");
+                    if (getPiece(new Point(j,Settings.getPlayboardSize() - 1), board) == null) {
+                        goalIsFull = false;
+                        System.out.println(j+" :nr the gool is not full player 1");
+                    }
+                }
+
+                if (goalIsFull) {
+                    win = 1;
+                    System.out.println("målet är fult gubbe 1");
+                    for (Point point : Model.getYourPieces(board, i)) {
+                        if (point.y != Settings.getPlayboardSize() - 1  &&  point.y != Settings.getPlayboardSize() - 2) {
+                            win = 0;
+                            break;
+                        }
+                    }
+                    if (win == 1) {
+                        //System.out.println("player 1 won");
+                        return win;
+                    }
+
+                }
+            } else if (i == 1) {
+
+                boolean goalIsFull = true;
+                for (int j = 0; Settings.getPlayboardSize() > j; j++) {//kollar om målet är fullt med saker
+                    if (getPiece(new Point(j,0), board) == null) {
+                        goalIsFull = false;
+                    }
+                }
+
+                if (goalIsFull) {
+                    System.out.println("målet är fullt gubbe 2");
+                }
+                win = -1;
                 for (Point point : Model.getYourPieces(board, i)) {
-                    if (point.y != Settings.getPlayboardSize() - 1) {
+                    if (point.y != 0 && point.y != 1 ) {
                         win = 0;
                         break;
                     }
                 }
-                if (win == 1){
+                if (win == -1) {
                     //System.out.println("player 1 won");
                     return win;
                 }
 
             }
-            if (i == 1) {
-                win = -1;
-                for (Point point : Model.getYourPieces(board, i)) {
-                    if (point.y != 0) {
-                        win = 0;
-                        break;
-                    }
-                }
-                if (win == -1){
-                    //System.out.println("player 2 won");
-                    return win;
-                }
-            } 
         }
-        return win;
+        return 0;
     }
-    /**
-     * The amount of steps forwards that player 0 has taken, minus the number of
-     * steps player 1 has taken forwards.
-     * @return - The fitness for player 0 for the current board.
-     */
-    public static int getBoardFitness(Playboard board) throws RuntimeException {
+
+
+
+
+
+
+
+
+            /*
+            win = 1;
+            for (Point point : Model.getYourPieces(board, i)) {
+            if (point.y != Settings.getPlayboardSize() - 1) {
+            win = 0;
+            break;
+            }
+            }
+            if (win == 1){
+            //System.out.println("player 1 won");
+            return win;
+            }
+
+            }
+            if (i == 1) {
+            win = -1;
+            for (Point point : Model.getYourPieces(board, i)) {
+            if (point.y != 0) {
+            win = 0;
+            break;
+            }
+            }
+            if (win == -1){
+            //System.out.println("player 2 won");
+            return win;
+            }
+            } 
+            }
+            return win;
+            }
+
+             */
+            /**
+             * The amount of steps forwards that player 0 has taken, minus the number of
+             * steps player 1 has taken forwards.
+             * @return - The fitness for player 0 for the current board.
+             */
+    public
+
+    static int getBoardFitness(Playboard board) throws RuntimeException {
         int fitness = 4; //boardBaseFitness(board);
 
         for (int j = 0; j < board.getTiles().length; j++) {
@@ -126,13 +194,13 @@ public class Model {
                 if (p != null) {
                     if (p.color == Settings.getPlayers().get(0).getColor()) {
                         fitness += j;
-                        if (j == board.getTiles().length-1){
+                        if (j == board.getTiles().length - 1) {
                             //fitness += 100;
                             //System.out.println(fitness);
                         }
                     } else {
                         fitness -= (board.getTiles().length - 1 - j);
-                        if (j == 0){
+                        if (j == 0) {
                             //fitness -= 100;
                         }
                     }
@@ -140,10 +208,9 @@ public class Model {
             }
         }
         int winner = checkWin(board);
-        if (winner > 0){
+        if (winner > 0) {
             fitness = 10000;
-        }
-        else if (winner < 0){
+        } else if (winner < 0) {
             fitness = 0;
         }
         if (fitness < 0) {
@@ -212,7 +279,6 @@ public class Model {
     public static Playboard movePiece(Playboard board, Move move) {
         return movePiece(board, move.getStart(), move.getEnd());
     }
-
 
     public static Playboard movePiece(Playboard board, Point from, Point to) {
         Tile origin = board.getTiles()[from.x][from.y];
