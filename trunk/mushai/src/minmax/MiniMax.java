@@ -95,17 +95,19 @@ public class MiniMax {
                 maf.fitness -= depth;
             }
             if (turn == 0) {
-                if (value > bestValue) {
-                    //if (lastMove!=null)System.out.println("LAST: "+lastMove.getStart() + " ---> " + lastMove.getEnd() + ":::" + Model.getBoardFitness(playboard));
-                    //System.out.println(move.getStart() + " ---> " + move.getEnd() + ":::" + Model.getBoardFitness(playboard));
-                    bestValue = value;
-                    bestMove = move;
+                if (value >= bestValue) {
+                    if (! (value == bestValue && Math.random() > 0.5)){
+                        bestValue = value;
+                        bestMove = move;
+                    }
                     //System.out.println("depth: " + depth + " value: " + bestValue);
                 }
             } else if (turn == 1) {
-                if (value < bestValue) {
-                    bestValue = value;
-                    bestMove = move;
+                if (value <= bestValue) {
+                    if (! (value == bestValue && Math.random() > 0.5)){
+                        bestValue = value;
+                        bestMove = move;
+                    }
                 }
             }
         }

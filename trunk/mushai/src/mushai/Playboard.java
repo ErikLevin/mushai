@@ -61,9 +61,9 @@ public class Playboard extends JPanel {
      */
     public void resetBoard(int noPlayer1Pieces, int noPlayer2Pieces) {
         clearBoard();
-        noPlayer1Pieces = Settings.getPlayboardSize();
-        noPlayer2Pieces = Settings.getPlayboardSize();
-        for (int i = 0; i < noPlayer1Pieces; i++) {
+        noPlayer1Pieces = Settings.getPlayboardSize()-2;
+        noPlayer2Pieces = Settings.getPlayboardSize()-2;
+        for (int i = 1; i < noPlayer1Pieces+1; i++) {
 
             if (i%2==0){
                 tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor()));
@@ -72,7 +72,7 @@ public class Playboard extends JPanel {
             }
         }
 
-        for (int i = 0; i < noPlayer2Pieces; i++) {
+        for (int i = 1; i < noPlayer2Pieces+1; i++) {
             if(i%2==1){
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
                         new Square(Settings.getPlayers().get(1).getColor()));
