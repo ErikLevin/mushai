@@ -28,10 +28,10 @@ public class TestMiniMax {
             if (i%2 == 0){
                 System.out.println("-------------------");
                 System.out.println("Round: " + (1+(i/2)));
-                Move bestMove = m.findBestMove(1);
+                Move bestMove = m.findBestMove(6);
                 c.move(bestMove);
             } else{
-                Move bestMove = m.findBestMove(3);
+                Move bestMove = m.findBestMove(6);
                 c.move(bestMove);
                 
                 /*moves = Model.getAllPossibleMoves(pb);

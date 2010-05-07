@@ -16,7 +16,7 @@ import mushai.*;
  *
  * @author Hasse
  */
-public class PlayboardModel {
+public class PlayboardModel implements Cloneable {
 
     static final int EMPTY_TILE = 0;
     static final int PLAYER1_SQUARE = 1;
@@ -129,8 +129,7 @@ public class PlayboardModel {
         int piece = board[pos.x][pos.y];
         if (piece == PLAYER1_SQUARE || piece == PLAYER2_SQUARE) {
             pieceMoves = squareMoves;
-        }
-        else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
+        } else if (piece == PLAYER1_CIRCLE || piece == PLAYER2_CIRCLE) {
             pieceMoves = circleMoves;
         }
         else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
@@ -148,8 +147,8 @@ public class PlayboardModel {
             }
         }
         //if(piece != EMPTY_TILE){
-            jumping(pos, pieceMoves, possibleMoves);
-            possibleMoves.remove(pos);
+        jumping(pos, pieceMoves, possibleMoves);
+        possibleMoves.remove(pos);
         //}
         return possibleMoves;
     }
@@ -188,22 +187,15 @@ public class PlayboardModel {
 
     public int getBoardFitness() throws RuntimeException {
         //int fitness = boardBaseFitness(board);
-        int fitness = 50;
+        int fitness = 0;
         for (int x = 0; x < Settings.getPlayboardSize(); x++) {
             for (int y = 0; y < Settings.getPlayboardSize(); y++) {
                 int p = board[x][y];
                 if (p != EMPTY_TILE) {
                     if (p > 0 && p < 5) {
                         fitness += y;
-                        if (y == Settings.getPlayboardSize() - 1) {
-                            //fitness += 100;
-                            //System.out.println(fitness);
-                        }
                     } else {
                         fitness -= (Settings.getPlayboardSize() - 1 - y);
-                        if (y == 0) {
-                            //fitness -= 100;
-                        }
                     }
                 }
             }
@@ -212,14 +204,21 @@ public class PlayboardModel {
         if (winner > 0) {
             fitness = 10000;
         } else if (winner < 0) {
-            fitness = 0;
+            fitness = -10000;
         }
-        if (fitness < 0) {
-            throw new RuntimeException("Fitness for board was negative\n" + board.toString());
-        }
+//        if (fitness < 0) {
+//            throw new RuntimeException("Fitness for board was negative\n" + board.toString());
+//        }
         return fitness;
     }
 
+    /**
+     * Checks whether the game has been won by a player.
+     *
+     * @return 1  if player whose turn it is won,
+     *         -1 if the other player won,
+     *         0  if no one has won yet
+     */
     public int checkWin() {
         int win = 0;
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
@@ -328,5 +327,9 @@ public class PlayboardModel {
 
     public int getTurn() {
         return playerTurn;
+    }
+
+    void movePiece(Move m) {
+        movePiece(m.getStart(), m.getEnd());
     }
 }

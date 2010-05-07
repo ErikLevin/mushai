@@ -277,6 +277,5 @@ public class Model {
         board.getTiles()[to.x][to.y].setPiece(p);
 
         return board;
-
     }
 }
