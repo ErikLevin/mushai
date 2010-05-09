@@ -75,6 +75,7 @@ public class MiniMax {
         bestValue = maf.fitness;
         playboard.movePiece(firstMove.getEnd(), firstMove.getStart());
         bestMove = firstMove;
+        double randomValue;
         for (Move move : possibleMoves) {
             //if (depth == 4) System.out.println(move.getStart() + "--->"+ move.getEnd());
             //domove
@@ -92,16 +93,17 @@ public class MiniMax {
                     maf.fitness -= depth;
                 }
             }
+            randomValue = Math.random();
             if (turn == 0) {
                 if (value >= bestValue) {
-                    if (!(value == bestValue && Math.random() > 0.5)) {
+                    if (!(value == bestValue && randomValue > 0.3)) {
                         bestValue = value;
                         bestMove = move;
                     }
                 }
             } else if (turn == 1) {
                 if (value <= bestValue) {
-                    if (!(value == bestValue && Math.random() > 0.5)) {
+                    if (!(value == bestValue && randomValue > 0.3)) {
                         bestValue = value;
                         bestMove = move;
                     }
