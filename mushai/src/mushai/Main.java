@@ -21,10 +21,10 @@ public class Main {
         player2.setType(Player.PlayerType.MINIMAX);
 
         Settings.addPlayer(player2);
+        System.out.println(Model.whoseTurnIsIt());
 
 
-
-        Settings.setPlayboardSize(8);
+        Settings.setPlayboardSize(10);
 
         Window win = new Window();
         Controller controller = new Controller(win);

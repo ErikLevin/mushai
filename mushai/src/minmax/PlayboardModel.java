@@ -24,7 +24,7 @@ public class PlayboardModel implements Cloneable {
     static final int PLAYER2_TRIANGLE = 7;
     static final int PLAYER2_RHOMBUS = 8;
     int[][] board;
-    Set<Point> squareMoves, triangleMoves, circleMoves;
+    Set<Point> squareMoves, triangleMoves, circleMoves, rhombusMoves;
     int playerTurn;
     int DOWNWARDS = -1;
     int UPWARDS = 1;
@@ -43,6 +43,8 @@ public class PlayboardModel implements Cloneable {
         circleMoves = sq.getMoves();
         sq = new Triangle(null, direction);
         triangleMoves = sq.getMoves();
+        sq = new Rhombus(null, direction);
+        rhombusMoves = sq.getMoves();
         playerTurn = turn;
     }
 
@@ -60,6 +62,8 @@ public class PlayboardModel implements Cloneable {
         circleMoves = sq.getMoves();
         sq = new Triangle(null, direction);
         triangleMoves = sq.getMoves();
+        sq = new Rhombus(null, direction);
+        rhombusMoves = sq.getMoves();
         playerTurn = turn;
     }
 
@@ -94,6 +98,12 @@ public class PlayboardModel implements Cloneable {
                         intPlayboard[i][j] = PLAYER1_TRIANGLE;
                     } else {
                         intPlayboard[i][j] = PLAYER2_TRIANGLE;
+                    }
+                } else if (p instanceof Rhombus) {
+                    if (p.getColor().equals(player1Color)) {
+                        intPlayboard[i][j] = PLAYER1_RHOMBUS;
+                    } else {
+                        intPlayboard[i][j] = PLAYER2_RHOMBUS;
                     }
                 }
             }
@@ -143,6 +153,8 @@ public class PlayboardModel implements Cloneable {
             pieceMoves = circleMoves;
         } else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
             pieceMoves = triangleMoves;
+        }  else if (piece == PLAYER1_RHOMBUS || piece == PLAYER2_RHOMBUS) {
+            pieceMoves = rhombusMoves;
         } else {
             pieceMoves = new HashSet<Point>();
         }

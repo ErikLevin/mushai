@@ -7,24 +7,25 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Triangle extends Piece {
+public class Rhombus extends Piece {
 
-    public Triangle(Color color, int dir) {
-        super(color, dir);
+    public Rhombus(Color color, int direction) {
+        super(color, direction);
         icon = new SquareIcon(color);
     }
 
     public Set<Point> getMoves() {
         Set<Point> pointSet = new HashSet<Point>();
 
-        Point backward, forwardLeft, forwardRight;
-
+        Point forwardLeft, forwardRight, backLeft, backRight;
         forwardLeft = new Point(-1 * direction, -1 * direction);
         forwardRight = new Point(1 * direction, -1 * direction);
-        backward = new Point(0, 1 * direction);
+        backLeft = new Point(-1 * direction, 1 * direction);
+        backRight = new Point(1 * direction, 1 * direction);
         pointSet.add(forwardLeft);
         pointSet.add(forwardRight);
-        pointSet.add(backward);
+        pointSet.add(backLeft);
+        pointSet.add(backRight);
         return pointSet;
 
     }
@@ -41,14 +42,12 @@ public class Triangle extends Piece {
             int w = getIconWidth() / 5;
             int h = getIconHeight() / 5;
             int[] xs = {x * w, 0, x * w / 2};
-            int[] ys = {0, 0, y*h};
+            int[] ys = {y*h/2, y*h/2, 0};
             int[] xsUp = {x*w/2,x*w,0};
-            int[] ysUp = {0,y*h,y*h};
-            if (direction == 1)
-                g.fillPolygon(xsUp, ysUp, 3);
-            else
-                g.fillPolygon(xs, ys, 3);
-            
+            int[] ysUp = {y*h,y*h/2,y*h/2};
+            g.fillPolygon(xsUp, ysUp, 3);
+            g.fillPolygon(xs, ys, 3);
+
         }
     }
 }
