@@ -34,8 +34,6 @@ public class Main {
 
         Settings.setPlayboardSize(10);
 
-        Window win = new Window();
-        Controller controller = new Controller(win);
-
+        new Controller(new Window());
     }
 }

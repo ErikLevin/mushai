@@ -48,17 +48,9 @@ public class Controller implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (((JButton) e.getSource()).getText().equals("reset turn")) {
-            board.getTiles()[moveStart.x][moveStart.y].setBackground(Color.lightGray);
-            board.getTiles()[moveStart.x][moveStart.y].repaint();
-            moveStart = null;
-        }
         if (((JButton) e.getSource()).getText().equals("end game")) {
-            new Main();
             this.win.dispose();
         }
-
-
 
         System.out.println(((JButton) e.getSource()).getText());
 
@@ -79,7 +71,14 @@ public class Controller implements ActionListener {
 
 
             if (moveStart != null) {
-                move(moveStart, pressedPoint);
+                if (moveStart.x == pressedPoint.x && moveStart.y == pressedPoint.y) {  // same piece selected
+                    moveStart = null;
+                    System.out.println("piece deselected");
+                    board.getTiles()[pressedPoint.x][pressedPoint.y].setBackground(Color.lightGray);
+                    board.getTiles()[pressedPoint.x][pressedPoint.y].repaint();
+                }
+                else
+                    move(moveStart, pressedPoint);
 
             } else if (Model.getPiece(pressedPoint, board) != null) {
                 if (moveStart == null) {
@@ -90,7 +89,7 @@ public class Controller implements ActionListener {
 
                             if (Model.getPiece(pressedPoint, board).color.equals(pl.getColor())) {
                                 moveStart = pressedPoint;
-                                System.out.println("runing marked");
+                                System.out.println("piece selected");
                                 board.getTiles()[pressedPoint.x][pressedPoint.y].setBackground(Color.lightGray.darker());
                                 board.getTiles()[pressedPoint.x][pressedPoint.y].repaint();
                             }
