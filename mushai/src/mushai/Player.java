@@ -61,7 +61,7 @@ public class Player extends JPanel {
             } catch (InvalidConfigurationException ex) {
                 Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
             }
-            chromosome = gp.getBestGuy();
+//            chromosome = gp.getBestGuy();
         }
         this.type = type;
     }

@@ -2,6 +2,7 @@ package minmax;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,22 +13,22 @@ import mushai.*;
  *
  * @author Hasse
  */
-public class PlayboardModel implements Cloneable {
+public class PlayboardModel implements Cloneable, Serializable {
 
-    static final byte EMPTY_TILE = 0;
-    static final byte PLAYER1_SQUARE = 1;
-    static final byte PLAYER1_CIRCLE = 2;
-    static final byte PLAYER1_TRIANGLE = 3;
-    static final byte PLAYER1_RHOMBUS = 4;
-    static final byte PLAYER2_SQUARE = 5;
-    static final byte PLAYER2_CIRCLE = 6;
-    static final byte PLAYER2_TRIANGLE = 7;
-    static final byte PLAYER2_RHOMBUS = 8;
-    int[][] board;
-    Set<Point> squareMoves, triangleMoves, circleMoves, rhombusMoves;
-    int playerTurn;
-    int DOWNWARDS = -1;
-    int UPWARDS = 1;
+    public static final byte EMPTY_TILE = 0;
+    public static final byte PLAYER1_SQUARE = 1;
+    public static final byte PLAYER1_CIRCLE = 2;
+    public static final byte PLAYER1_TRIANGLE = 3;
+    public static final byte PLAYER1_RHOMBUS = 4;
+    public static final byte PLAYER2_SQUARE = 5;
+    public static final byte PLAYER2_CIRCLE = 6;
+    public static final byte PLAYER2_TRIANGLE = 7;
+    public static final byte PLAYER2_RHOMBUS = 8;
+    private int[][] board;
+    private Set<Point> squareMoves, triangleMoves, circleMoves, rhombusMoves;
+    private int playerTurn;
+    private int DOWNWARDS = -1;
+    private int UPWARDS = 1;
 
     public PlayboardModel(Playboard pb, int turn) {
         board = getBoard(pb);
@@ -113,7 +114,7 @@ public class PlayboardModel implements Cloneable {
     }
     //ROUGHLY TESTED!
 
-    public int[][] getBoard() {
+    public int[][] getTiles() {
         return board;
     }
 
@@ -249,7 +250,6 @@ public class PlayboardModel implements Cloneable {
      */
     public int getFitness() {
         int base = baseFitness();
-
         int fitness = calculateProgress(base);
 
         //Let's try this without checking for win here...
@@ -373,5 +373,9 @@ public class PlayboardModel implements Cloneable {
             }
         }
         return initValue;
+    }
+
+    public void movePiece(int fromX, int fromY, int toX, int toY) {
+        movePiece(new Point(fromX, fromY), new Point(toY, toY));
     }
 }

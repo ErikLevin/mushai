@@ -15,7 +15,7 @@ public class Move {
         this.end = end;
     }
 
-    Move(int fromX, int fromY, int toX, int toY) {
+    public Move(int fromX, int fromY, int toX, int toY) {
         this(new Point(fromX, fromY), new Point(toX, toY));
     }
 

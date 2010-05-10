@@ -2,21 +2,17 @@ package gp;
 
 import java.awt.Color;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Writer;
 import minmax.PlayboardModel;
 import mushai.Controller;
 import mushai.Playboard;
 import mushai.Player;
 import mushai.Settings;
-import org.jgap.Chromosome;
 import org.jgap.InvalidConfigurationException;
-import org.jgap.event.GeneticEvent;
-import org.jgap.event.GeneticEventListener;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.GPProblem;
+import org.jgap.gp.IGPProgram;
 import org.jgap.gp.function.Add;
 import org.jgap.gp.function.GreaterThan;
 import org.jgap.gp.function.Multiply;
@@ -36,9 +32,9 @@ public class AgentGP extends GPProblem {
 
     private static final int POP_SIZE = 50;
     private static GPConfiguration conf;
-    private ProgramChromosome bestGuy = null;
+    private IGPProgram bestGuy = null;
 
-    public ProgramChromosome getBestGuy() {
+    public IGPProgram getBestGuy() {
         return bestGuy;
     }
 
@@ -49,7 +45,7 @@ public class AgentGP extends GPProblem {
      * @throws IOException
      * @throws Exception
      */
-    private static void saveChromosome(ProgramChromosome bestGuy) throws IOException, Exception {
+    private static void saveChromosome(IGPProgram bestGuy) throws IOException, Exception {
         ObjectOutputStream writer = null;
         try {
             writer = new ObjectOutputStream(new FileOutputStream("mushai.guy"));
@@ -138,7 +134,7 @@ public class AgentGP extends GPProblem {
         GPGenotype genotype = create();
         genotype.setVerboseOutput(true);
         genotype.evolve(50);
-        bestGuy = genotype.getAllTimeBest().getChromosome(0);
+        bestGuy = genotype.getAllTimeBest();
         System.out.println("best guy: " + genotype.getAllTimeBest().toStringNorm(0) + " with fitness "
                 + genotype.getAllTimeBest().getFitnessValue());
     }
