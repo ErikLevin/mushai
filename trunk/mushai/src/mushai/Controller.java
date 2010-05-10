@@ -175,7 +175,6 @@ public class Controller implements ActionListener {
                         thisPlayer.makeMove(board);
                         break;
                 }
-
                 break;
             }
         }

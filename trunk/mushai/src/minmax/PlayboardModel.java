@@ -261,7 +261,33 @@ public class PlayboardModel implements Cloneable, Serializable {
 //        }
         return fitness;
     }
-
+    public int getEndGameFitness(int turn) throws RuntimeException {
+        //int fitness = boardBaseFitness(board);
+        int fitness = 0;
+        for (int x = 0; x < Settings.getPlayboardSize(); x++) {
+            for (int y = 0; y < Settings.getPlayboardSize(); y++) {
+                int p = board[x][y];
+                if (p != EMPTY_TILE) {
+                    if (turn == 0){
+                    if (p > 0 && p < 5) {
+                        fitness += y;
+                    }
+                    }else {
+                        if (p >= 5){
+                            fitness += (Settings.getPlayboardSize() - 1 - y);
+                        }
+                    }
+                }
+            }
+        }
+        int winner = checkWin();
+        if (winner > 0) {
+            fitness = 10000;
+        } else if (winner < 0) {
+            fitness = -10000;
+        }
+        return fitness;
+    }
     public int checkWin() {
         int win = 0;
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
