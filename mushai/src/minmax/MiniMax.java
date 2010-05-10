@@ -30,10 +30,31 @@ public class MiniMax {
     public MiniMax(PlayboardModel board) {
         playboard = board;
     }
+    public Move findEndGameMove(int depth) {
+        int turn = Model.whoseTurnIsIt();
+        playboard = new PlayboardModel(originalPlayboard, turn);
+        MoveAndFitness maf = findEndGameMove(depth, null);
+        Move move = maf.move;
+        if (maf.fitness > 1000) {
+            System.out.println("ZOMG 100000 fitness!!!!");
+        }
+        //Move move = breadthFirst(depth);
+//        Move move = minimaxDecision(depth, playboard);
 
+        ArrayList<Player> arL = Settings.getPlayers();
+        if (turn == 0) {
+            arL.get(0).setMyTurn(true);
+            arL.get(1).setMyTurn(false);
+        } else if (turn == 1) {
+            arL.get(0).setMyTurn(false);
+            arL.get(1).setMyTurn(true);
+        }
+        return move;
+    }
     public Move findBestMove(int depth) {
         int turn = Model.whoseTurnIsIt();
         playboard = new PlayboardModel(originalPlayboard, turn);
+        
         MoveAndFitness maf = findBestMove(depth, null);
         Move move = maf.move;
         if (maf.fitness > 1000) {
@@ -307,6 +328,56 @@ public class MiniMax {
 
     private boolean terminalTest(int depth, PlayboardModel playboard) {
         return depth < 1 || playboard.checkWin() != 0;
+    }
+
+    private MoveAndFitness findEndGameMove(int depth, Move lastMove) {
+        int turn = Model.whoseTurnIsIt();
+        if (depth == 0 || playboard.getEndGameFitness(turn) > 1000) {
+            try {
+                return new MoveAndFitness(lastMove, playboard.getEndGameFitness(turn));
+            } catch (Exception ex) {
+                Logger.getLogger(MiniMax.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        int bestValue, value;
+        Move bestMove;
+        List<Move> possibleMoves = playboard.getAllPossibleMoves(turn);
+        if (possibleMoves.isEmpty()) {
+            throw new RuntimeException("CRITICAL ERROR EXCEPTION! NO POSSIBLE MOVES :(((((");
+        }
+
+        Move firstMove = possibleMoves.remove(0);
+        playboard.movePiece(firstMove.getStart(), firstMove.getEnd());
+        MoveAndFitness maf = findBestMove(depth - 1, firstMove);
+        bestValue = maf.fitness;
+        playboard.movePiece(firstMove.getEnd(), firstMove.getStart());
+        bestMove = firstMove;
+        double randomValue;
+        for (Move move : possibleMoves) {
+            //domove
+            playboard.movePiece(move.getStart(), move.getEnd());
+            //random move from opponent
+            playboard.movePiece(playboard.getAllPossibleMoves(turn).get(0));
+
+            maf = findBestMove(depth - 1, move);
+            value = maf.fitness;
+            //undomove
+            playboard.movePiece(move.getEnd(), move.getStart());
+            if (value == 10000) {
+                if (turn == 0) {
+                    value += depth;
+                    maf.fitness += depth;
+                }
+            }
+            randomValue = Math.random();
+            if (value >= bestValue) {
+                if (!(value == bestValue && randomValue > 0.3)) {
+                    bestValue = value;
+                    bestMove = move;
+                }
+            }
+        }
+        return new MoveAndFitness(bestMove, bestValue);
     }
 
     private class MoveAndPrevMoves {
