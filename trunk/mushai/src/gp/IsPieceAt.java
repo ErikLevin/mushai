@@ -1,6 +1,7 @@
 package gp;
 
 import java.io.Serializable;
+import minmax.PlayboardModel;
 import mushai.Playboard;
 import mushai.Settings;
 import org.jgap.InvalidConfigurationException;
@@ -27,8 +28,8 @@ class IsPieceAt extends CommandGene implements IMutateable, Serializable {
     }
 
     private void randomize(GPConfiguration a_conf) {
-        x = a_conf.getRandomGenerator().nextInt(Settings.getPlayboardSize());
-        y = a_conf.getRandomGenerator().nextInt(Settings.getPlayboardSize());
+        x = a_conf.getRandomGenerator().nextInt(4);
+        y = a_conf.getRandomGenerator().nextInt(4);
     }
 
     /**
@@ -41,8 +42,8 @@ class IsPieceAt extends CommandGene implements IMutateable, Serializable {
      */
     @Override
     public float execute_float(ProgramChromosome c, int n, Object[] args) {
-        Playboard board = (Playboard) args[0];
-        if (board.getTiles()[x][y].getPiece() == null) {
+        PlayboardModel board = (PlayboardModel) args[0];
+        if (board.getTiles()[x][y] == PlayboardModel.EMPTY_TILE) {
             return 0;
         } else {
             return 1;

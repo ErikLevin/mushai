@@ -307,26 +307,6 @@ public class MiniMax {
 
     private boolean terminalTest(int depth, PlayboardModel playboard) {
         return depth < 1 || playboard.checkWin() != 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     private class MoveAndPrevMoves {
