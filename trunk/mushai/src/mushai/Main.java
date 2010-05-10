@@ -1,6 +1,7 @@
 package mushai;
 
 import java.awt.Color;
+import javax.swing.UIManager;
 
 public class Main {
 
@@ -8,6 +9,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try {
+	    // Set cross-platform Java L&F (also called "Metal")
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } 
+        catch (Exception e) {
+        }
+        
         System.out.println("starting program");
 //        SettingsWindow setWindow = new SettingsWindow();
 
