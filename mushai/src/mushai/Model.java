@@ -17,12 +17,9 @@ public class Model {
         for (Point diffPoint : pi.getMoves()) {
             Point temp = new Point(from.x + diffPoint.x, from.y + diffPoint.y);
             if (pointOnBoard(temp)) {
-
-
                 if (getPiece(temp, board) == null) {
                     possibleMoves.add(temp);
                 }
-
             }
         }
 
@@ -147,6 +144,8 @@ public class Model {
      * The amount of steps forwards that player 0 has taken, minus the number of
      * steps player 1 has taken forwards.
      * @return - The fitness for player 0 for the current board.
+     * @deprecated Use PlayboardModel's getBoardFitness for minimax, or
+     * AgentGP.getGPFitness for GP instead
      */
     public static int getBoardFitness(Playboard board) throws RuntimeException {
         int fitness = boardBaseFitness(board);

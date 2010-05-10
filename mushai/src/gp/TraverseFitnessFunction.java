@@ -4,15 +4,16 @@ import java.io.Serializable;
 import minmax.MiniMax;
 import minmax.PlayboardModel;
 import mushai.Controller;
-import mushai.Model;
 import mushai.Playboard;
+import mushai.Settings;
 import org.jgap.gp.GPFitnessFunction;
 import org.jgap.gp.IGPProgram;
 
 class TraverseFitnessFunction extends GPFitnessFunction implements Serializable {
 
     private Controller controller;
-    private Playboard board;
+    private PlayboardModel board;
+    int[][] boardSetup;
     private MiniMax minimax;
     private int noPlayer1Pieces, noPlayer2Pieces;
 
@@ -21,20 +22,20 @@ class TraverseFitnessFunction extends GPFitnessFunction implements Serializable 
     }
 
     TraverseFitnessFunction(Playboard board, int player1Pieces, int player2Pieces) {
-        this.board = board;
-        this.controller = new Controller(board);
-        this.noPlayer1Pieces = player1Pieces;
-        this.noPlayer2Pieces = player2Pieces;
-        this.minimax = new MiniMax(controller, board);
+        this(new PlayboardModel(board, 0), player1Pieces, player2Pieces);
     }
 
     TraverseFitnessFunction(PlayboardModel board, int player1Pieces, int player2Pieces) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.board = board;
+        boardSetup = board.getBoard().clone();
+        this.noPlayer1Pieces = player1Pieces;
+        this.noPlayer2Pieces = player2Pieces;
+        this.minimax = new MiniMax(board);
     }
 
     @Override
     protected double evaluate(IGPProgram individual) {
-        board.resetBoard(noPlayer1Pieces, noPlayer2Pieces);
+        board = new PlayboardModel(boardSetup, noPlayer1Pieces); // Recreate original board.
         int fitness = 0;
 
         for (int i = 0; i < 50; i++) {
@@ -46,7 +47,7 @@ class TraverseFitnessFunction extends GPFitnessFunction implements Serializable 
                 controller.move(minimax.findBestMove(1));
             }
 
-            fitness = Model.getBoardFitness(board);
+            fitness = board.getFitness();
 
 //            System.out.println(board);
 //            System.out.println("Fitness after move: " + fitness);
@@ -58,4 +59,6 @@ class TraverseFitnessFunction extends GPFitnessFunction implements Serializable 
         }
         return fitness;
     }
+
+   
 }

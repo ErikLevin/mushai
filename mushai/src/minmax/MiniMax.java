@@ -18,13 +18,17 @@ import mushai.Settings;
  */
 public class MiniMax {
 
-    private Controller controller;
+    private Controller controller; //Not used??
     private Playboard originalPlayboard;
     private PlayboardModel playboard;
 
     public MiniMax(Controller c, Playboard pb) {
         controller = c;
         originalPlayboard = pb;
+    }
+
+    public MiniMax(PlayboardModel board) {
+        playboard = board;
     }
 
     public Move findBestMove(int depth) {
@@ -51,11 +55,11 @@ public class MiniMax {
     }
 
     private MoveAndFitness findBestMove(int depth, Move lastMove) {
-        if (lastMove != null) //System.out.println("after move: " + lastMove + " fitness is: " + playboard.getBoardFitness());
+        if (lastMove != null) //System.out.println("after move: " + lastMove + " fitness is: " + playboard.getUtility());
         {
-            if (depth == 0 || playboard.getBoardFitness() > 1000 || playboard.getBoardFitness() < -1000) {
+            if (depth == 0 || playboard.getUtility() > 1000 || playboard.getUtility() < -1000) {
                 try {
-                    return new MoveAndFitness(lastMove, playboard.getBoardFitness());
+                    return new MoveAndFitness(lastMove, playboard.getUtility());
                 } catch (Exception ex) {
                     Logger.getLogger(MiniMax.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -136,7 +140,7 @@ public class MiniMax {
     undoAllMoves(move + previousMoves.reverse)*/
     private Move breadthFirst(int depth) {
         int currDepth = 0;
-        int fitness = playboard.getBoardFitness();
+        int fitness = playboard.getUtility();
         int bestFitness = 0;
         if (playboard.getTurn() == 1) {
             bestFitness = 0;
@@ -173,7 +177,7 @@ public class MiniMax {
             }
             playboard.movePiece(move.getStart(), move.getEnd());
 
-            fitness = playboard.getBoardFitness();
+            fitness = playboard.getUtility();
             System.out.println("turn: " + playboard.getTurn() + ", move made: " + move);
             System.out.println("fitness: " + fitness + ", bestfitness: " + bestFitness);
             if (playboard.getTurn() == 1) {
@@ -257,13 +261,13 @@ public class MiniMax {
     private int maxValue(int depth, PlayboardModel playboard, int rootPlayer) {
         if (terminalTest(depth, playboard)) { // If game is over or max depth reached
 //            if (rootPlayer == 0) {
-            if (playboard.getBoardFitness() > 100) {
-                return playboard.getBoardFitness() + 10 * depth;
+            if (playboard.getUtility() > 100) {
+                return playboard.getUtility() + 10 * depth;
             } else {
-                return playboard.getBoardFitness();
+                return playboard.getUtility();
             }
 //            } else {
-//                return -playboard.getBoardFitness() - depth;
+//                return -playboard.getUtility() - depth;
 //            }
         }
 
@@ -281,12 +285,12 @@ public class MiniMax {
     private int minValue(int depth, PlayboardModel playboard, int rootPlayer) {
         if (terminalTest(depth, playboard)) { // If game is over or max depth reached
 //            if (rootPlayer == 0) {
-            if (playboard.getBoardFitness() > 100) {
-                return playboard.getBoardFitness() + 10 * depth;
+            if (playboard.getUtility() > 100) {
+                return playboard.getUtility() + 10 * depth;
             } else {
-                return playboard.getBoardFitness();
+                return playboard.getUtility();
             }//            } else {
-//                return -playboard.getBoardFitness() - depth;
+//                return -playboard.getUtility() - depth;
 //            }
         }
 

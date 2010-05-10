@@ -14,15 +14,15 @@ import mushai.*;
  */
 public class PlayboardModel implements Cloneable {
 
-    static final int EMPTY_TILE = 0;
-    static final int PLAYER1_SQUARE = 1;
-    static final int PLAYER1_CIRCLE = 2;
-    static final int PLAYER1_TRIANGLE = 3;
-    static final int PLAYER1_RHOMBUS = 4;
-    static final int PLAYER2_SQUARE = 5;
-    static final int PLAYER2_CIRCLE = 6;
-    static final int PLAYER2_TRIANGLE = 7;
-    static final int PLAYER2_RHOMBUS = 8;
+    static final byte EMPTY_TILE = 0;
+    static final byte PLAYER1_SQUARE = 1;
+    static final byte PLAYER1_CIRCLE = 2;
+    static final byte PLAYER1_TRIANGLE = 3;
+    static final byte PLAYER1_RHOMBUS = 4;
+    static final byte PLAYER2_SQUARE = 5;
+    static final byte PLAYER2_CIRCLE = 6;
+    static final byte PLAYER2_TRIANGLE = 7;
+    static final byte PLAYER2_RHOMBUS = 8;
     int[][] board;
     Set<Point> squareMoves, triangleMoves, circleMoves, rhombusMoves;
     int playerTurn;
@@ -48,7 +48,7 @@ public class PlayboardModel implements Cloneable {
         playerTurn = turn;
     }
 
-    private PlayboardModel(int[][] pb, int turn) {
+    public PlayboardModel(int[][] pb, int turn) {
         board = pb.clone();
         int direction;
         if (turn == 0) {
@@ -112,6 +112,10 @@ public class PlayboardModel implements Cloneable {
         return intPlayboard;
     }
     //ROUGHLY TESTED!
+
+    public int[][] getBoard() {
+        return board;
+    }
 
     public List<Move> getAllPossibleMoves(int player) {
         ArrayList<Point> pieces = getYourPieces(player);
@@ -213,34 +217,48 @@ public class PlayboardModel implements Cloneable {
         }
     }
 
-    public int getBoardFitness() throws RuntimeException {
-        //int fitness = boardBaseFitness(board);
-        int fitness = 0;
-        for (int x = 0; x < Settings.getPlayboardSize(); x++) {
-            for (int y = 0; y < Settings.getPlayboardSize(); y++) {
-                int p = board[x][y];
-                if (p != EMPTY_TILE) {
-                    if (p > 0 && p < 5) {
-                        fitness += y;
-                        if (y == Settings.getPlayboardSize() - 1) {
-                            //fitness += 100;
-                            //System.out.println(fitness);
-                        }
-                    } else {
-                        fitness -= (Settings.getPlayboardSize() - 1 - y);
-                        if (y == 0) {
-                            //fitness -= 100;
-                        }
-                    }
-                }
-            }
-        }
+    /**
+     * Calculates the utility, of this PlayboardModel, for minimax search.
+     *
+     * NOT THE SAME AS "fitness" in a GP context.
+     * DO NOT USE for genetic programming. Use getFitness() instead.
+     *
+     * @return
+     * @throws RuntimeException
+     */
+    public int getUtility() throws RuntimeException {   
+        int base = 0;
+
+        int utility = calculateProgress(base);
+
         int winner = checkWin();
         if (winner > 0) {
-            fitness = 10000;
+            utility = 10000;
         } else if (winner < 0) {
-            fitness = -10000;
+            utility = -10000;
         }
+        return utility;
+    }
+
+    /**
+     * Calculates the fitness for this PlayboardModel. At least 0.
+     *
+     * NOT THE SAME as "fitness" or "utility" used for minimax stuff!
+     *
+     * @return - the fitness of board
+     */
+    public int getFitness() {
+        int base = baseFitness();
+
+        int fitness = calculateProgress(base);
+
+        //Let's try this without checking for win here...
+//        int winner = checkWin();
+//        if (winner > 0) {
+//            fitness = 10000;
+//        } else if (winner < 0) {
+//            fitness = -10000;
+//        }
         return fitness;
     }
 
@@ -318,7 +336,42 @@ public class PlayboardModel implements Cloneable {
         return playerTurn;
     }
 
-    void movePiece(Move m) {
+    public void movePiece(Move m) {
         movePiece(m.getStart(), m.getEnd());
+    }
+
+    private int baseFitness() {
+        return board.length * board.length; //better to use something else as base...
+    }
+
+    /**
+     * Returns a value representing how far player 0 has come. That is, the number
+     * of steps forward player 0 has moved minus the number of steps forwards
+     * player 1 has moved.
+     * @param initValue - value to start counting from
+     * @return
+     */
+    private int calculateProgress(int initValue) {
+
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board.length; y++) {
+                int p = board[x][y];
+                if (p != EMPTY_TILE) {
+                    if (p > 0 && p < 5) {
+                        initValue += y;
+                        if (y == board.length - 1) {
+                            //fitness += 100;
+                            //System.out.println(fitness);
+                        }
+                    } else {
+                        initValue -= (board.length - 1 - y);
+                        if (y == 0) {
+                            //fitness -= 100;
+                        }
+                    }
+                }
+            }
+        }
+        return initValue;
     }
 }

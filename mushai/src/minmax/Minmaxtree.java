@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package minmax;
 
 import java.util.logging.Level;
@@ -13,6 +9,7 @@ import mushai.Move;
 /**
  *
  * @author MushAI
+ * @deprecated - Use Minimax class instead.
  */
 public class Minmaxtree {
 
