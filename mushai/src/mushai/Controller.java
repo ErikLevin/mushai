@@ -175,7 +175,6 @@ public class Controller implements ActionListener {
                     case GENETIC:
                         thisPlayer.makeMove(board);
                         break;
-                    default:
                 }
 
                 break;
@@ -191,46 +190,5 @@ public class Controller implements ActionListener {
             JOptionPane.showMessageDialog(board, "player 2 won");
             board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
         }
-    }
-
-    /**
-     * Checks if someone has won.
-     *
-     * @TODO - Doesn't seem to work correctly...
-     * @return
-     */
-    private boolean checkVictory() {
-        boolean gameWin = true;
-        int i = 0;
-        for (Player player : Settings.getPlayers()) {
-            if (player.isItMyTurn()) {
-                if (i == 0) {
-                    for (Point point : Model.getYourPieces(board)) {
-                        if (point.y != 0) {
-                            gameWin = false;
-                            break;
-                        }
-                    }
-                    if (gameWin) {
-                        JOptionPane.showMessageDialog(board, "player 1 vann");
-                        player.addPoint();
-                    }
-                } else if (i == 1) {
-                    for (Point point : Model.getYourPieces(board)) {
-                        if (point.y != Settings.getPlayboardSize() - 1) {
-                            gameWin = false;
-                            break;
-                        }
-                    }
-                    if (gameWin) {
-                        player.addPoint();
-                        JOptionPane.showMessageDialog(board, "player 2 vann");
-                    }
-                }
-            }
-            i++;
-        }
-
-        return gameWin;
     }
 }
