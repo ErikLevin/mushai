@@ -33,7 +33,11 @@ public class MiniMax {
     public Move findEndGameMove(int depth) {
         int turn = Model.whoseTurnIsIt();
         playboard = new PlayboardModel(originalPlayboard, turn);
-        MoveAndFitness maf = findEndGameMove(depth, null);
+        MoveAndFitness maf;
+        if (playboard.endGameSituation(turn))
+            maf = findEndGameMove(depth, null);
+        else
+            maf = findBestMove(depth, null);
         Move move = maf.move;
         if (maf.fitness > 1000) {
             System.out.println("ZOMG 100000 fitness!!!!");
@@ -348,8 +352,10 @@ public class MiniMax {
 
         Move firstMove = possibleMoves.remove(0);
         playboard.movePiece(firstMove.getStart(), firstMove.getEnd());
-        MoveAndFitness maf = findBestMove(depth - 1, firstMove);
+        playboard.movePiece(firstMove.getStart(), firstMove.getStart());
+        MoveAndFitness maf = findEndGameMove(depth - 1, firstMove);
         bestValue = maf.fitness;
+        playboard.movePiece(firstMove.getStart(), firstMove.getStart());
         playboard.movePiece(firstMove.getEnd(), firstMove.getStart());
         bestMove = firstMove;
         double randomValue;
@@ -357,11 +363,12 @@ public class MiniMax {
             //domove
             playboard.movePiece(move.getStart(), move.getEnd());
             //random move from opponent
-            playboard.movePiece(playboard.getAllPossibleMoves(turn).get(0));
+            playboard.movePiece(move.getStart(), move.getStart());
 
-            maf = findBestMove(depth - 1, move);
+            maf = findEndGameMove(depth - 1, move);
             value = maf.fitness;
             //undomove
+            playboard.movePiece(move.getStart(), move.getStart());
             playboard.movePiece(move.getEnd(), move.getStart());
             if (value == 10000) {
                 if (turn == 0) {
