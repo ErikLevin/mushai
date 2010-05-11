@@ -269,9 +269,9 @@ public class PlayboardModel implements Cloneable, Serializable {
                 int p = board[x][y];
                 if (p != EMPTY_TILE) {
                     if (turn == 0){
-                    if (p > 0 && p < 5) {
-                        fitness += y;
-                    }
+                        if (p > 0 && p < 5) {
+                            fitness += y;
+                        }
                     }else {
                         if (p >= 5){
                             fitness += (Settings.getPlayboardSize() - 1 - y);
@@ -281,10 +281,8 @@ public class PlayboardModel implements Cloneable, Serializable {
             }
         }
         int winner = checkWin();
-        if (winner > 0) {
+        if (winner < 0) {
             fitness = 10000;
-        } else if (winner < 0) {
-            fitness = -10000;
         }
         return fitness;
     }
