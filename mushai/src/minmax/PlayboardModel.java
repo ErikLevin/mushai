@@ -288,6 +288,23 @@ public class PlayboardModel implements Cloneable, Serializable {
         }
         return fitness;
     }
+    public boolean endGameSituation(int turn){
+        ArrayList<Point> allPieces = getYourPieces(turn);
+        int goal = Settings.getPlayboardSize()-1;
+        if (turn == 0){
+            for (Point p : allPieces){
+                if (p.y < goal-3)
+                    return false;
+            }
+        }else{
+            for (Point p : allPieces){
+                if (p.y > 3)
+                    return false;
+            }
+        }
+
+        return true;
+    }
     public int checkWin() {
         int win = 0;
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
