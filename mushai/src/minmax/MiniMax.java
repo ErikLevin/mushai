@@ -35,13 +35,10 @@ public class MiniMax {
         playboard = new PlayboardModel(originalPlayboard, turn);
         MoveAndFitness maf;
         if (playboard.endGameSituation(turn))
-            maf = findEndGameMove(depth, null);
+            maf = findEndGameMove(depth+1, null);
         else
             maf = findBestMove(depth, null);
         Move move = maf.move;
-        if (maf.fitness > 1000) {
-            System.out.println("ZOMG 100000 fitness!!!!");
-        }
         //Move move = breadthFirst(depth);
 //        Move move = minimaxDecision(depth, playboard);
 
@@ -371,10 +368,8 @@ public class MiniMax {
             playboard.movePiece(move.getStart(), move.getStart());
             playboard.movePiece(move.getEnd(), move.getStart());
             if (value == 10000) {
-                if (turn == 0) {
-                    value += depth;
-                    maf.fitness += depth;
-                }
+                value += depth;
+                maf.fitness += depth;
             }
             randomValue = Math.random();
             if (value >= bestValue) {
