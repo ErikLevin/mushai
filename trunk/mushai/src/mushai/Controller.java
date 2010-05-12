@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import minmax.MiniMax;
+import minmax.PlayboardModel;
 
 /**
  * Controller class for game logic.
@@ -76,9 +77,9 @@ public class Controller implements ActionListener {
                     System.out.println("piece deselected");
                     board.getTiles()[pressedPoint.x][pressedPoint.y].setBackground(Color.lightGray);
                     board.getTiles()[pressedPoint.x][pressedPoint.y].repaint();
-                }
-                else
+                } else {
                     move(moveStart, pressedPoint);
+                }
 
             } else if (Model.getPiece(pressedPoint, board) != null) {
                 if (moveStart == null) {
@@ -172,7 +173,8 @@ public class Controller implements ActionListener {
                         move(minimax.findEndGameMove(3));
                         break;
                     case GENETIC:
-                        thisPlayer.makeMove(board);
+                        System.out.println("I AM GENETIC!");
+                        move(thisPlayer.makeMove(board, i + 1));
                         break;
                 }
                 break;

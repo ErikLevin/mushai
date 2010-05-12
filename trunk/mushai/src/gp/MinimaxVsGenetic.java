@@ -38,7 +38,7 @@ public class MinimaxVsGenetic {
 
         // <editor-fold defaultstate="collapsed" desc="Setup agents">
         IGPProgram genetic = null;
-        Object[] geneticArgs = new Object[]{new PlayboardModel(c.getBoard(), 0)};
+        Object[] geneticArgs = new Object[]{new PlayboardModel(pb, 0)};
         MiniMax miniMax = new MiniMax(c, pb);
 
         ObjectInputStream reader = null;

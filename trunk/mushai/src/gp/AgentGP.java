@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import minmax.PlayboardModel;
 import mushai.Controller;
+import mushai.Move;
 import mushai.Playboard;
 import mushai.Player;
 import mushai.Settings;
@@ -20,7 +21,6 @@ import org.jgap.gp.function.Subtract;
 import org.jgap.gp.impl.DefaultGPFitnessEvaluator;
 import org.jgap.gp.impl.GPConfiguration;
 import org.jgap.gp.impl.GPGenotype;
-import org.jgap.gp.impl.ProgramChromosome;
 import org.jgap.gp.terminal.Terminal;
 import org.jgap.impl.StockRandomGenerator;
 
@@ -30,7 +30,7 @@ import org.jgap.impl.StockRandomGenerator;
  */
 public class AgentGP extends GPProblem {
 
-    private static final int POP_SIZE = 50;
+    private static final int POP_SIZE = 100;
     private static GPConfiguration conf;
     private IGPProgram bestGuy = null;
 
@@ -64,8 +64,8 @@ public class AgentGP extends GPProblem {
         }
     }
     private Controller controller;
-    private static final int player1Pieces = 1;
-    private static final int player2Pieces = 1;
+    private static final int player1Pieces = 8;
+    private static final int player2Pieces = 8;
 
     /**
      * Creates the initial population.
@@ -76,10 +76,10 @@ public class AgentGP extends GPProblem {
     @Override
     public GPGenotype create() throws InvalidConfigurationException {
         Class[] types = {
-            CommandGene.VoidClass
+            Move.class
         };
 
-        Class[][] argTypes = {{Playboard.class}};
+        Class[][] argTypes = {{PlayboardModel.class}};
 
         CommandGene[][] nodes = {{
                 // ----- Basic functions ------
@@ -92,13 +92,13 @@ public class AgentGP extends GPProblem {
                 new FloatLesserThan(conf, CommandGene.FloatClass),
                 new FloatAnd(conf, CommandGene.FloatClass),
                 new FloatOr(conf, CommandGene.FloatClass),
-                new FloatNot(conf, CommandGene.FloatClass), //Returns boolean
+                new FloatNot(conf, CommandGene.FloatClass),
                 // ------- Game specific functions -------
-                new MakeMove(conf), //Is VoidClass
+                new MakeMove(conf), //Is Move.class
                 // ------- Basic terminals ---------
                 new Terminal(conf, CommandGene.FloatClass, 0, 5, false, 0, true),
                 // ------- Sensors --------
-                new IsPieceAt(conf, CommandGene.FloatClass), //                new CurrentBoardStatus(conf, CommandGene.FloatClass)
+                new IsPieceAt(conf, CommandGene.FloatClass), //new CurrentBoardStatus(conf, CommandGene.FloatClass)
             }
         };
 
@@ -110,7 +110,7 @@ public class AgentGP extends GPProblem {
         Settings.addPlayer(new Player("0", Color.YELLOW));
         Settings.addPlayer(new Player("1", Color.GREEN));
         Settings.getPlayer(0).setMyTurn(true);
-        Playboard graphicalBoard = new Playboard(player1Pieces, player2Pieces);
+        Playboard graphicalBoard = new Playboard(8, 8, 10);
         PlayboardModel board = new PlayboardModel(graphicalBoard, 0);
 
         conf = new GPConfiguration();
@@ -119,6 +119,8 @@ public class AgentGP extends GPProblem {
         conf.setFitnessEvaluator(new DefaultGPFitnessEvaluator());
         conf.setFitnessFunction(new TraverseFitnessFunction(board, player1Pieces, player2Pieces));
         conf.setRandomGenerator(new StockRandomGenerator());
+        conf.setMaxInitDepth(100);
+        conf.setMaxCrossoverDepth(100);
         conf.setMutationProb(0.5f);
 
 //        conf.getEventManager().addEventListener(GeneticEvent.GPGENOTYPE_NEW_BEST_SOLUTION, new GeneticEventListener() {
@@ -133,7 +135,7 @@ public class AgentGP extends GPProblem {
 
         GPGenotype genotype = create();
         genotype.setVerboseOutput(true);
-        genotype.evolve(50);
+        genotype.evolve(500);
         bestGuy = genotype.getAllTimeBest();
         System.out.println("best guy: " + genotype.getAllTimeBest().toStringNorm(0) + " with fitness "
                 + genotype.getAllTimeBest().getFitnessValue());

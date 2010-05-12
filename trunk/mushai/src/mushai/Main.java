@@ -19,7 +19,6 @@ public class Main {
         System.out.println("starting program");
 //        SettingsWindow setWindow = new SettingsWindow();
 
-
         Settings.nullPlayers();
         Player player1 = new Player("You", Color.yellow);
         Settings.addPlayer(player1);
@@ -27,10 +26,10 @@ public class Main {
         Player player2 = new Player("Ai", Color.cyan);
         player2.setMyTurn(true);
         player2.setType(Player.PlayerType.MINIMAX);
+        //player2.setType(Player.PlayerType.GENETIC);
 
         Settings.addPlayer(player2);
         System.out.println(Model.whoseTurnIsIt());
-
 
         Settings.setPlayboardSize(10);
 

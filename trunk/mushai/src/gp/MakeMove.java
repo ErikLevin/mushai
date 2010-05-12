@@ -2,7 +2,6 @@ package gp;
 
 import java.util.List;
 import minmax.PlayboardModel;
-import mushai.Model;
 import mushai.Move;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
@@ -14,7 +13,7 @@ class MakeMove extends CommandGene {
 
     public MakeMove(GPConfiguration conf) throws InvalidConfigurationException {
 //        super(conf, 4, CommandGene.FloatClass);
-        super(conf, 4, CommandGene.VoidClass);
+        super(conf, 4, Move.class);
     }
 
     @Override
@@ -39,33 +38,14 @@ class MakeMove extends CommandGene {
         int toY = Math.round(c.execute_float(n, 3, args));
         List<Move> moves = board.getAllPossibleMoves(board.getTurn());
         Move move = new Move(fromX, fromY, toX, toY);
-        if (moves.contains(move)) {
-            board.movePiece(move);
-        } else {
-            //System.out.println("Couldn't move! Will choose first possible move...");
-            board.movePiece(moves.get(0));
+        if (!moves.contains(move)) {
+            move = moves.get(0);
         }
-        return board;
-    }
-
-    /**
-     * Useless float representation that JGap needs to not crash...
-     *
-     * @param c
-     * @param n
-     * @param args
-     * @return - Random float in [0,5]
-     */
-    @Override
-    public float execute_float(ProgramChromosome c, int n, Object[] args) {
-        return (float) (Math.random() * 5);
-
-
+        return move;
     }
 
     @Override
     public String toString() {
         return "MakeMove (&1, &2, &3, &4)";
-
     }
 }

@@ -4,15 +4,18 @@
  */
 package mushai;
 
-import gp.AgentGP;
+import gp.MinimaxVsGenetic;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.jgap.InvalidConfigurationException;
-import org.jgap.gp.impl.ProgramChromosome;
+import minmax.PlayboardModel;
+import org.jgap.gp.IGPProgram;
 
 public class Player extends JPanel {
 
@@ -20,17 +23,17 @@ public class Player extends JPanel {
     private String name;
     private Color color;
     private int points = 0;
+    IGPProgram genetic;
+    Object[] geneticArgs;
     private JLabel jLmyTurn = new JLabel("");
     private PlayerType type = PlayerType.HUMAN;
-    /**
-     * The chromosome that plays if player is genetic AI. Null otherwise.
-     */
-    private ProgramChromosome chromosome = null;
 
-    void makeMove(Playboard board) {
+    public Move makeMove(Playboard board, int turn) {
         if (type == PlayerType.GENETIC) {
-            chromosome.execute_void(new Object[]{board});
+            System.out.println("My gene: " + genetic.toStringNorm(0));
+            return (Move) genetic.execute_object(0, new Object[]{new PlayboardModel(board, turn)});
         }
+        throw new RuntimeException("Genetic couldn't find a move");
     }
 
     public enum PlayerType {
@@ -55,13 +58,15 @@ public class Player extends JPanel {
 
     public void setType(PlayerType type) {
         if (type == PlayerType.GENETIC) {
-            AgentGP gp = null;
+            ObjectInputStream reader = null;
             try {
-                gp = new AgentGP();
-            } catch (InvalidConfigurationException ex) {
-                Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
+                reader = new ObjectInputStream(new FileInputStream("mushai.guy"));
+                genetic = (IGPProgram) reader.readObject();
+            } catch (IOException ex) {
+                Logger.getLogger(MinimaxVsGenetic.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                System.err.println("That makes me a saaad panda");
             }
-//            chromosome = gp.getBestGuy();
         }
         this.type = type;
     }

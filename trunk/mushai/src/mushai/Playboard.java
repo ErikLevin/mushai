@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mushai;
 
 import java.awt.Dimension;
@@ -17,7 +13,7 @@ public class Playboard extends JPanel {
     private Tile[][] tiles;
 
     public Playboard() {
-        this(Settings.getPlayboardSize(), Settings.getPlayboardSize());
+        this(8, 8, 10);
     }
 
     public Playboard(int noPlayer1Pieces, int noPlayer2Pieces, int size) {

@@ -31,13 +31,13 @@ class TraverseFitnessFunction extends GPFitnessFunction{// implements Serializab
     @Override
     protected double evaluate(IGPProgram individual) {
         board = new PlayboardModel(boardSetup, 0); // Recreate original board.
-        int fitness = 0;
 
         for (int i = 0; i < 50; i++) { // Play a game of at most 50 moves in total
             if (i % 2 == 0) {
 //                System.out.println("-------------------");
 //                System.out.println("Round: " + (1 + (i / 2)));
-                individual.execute_void(0, new Object[]{board});
+                Move m = (Move) individual.execute_object(0, new Object[]{board});
+                board.movePiece(m);
             } else { //Random player
                 List<Move> moves = board.getAllPossibleMoves(board.getTurn());
                 Move move = moves.get((int) (Math.random() * moves.size()));
@@ -52,9 +52,9 @@ class TraverseFitnessFunction extends GPFitnessFunction{// implements Serializab
 //            System.out.println("\n\n");
 
             if (board.checkWin() != 0) {
-                return fitness;
+                return board.getFitness();
             }
         }
-        return fitness;
+        return board.getFitness();
     }
 }
