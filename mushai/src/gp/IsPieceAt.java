@@ -2,8 +2,6 @@ package gp;
 
 import java.io.Serializable;
 import minmax.PlayboardModel;
-import mushai.Playboard;
-import mushai.Settings;
 import org.jgap.InvalidConfigurationException;
 import org.jgap.gp.CommandGene;
 import org.jgap.gp.IMutateable;

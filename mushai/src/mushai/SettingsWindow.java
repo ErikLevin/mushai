@@ -72,8 +72,8 @@ public class SettingsWindow extends JFrame implements ActionListener {
         if (player1list.getSelectedIndex() == 1) {
             player1.setType(Player.PlayerType.MINIMAX);
         } else if (player1list.getSelectedIndex() == 2) {
-            JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
-//            player1.setType(Player.PlayerType.GENETIC);
+//            JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
+            player1.setType(Player.PlayerType.GENETIC);
         }
 
         Player player2 = new Player(player2Name.getText(), Color.cyan);
@@ -83,8 +83,8 @@ public class SettingsWindow extends JFrame implements ActionListener {
         if (player2list.getSelectedIndex() == 1) {
             player2.setType(Player.PlayerType.MINIMAX);
         } else if (player2list.getSelectedIndex() == 2) {
-            JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
-//            player2.setType(Player.PlayerType.GENETIC);
+//          JOptionPane.showMessageDialog(this, null, "Genetic AI not supported yet", JOptionPane.ERROR_MESSAGE);
+            player2.setType(Player.PlayerType.GENETIC);
         }
 
         int size = Integer.parseInt(nrOfSqares.getText());
