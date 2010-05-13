@@ -23,6 +23,7 @@ public class Player extends JPanel {
     private String name;
     private Color color;
     private int points = 0;
+    private JLabel JLpoints;
     IGPProgram genetic;
     Object[] geneticArgs;
     private JLabel jLmyTurn = new JLabel("");
@@ -49,7 +50,7 @@ public class Player extends JPanel {
         JLabel JLname = new JLabel(name);
         JLname.setFont(JLname.getFont().deriveFont(20f));
         add(JLname);
-        JLabel JLpoints = new JLabel(points + "");
+        JLpoints = new JLabel("Wins: " + points);
         JLpoints.setFont(JLpoints.getFont().deriveFont(20f));
         add(JLpoints);
         add(jLmyTurn);
@@ -73,7 +74,7 @@ public class Player extends JPanel {
 
     public void setMyTurn(boolean b) {
         if (b) {
-            jLmyTurn.setText("min tur");
+            jLmyTurn.setText("Make a move");
         } else {
             jLmyTurn.setText("");
         }
@@ -94,5 +95,14 @@ public class Player extends JPanel {
 
     public void addPoint() {
         points++;
+        JLpoints.setText("Wins: " + points);
+    }
+    
+    public int getPoints() {
+        return points;
+    }
+
+    public String getPlayerName() {
+        return name;
     }
 }

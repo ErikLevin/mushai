@@ -85,59 +85,46 @@ public class Model {
     }
 
     public static int checkWin(Playboard board) {
-        int win = 0;
-//        System.out.println("check win");
+        int win = -1;
+        int boardSizeIndex = Settings.getPlayboardSize() - 1;
+        int sideOfBoard;
+        boolean goalIsFull;
+
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
             if (i == 0) {
-
-                boolean goalIsFull = true;
-                for (int j = 1; Settings.getPlayboardSize() - 1 > j; j++) {//kollar om målet är fullt med saker
-                    //System.out.println("do loop");
-                    if (getPiece(new Point(j, Settings.getPlayboardSize() - 1), board) == null) {
-                        goalIsFull = false;
-                    }
-                }
-
-                if (goalIsFull) {
-                    win = 1;
-                    for (Point point : Model.getYourPieces(board, i)) {
-                        if (point.y != Settings.getPlayboardSize() - 1 && point.y != Settings.getPlayboardSize() - 2) {
-                            win = 0;
-                            break;
-                        }
-                    }
-                    if (win == 1) {
-                        //System.out.println("player 1 won");
-                        return win;
-                    }
-
-                }
+                sideOfBoard = boardSizeIndex;
             } else if (i == 1) {
+                sideOfBoard = 0;
+            }
+            else {
+                break;
+            }
 
-                boolean goalIsFull = true;
-                for (int j = 1; Settings.getPlayboardSize() - 1 > j; j++) {//kollar om målet är fullt med saker
-                    if (getPiece(new Point(j, 0), board) == null) {
-                        goalIsFull = false;
-                    }
-                }
+            goalIsFull = true;
 
-                if (goalIsFull) {
-
-                    win = -1;
-                    for (Point point : Model.getYourPieces(board, i)) {
-                        if (point.y != 0 && point.y != 1) {
-                            win = 0;
-                            break;
-                        }
-                    }
-                    if (win == -1) {
-                        return win;
-                    }
-
+            for (int j = 1; boardSizeIndex > j; j++) { //kollar om målet är fullt med saker
+                if (getPiece(new Point(j, sideOfBoard), board) == null) {
+                    goalIsFull = false;
+                    System.out.println("no full " + i);
+                    break;
                 }
             }
+
+            if (goalIsFull) {
+                win = i;
+                System.out.println("full " + i);
+                for (Point point : Model.getYourPieces(board, i)) {
+                    if (point.y != sideOfBoard) {
+                        win = -1;
+                        System.out.println("no win " + i);
+                        break;
+                    }
+                }
+                break;
+            }
         }
-        return 0;
+
+        return win;
     }
 
     /**
