@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
+import minmax.PlayboardModel;
 
 /**
  * Graphical representation of the game board.
@@ -33,7 +34,35 @@ public class Playboard extends JPanel {
 
         resetBoard(noPlayer1Pieces, noPlayer2Pieces);
     }
-
+    public Playboard(int[][] board){
+        int length = board.length;
+        tiles = new Tile[length][length];
+        setLayout(new GridLayout(length,length));
+        this.setPreferredSize(new Dimension(200,200));
+        for (int j = 0; j < length; j++){
+            for (int i = 0; i < length; i++){
+                tiles[i][j] = new Tile();
+                if (board[i][j] == PlayboardModel.PLAYER1_SQUARE)
+                    tiles[i][j].setPiece(new Square(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER2_SQUARE)
+                    tiles[i][j].setPiece(new Square(Settings.getPlayers().get(1).getColor(), UPWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER1_CIRCLE)
+                    tiles[i][j].setPiece(new Circle(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER2_CIRCLE)
+                    tiles[i][j].setPiece(new Circle(Settings.getPlayers().get(1).getColor(), UPWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER1_RHOMBUS)
+                    tiles[i][j].setPiece(new Rhombus(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER2_RHOMBUS)
+                    tiles[i][j].setPiece(new Rhombus(Settings.getPlayers().get(1).getColor(), UPWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER1_TRIANGLE)
+                    tiles[i][j].setPiece(new Triangle(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+                else if (board[i][j] == PlayboardModel.PLAYER2_TRIANGLE)
+                    tiles[i][j].setPiece(new Triangle(Settings.getPlayers().get(1).getColor(), UPWARDS));
+                add(tiles[i][j]);
+            }
+        }
+        update();
+    }
     public Playboard(int noPlayer1Pieces, int noPlayer2Pieces) {
         super();
 
