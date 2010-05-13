@@ -32,3 +32,6 @@
  * http://franz.com/support/documentation/current/doc/jlinker.htm
  * http://www.franz.com/support/documentation/6.2/doc/jil.htm
  * http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=04145042
+
+=Other=
+ * [http://www.lib.monash.edu./tutorials/citing/ieee.html IEEE referencing system]
