@@ -5,10 +5,12 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import minmax.MiniMax;
-import minmax.PlayboardModel;
 
 /**
  * Controller class for game logic.
@@ -17,6 +19,7 @@ public class Controller implements ActionListener {
 
     private Playboard board;
     private MiniMax minimax;
+    private Semaphore moveSem;
 
     public Playboard getBoard() {
         return board;
@@ -36,7 +39,23 @@ public class Controller implements ActionListener {
                 board.getTiles()[i][j].addActionListener(this);
             }
         }
-        changePlayer();
+        moveSem = new Semaphore(0);
+
+        // <editor-fold defaultstate="collapsed" desc="Paint borders">
+        Tile borderTile;
+        for (int i = 0; i < Settings.getPlayboardSize(); i++) {
+            // left border
+            borderTile = board.getTiles()[0][i];
+            borderTile.setBackground(Color.GRAY);
+            borderTile.repaint();
+
+            // right border
+            borderTile = board.getTiles()[Settings.getPlayboardSize() - 1][i];
+            borderTile.setBackground(Color.GRAY);
+            borderTile.repaint();
+        }// </editor-fold>
+
+        gameLoop();
     }
 
     /**
@@ -53,7 +72,7 @@ public class Controller implements ActionListener {
             this.win.dispose();
         }
 
-        System.out.println(((JButton) e.getSource()).getText());
+//        System.out.println(((JButton) e.getSource()).getText());
 
         if (e.getSource().getClass() == Tile.class) { //A Tile was clicked
             Tile t = (Tile) e.getSource();
@@ -78,7 +97,14 @@ public class Controller implements ActionListener {
                     board.getTiles()[pressedPoint.x][pressedPoint.y].setBackground(Color.lightGray);
                     board.getTiles()[pressedPoint.x][pressedPoint.y].repaint();
                 } else {
-                    move(moveStart, pressedPoint);
+                    if (move(moveStart, pressedPoint)) { // If a move was successful
+                        moveSem.release(); // Release semaphore to continue game loop
+                    }
+
+                    Tile startTile = board.getTiles()[moveStart.x][moveStart.y];
+                    startTile.setBackground(Color.lightGray);
+                    startTile.repaint();
+                    moveStart = null;
                 }
 
             } else if (Model.getPiece(pressedPoint, board) != null) {
@@ -91,8 +117,9 @@ public class Controller implements ActionListener {
                             if (Model.getPiece(pressedPoint, board).color.equals(pl.getColor())) {
                                 moveStart = pressedPoint;
                                 System.out.println("piece selected");
-                                board.getTiles()[pressedPoint.x][pressedPoint.y].setBackground(Color.lightGray.darker());
-                                board.getTiles()[pressedPoint.x][pressedPoint.y].repaint();
+                                Tile selectedTile = board.getTiles()[pressedPoint.x][pressedPoint.y];
+                                selectedTile.setBackground(Color.GREEN.darker());
+                                selectedTile.repaint();
                             }
                         }
                     }
@@ -121,14 +148,11 @@ public class Controller implements ActionListener {
             Piece p = origin.getPiece();
             origin.setPiece(null);
             board.getTiles()[end.x][end.y].setPiece(p);
-            moveStart = null;
             if (Settings.paintGraphics()) {
-
                 board.update();
-
             }
 
-            changePlayer();
+//            changePlayer(); //do this in gameLoop
             return true;
         }
         return false;
@@ -144,51 +168,53 @@ public class Controller implements ActionListener {
     }
 
     public void changePlayer() {
-        //checkVictory();
-
-        /**nollställer brädet **/
         ArrayList<Player> arL = Settings.getPlayers();
-        int xTile = 0, yTile = 0;
-        for (xTile = 0; xTile < Settings.getPlayboardSize(); xTile++) {//målar om hela brädet
-            if (xTile == 0 || xTile == Settings.getPlayboardSize() - 1) {
-                for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
-                    board.getTiles()[xTile][yTile].setBackground(Color.GRAY);
-                    board.getTiles()[xTile][yTile].repaint();
-                }
-            } else {
-                for (yTile = 0; yTile < Settings.getPlayboardSize(); yTile++) {
-                    board.getTiles()[xTile][yTile].setBackground(Color.lightGray);
-                    board.getTiles()[xTile][yTile].repaint();
-                }
-            }
-        }
+
         /**räknar ut vems tur det är **/
         for (int i = 0; i < arL.size(); i++) {
             if (arL.get(i).isItMyTurn()) {
                 arL.get(i).setMyTurn(false);
                 Player thisPlayer = arL.get((i + 1) % arL.size());
                 thisPlayer.setMyTurn(true);
-                switch (thisPlayer.getType()) {
-                    case MINIMAX:
-                        move(minimax.findEndGameMove(3));
-                        break;
-                    case GENETIC:
-                        System.out.println("I AM GENETIC!");
-                        move(thisPlayer.makeMove(board, i + 1));
-                        break;
-                }
                 break;
             }
         }
+    }
 
-        int gameWin = Model.checkWin(board);
-        if (gameWin == 1) {
-            JOptionPane.showMessageDialog(board, "player 1 won");
-            board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
+    private void gameLoop() {
+        while (true) {
+
+            // <editor-fold defaultstate="collapsed" desc="Check for win">
+            int gameWin = Model.checkWin(board);
+            if (gameWin == 1) {
+                JOptionPane.showMessageDialog(board, "player 1 won");
+                board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
 //            this.win.dispose();
-        } else if (gameWin == -1) {
-            JOptionPane.showMessageDialog(board, "player 2 won");
-            board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
+            } else if (gameWin == -1) {
+                JOptionPane.showMessageDialog(board, "player 2 won");
+                board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
+            }// </editor-fold>
+
+            // <editor-fold defaultstate="collapsed" desc="Make move">
+            Player player = Settings.getCurrentPlayer();
+            switch (player.getType()) {
+                case HUMAN:
+                    try {
+                        moveSem.acquire(); // Wait until user makes a move
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case MINIMAX:
+                    move(minimax.findEndGameMove(3));
+                    break;
+                case GENETIC:
+                    System.out.println("I AM GENETIC!");
+                    move(player.makeMove(board, 0)); // @todo Shouldn't be 0.
+                    break;
+            }// </editor-fold>
+
+            changePlayer();
         }
     }
 }
