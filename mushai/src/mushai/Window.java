@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import minmax.PlayboardModel;
 
 public class Window extends JFrame {
 
@@ -31,6 +32,26 @@ public class Window extends JFrame {
         setResizable(false);
         setUndecorated(false);
         pb = new Playboard(4, 4);
+        int[][] board = new int[Settings.getPlayboardSize()][Settings.getPlayboardSize()];
+        board[3][0] = PlayboardModel.PLAYER2_SQUARE;
+        board[4][0] = PlayboardModel.PLAYER2_TRIANGLE;
+        board[5][0] = PlayboardModel.PLAYER2_CIRCLE;
+        board[6][0] = PlayboardModel.PLAYER2_RHOMBUS;
+        board[3][1] = PlayboardModel.PLAYER2_TRIANGLE;
+        board[3][2] = PlayboardModel.PLAYER2_SQUARE;
+        board[4][1] = PlayboardModel.PLAYER2_CIRCLE;
+        board[4][3] = PlayboardModel.PLAYER2_RHOMBUS;
+
+        board[4][7] = PlayboardModel.PLAYER1_SQUARE;
+        board[5][8] = PlayboardModel.PLAYER1_TRIANGLE;
+        board[1][9] = PlayboardModel.PLAYER1_CIRCLE;
+        board[6][8] = PlayboardModel.PLAYER1_RHOMBUS;
+        board[2][9] = PlayboardModel.PLAYER1_TRIANGLE;
+        board[8][8] = PlayboardModel.PLAYER1_SQUARE;
+        board[8][9] = PlayboardModel.PLAYER1_CIRCLE;
+        board[3][9] = PlayboardModel.PLAYER1_RHOMBUS;
+
+        pb = new Playboard(board);
         if (Settings.paintGraphics()) {
             add(pb, BorderLayout.CENTER);
         }

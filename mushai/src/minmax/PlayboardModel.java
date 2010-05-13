@@ -365,7 +365,7 @@ public class PlayboardModel implements Cloneable, Serializable {
         changeTurn();
     }
 
-    private void changeTurn() {
+    public void changeTurn() {
         if (playerTurn == 1) {
             playerTurn = 0;
         } else {
