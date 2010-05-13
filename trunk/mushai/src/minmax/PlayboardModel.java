@@ -281,8 +281,14 @@ public class PlayboardModel implements Cloneable, Serializable {
             }
         }
         int winner = checkWin();
-        if (winner < 0) {
-            fitness = 10000;
+        if (turn == 1){
+            if (winner < 0) {
+                fitness = 10000;
+            }
+        }else{
+            if (winner > 0) {
+                fitness = 10000;
+            }
         }
         return fitness;
     }

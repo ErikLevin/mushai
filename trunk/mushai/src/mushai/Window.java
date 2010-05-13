@@ -51,7 +51,7 @@ public class Window extends JFrame {
         board[8][9] = PlayboardModel.PLAYER1_CIRCLE;
         board[3][9] = PlayboardModel.PLAYER1_RHOMBUS;
 
-        pb = new Playboard(board);
+//        pb = new Playboard(board);
         if (Settings.paintGraphics()) {
             add(pb, BorderLayout.CENTER);
         }
