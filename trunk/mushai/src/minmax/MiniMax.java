@@ -1,17 +1,13 @@
 package minmax;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Random;
-import mushai.Controller;
 import mushai.Playboard;
 import mushai.Model;
 import mushai.Move;
-import mushai.Player;
-import mushai.Settings;
 
 /**
  *
@@ -40,17 +36,6 @@ public class MiniMax {
         } else {
             maf = findBestMove(depth, null);
             move = maf.move;
-        }
-        //Move move = breadthFirst(depth);
-//        Move move = minimaxDecision(depth, playboard);
-
-        ArrayList<Player> arL = Settings.getPlayers();
-        if (turn == 0) {
-            arL.get(0).setMyTurn(true);
-            arL.get(1).setMyTurn(false);
-        } else if (turn == 1) {
-            arL.get(0).setMyTurn(false);
-            arL.get(1).setMyTurn(true);
         }
         return move;
     }
@@ -165,7 +150,6 @@ public class MiniMax {
 
             prevMoves = mapm.prevMoves;
             currDepth = prevMoves.size();
-            //System.out.println(currDepth + " " + move);
             //doallmoves
             for (Move m : prevMoves) {
                 playboard.movePiece(m.getStart(), m.getEnd());
