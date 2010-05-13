@@ -108,13 +108,13 @@ public class Playboard extends JPanel {
         }
 
         for (int i = 1; i < noPlayer2Pieces - 1; i++) {
-            if (i % 4 == 3) {
+            if (i % 4 == 0) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
                         new Square(Settings.getPlayers().get(1).getColor(), UPWARDS));
-            } else if (i % 4 == 2) {
+            } else if (i % 4 == 1) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
                         new Triangle(Settings.getPlayers().get(1).getColor(), UPWARDS));
-            } else if (i % 4 == 1) {
+            } else if (i % 4 == 2) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
                         new Rhombus(Settings.getPlayers().get(1).getColor(), UPWARDS));
             } else {
