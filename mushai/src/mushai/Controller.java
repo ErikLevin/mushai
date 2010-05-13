@@ -68,11 +68,9 @@ public class Controller implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (((JButton) e.getSource()).getText().equals("end game")) {
-            this.win.dispose();
-        }
-
-//        System.out.println(((JButton) e.getSource()).getText());
+          if(e.getActionCommand().equals("Quit") ) {
+              System.exit(0);
+          }
 
         if (e.getSource().getClass() == Tile.class) { //A Tile was clicked
             Tile t = (Tile) e.getSource();
@@ -186,13 +184,8 @@ public class Controller implements ActionListener {
 
             // <editor-fold defaultstate="collapsed" desc="Check for win">
             int gameWin = Model.checkWin(board);
-            if (gameWin == 1) {
-                JOptionPane.showMessageDialog(board, "player 1 won");
-                board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
-//            this.win.dispose();
-            } else if (gameWin == -1) {
-                JOptionPane.showMessageDialog(board, "player 2 won");
-                board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
+            if (gameWin != -1) {
+                showWinnerMessage(Settings.getPlayer(gameWin));
             }// </editor-fold>
 
             // <editor-fold defaultstate="collapsed" desc="Make move">
@@ -216,5 +209,11 @@ public class Controller implements ActionListener {
 
             changePlayer();
         }
+    }
+
+    private void showWinnerMessage(Player p) {
+        p.addPoint();
+        JOptionPane.showMessageDialog(board, p.getPlayerName() + " won!");
+        board.resetBoard(Settings.getPlayboardSize() - 2, Settings.getPlayboardSize() - 2);
     }
 }
