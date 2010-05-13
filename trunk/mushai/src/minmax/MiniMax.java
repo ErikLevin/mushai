@@ -31,14 +31,15 @@ public class MiniMax {
     public MiniMax(PlayboardModel board) {
         playboard = board;
     }
+
     public Move findEndGameMove(int depth) {
         int turn = Model.whoseTurnIsIt();
         playboard = new PlayboardModel(originalPlayboard, turn);
         MoveAndFitness maf;
         Move move = null;
-        if (playboard.endGameSituation(turn))
-            move = breadthFirst(depth);
-        else{
+        if (playboard.endGameSituation(turn)) {
+            move = breadthFirst(depth - 1);
+        } else {
             maf = findBestMove(depth, null);
             move = maf.move;
         }
@@ -55,10 +56,11 @@ public class MiniMax {
         }
         return move;
     }
+
     public Move findBestMove(int depth) {
         int turn = Model.whoseTurnIsIt();
         playboard = new PlayboardModel(originalPlayboard, turn);
-        
+
         MoveAndFitness maf = findBestMove(depth, null);
         Move move = maf.move;
         if (maf.fitness > 1000) {
@@ -127,14 +129,14 @@ public class MiniMax {
             randomValue = randomizer.nextDouble();
             if (turn == 0) {
                 if (value >= bestValue) {
-                    if (!(value == bestValue && randomValue > (1/noOfPossibleMoves))) {
+                    if (!(value == bestValue && randomValue > (1 / noOfPossibleMoves))) {
                         bestValue = value;
                         bestMove = move;
                     }
                 }
             } else if (turn == 1) {
                 if (value <= bestValue) {
-                    if (!(value == bestValue && randomValue > (1/noOfPossibleMoves))) {
+                    if (!(value == bestValue && randomValue > (1 / noOfPossibleMoves))) {
                         bestValue = value;
                         bestMove = move;
                     }
@@ -198,8 +200,6 @@ public class MiniMax {
         return new MoveAndFitness(bestMove, bestValue);
     }
 
-    
-
     private class MoveAndFitness {
 
         Move move;
@@ -217,6 +217,7 @@ public class MiniMax {
             goalDepth = gd;
         }
     }
+
     private class MoveAndPrevMoves {
 
         Move move;
@@ -271,23 +272,23 @@ public class MiniMax {
             fitness = playboard.getEndGameFitness(requestTurn);
 
             //if (requestTurn == 1) {
-                if (fitness > bestFitness) {
-                    bestFitness = fitness;
-                    if (prevMoves.isEmpty()) {
-                        bestMove = move;
-                    } else {
-                        bestMove = prevMoves.getFirst();
-                    }
+            if (fitness > bestFitness) {
+                bestFitness = fitness;
+                if (prevMoves.isEmpty()) {
+                    bestMove = move;
+                } else {
+                    bestMove = prevMoves.getFirst();
                 }
+            }
             /*} else if (requestTurn == 0) {
-                if (fitness < bestFitness) {
-                    bestFitness = fitness;
-                    if (prevMoves.isEmpty()) {
-                        bestMove = move;
-                    } else {
-                        bestMove = prevMoves.getFirst();
-                    }
-                }
+            if (fitness < bestFitness) {
+            bestFitness = fitness;
+            if (prevMoves.isEmpty()) {
+            bestMove = move;
+            } else {
+            bestMove = prevMoves.getFirst();
+            }
+            }
             }*/
             //System.out.println("bestMove right now: " + bestMove);
             //System.out.println("after check, fitness: " + fitness + ", bestfitness: " + bestFitness);
@@ -321,5 +322,4 @@ public class MiniMax {
         System.out.println("move chosen: " + bestMove);
         return bestMove;
     }
-
 }

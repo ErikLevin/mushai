@@ -199,7 +199,7 @@ public class Controller implements ActionListener {
                     }
                     break;
                 case MINIMAX:
-                    move(minimax.findEndGameMove(3));
+                    move(minimax.findEndGameMove(4));
                     break;
                 case GENETIC:
                     System.out.println("I AM GENETIC!");
