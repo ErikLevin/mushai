@@ -67,14 +67,10 @@ public class Window extends JFrame {
         rigthMenu.setLayout(new BorderLayout());
         rigthMenu.add(playersPanel, BorderLayout.CENTER);
         JPanel buttonMenu = new JPanel();
-        JButton endTurn = new JButton("end game");
-        endTurn.setFont(endTurn.getFont().deriveFont(8f));
-        al.add(endTurn);
-        buttonMenu.add(endTurn);
-        JButton resetTurn = new JButton("reset turn");
-        resetTurn.setFont(resetTurn.getFont().deriveFont(8f));
-        al.add(resetTurn);
-        buttonMenu.add(resetTurn);
+        JButton quit = new JButton("Quit");
+        quit.setFont(quit.getFont().deriveFont(8f));
+        al.add(quit);
+        buttonMenu.add(quit);
         rigthMenu.add(buttonMenu, BorderLayout.SOUTH);
         add(rigthMenu, BorderLayout.EAST);
         pack();
