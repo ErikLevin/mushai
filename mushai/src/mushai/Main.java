@@ -21,12 +21,12 @@ public class Main {
 
         Settings.nullPlayers();
         Player player1 = new Player("You", Color.yellow);
-//        player1.setType(Player.PlayerType.MINIMAX);
+        player1.setType(Player.PlayerType.MINIMAX);
         Settings.addPlayer(player1);
 
         Player player2 = new Player("Ai", Color.cyan);
         player2.setMyTurn(true);
-//        player2.setType(Player.PlayerType.MINIMAX);
+        player2.setType(Player.PlayerType.MINIMAX);
         //player2.setType(Player.PlayerType.GENETIC);
 
         Settings.addPlayer(player2);
