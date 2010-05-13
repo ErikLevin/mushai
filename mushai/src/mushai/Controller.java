@@ -30,7 +30,7 @@ public class Controller implements ActionListener {
     public Controller(Window tWin) {
         win = tWin;
         this.board = win.getBoard();
-        minimax = new MiniMax(this, board);
+        minimax = new MiniMax(board);
         for (JButton temp : win.getButtons()) {
             temp.addActionListener(this);
         }
@@ -199,7 +199,7 @@ public class Controller implements ActionListener {
                     }
                     break;
                 case MINIMAX:
-                    move(minimax.findEndGameMove(4));
+                    move(minimax.findBestMove(4));
                     break;
                 case GENETIC:
                     System.out.println("I AM GENETIC!");

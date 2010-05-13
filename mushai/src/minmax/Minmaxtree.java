@@ -247,6 +247,59 @@ public class Minmaxtree {
         }
         return v;
     }
+    /*private MoveAndFitness findEndGameMove(int depth, Move lastMove) {
+        int turn = Model.whoseTurnIsIt();
+        if (depth == 0 || playboard.getEndGameFitness(turn) > 1000) {
+            try {
+                return new MoveAndFitness(lastMove, playboard.getEndGameFitness(turn));
+            } catch (Exception ex) {
+                Logger.getLogger(MiniMax.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        int bestValue, value;
+        Move bestMove;
+        List<Move> possibleMoves = playboard.getAllPossibleMoves(turn);
+        if (possibleMoves.isEmpty()) {
+            throw new RuntimeException("CRITICAL ERROR EXCEPTION! NO POSSIBLE MOVES :(((((");
+        }
+
+        Move firstMove = possibleMoves.remove(0);
+        playboard.movePiece(firstMove.getStart(), firstMove.getEnd());
+        playboard.movePiece(firstMove.getStart(), firstMove.getStart());
+        MoveAndFitness maf = findEndGameMove(depth - 1, firstMove);
+        bestValue = maf.fitness;
+        playboard.movePiece(firstMove.getStart(), firstMove.getStart());
+        playboard.movePiece(firstMove.getEnd(), firstMove.getStart());
+        bestMove = firstMove;
+        double randomValue;
+        double bestRandomValue = 0;
+        Random randomizer = new Random();
+        for (Move move : possibleMoves) {
+            //domove
+            playboard.movePiece(move.getStart(), move.getEnd());
+            //random move from opponent
+            playboard.movePiece(move.getStart(), move.getStart());
+
+            maf = findEndGameMove(depth - 1, move);
+            value = maf.fitness;
+            //undomove
+            playboard.movePiece(move.getStart(), move.getStart());
+            playboard.movePiece(move.getEnd(), move.getStart());
+            if (value == 10000) {
+                value += depth;
+                maf.fitness += depth;
+            }
+            randomValue = randomizer.nextDouble();
+            if (value >= bestValue) {
+                if (!(value == bestValue && randomValue > bestRandomValue)) {
+                    bestValue = value;
+                    bestMove = move;
+                    bestRandomValue = randomValue;
+                }
+            }
+        }
+        return new MoveAndFitness(bestMove, bestValue);
+    }*/
 
     private boolean terminalTest(int depth, PlayboardModel playboard) {
         return depth < 1 || playboard.checkWin() != 0;

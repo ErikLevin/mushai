@@ -22,7 +22,7 @@ public class TestMiniMax {
         Settings.addPlayer(new Player("1", Color.blue));
         Playboard pb = new Playboard(4, 4, 8);
         Controller c = new Controller(pb);
-        MiniMax m = new MiniMax(c, pb);
+        MiniMax m = new MiniMax(pb);
         List<Move> moves;
         for (int i = 0; i < 100; i++) {
             if (i % 2 == 0) {
