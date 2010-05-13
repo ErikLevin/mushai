@@ -97,9 +97,9 @@ public class Playboard extends JPanel {
 
 
             if (i % 4 == 1) {
-                tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
-            } else if (i % 4 == 2) {
                 tiles[i][0].setPiece(new Triangle(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
+            } else if (i % 4 == 2) {
+                tiles[i][0].setPiece(new Square(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
             } else if (i % 4 == 3) {
                 tiles[i][0].setPiece(new Rhombus(Settings.getPlayers().get(0).getColor(), DOWNWARDS));
             } else {
@@ -110,10 +110,10 @@ public class Playboard extends JPanel {
         for (int i = 1; i < noPlayer2Pieces - 1; i++) {
             if (i % 4 == 0) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
-                        new Square(Settings.getPlayers().get(1).getColor(), UPWARDS));
+                        new Triangle(Settings.getPlayers().get(1).getColor(), UPWARDS));
             } else if (i % 4 == 3) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
-                        new Triangle(Settings.getPlayers().get(1).getColor(), UPWARDS));
+                        new Square(Settings.getPlayers().get(1).getColor(), UPWARDS));
             } else if (i % 4 == 2) {
                 tiles[i][Settings.getPlayboardSize() - 1].setPiece(
                         new Rhombus(Settings.getPlayers().get(1).getColor(), UPWARDS));

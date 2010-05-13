@@ -158,7 +158,7 @@ public class PlayboardModel implements Cloneable, Serializable {
             pieceMoves = circleMoves;
         } else if (piece == PLAYER1_TRIANGLE || piece == PLAYER2_TRIANGLE) {
             pieceMoves = triangleMoves;
-        }  else if (piece == PLAYER1_RHOMBUS || piece == PLAYER2_RHOMBUS) {
+        } else if (piece == PLAYER1_RHOMBUS || piece == PLAYER2_RHOMBUS) {
             pieceMoves = rhombusMoves;
         } else {
             pieceMoves = new HashSet<Point>();
@@ -227,7 +227,7 @@ public class PlayboardModel implements Cloneable, Serializable {
      * @return
      * @throws RuntimeException
      */
-    public int getUtility() throws RuntimeException {   
+    public int getUtility() throws RuntimeException {
         int base = 0;
 
         int utility = calculateProgress(base);
@@ -261,6 +261,7 @@ public class PlayboardModel implements Cloneable, Serializable {
 //        }
         return fitness;
     }
+
     public int getEndGameFitness(int turn) throws RuntimeException {
         //int fitness = boardBaseFitness(board);
         int fitness = 0;
@@ -268,12 +269,12 @@ public class PlayboardModel implements Cloneable, Serializable {
             for (int y = 0; y < Settings.getPlayboardSize(); y++) {
                 int p = board[x][y];
                 if (p != EMPTY_TILE) {
-                    if (turn == 0){
+                    if (turn == 0) {
                         if (p > 0 && p < 5) {
                             fitness += y;
                         }
-                    }else {
-                        if (p >= 5){
+                    } else {
+                        if (p >= 5) {
                             fitness += (Settings.getPlayboardSize() - 1 - y);
                         }
                     }
@@ -281,34 +282,51 @@ public class PlayboardModel implements Cloneable, Serializable {
             }
         }
         int winner = checkWin();
-        if (turn == 1){
+        if (turn == 1) {
             if (winner < 0) {
                 fitness = 10000;
             }
-        }else{
+        } else {
             if (winner > 0) {
                 fitness = 10000;
             }
         }
         return fitness;
     }
-    public boolean endGameSituation(int turn){
-        ArrayList<Point> allPieces = getYourPieces(turn);
-        int goal = Settings.getPlayboardSize()-1;
-        if (turn == 0){
-            for (Point p : allPieces){
-                if (p.y < goal-3)
+
+    public boolean endGameSituation(int turn) {
+        ArrayList<Point> player0Pieces = getYourPieces(0);
+        ArrayList<Point> player1Pieces = getYourPieces(1);
+
+        for (Point a : player0Pieces) {
+            for (Point b : player1Pieces) {
+                if (a.y < b.y + 1) {
                     return false;
-            }
-        }else{
-            for (Point p : allPieces){
-                if (p.y > 3)
-                    return false;
+                }
             }
         }
 
+        System.out.println("Is end game OMG");
         return true;
+//
+//        int goal = Settings.getPlayboardSize() - 1;
+//        if (turn == 0) {
+//            for (Point p : allPieces) {
+//                if (p.y < goal - 3) {
+//                    return false;
+//                }
+//            }
+//        } else {
+//            for (Point p : allPieces) {
+//                if (p.y > 3) {
+//                    return false;
+//                }
+//            }
+//        }
+//
+//        return true;
     }
+
     public int checkWin() {
         int win = 0;
         for (int i = 0; i < Settings.getPlayers().size(); i++) {
