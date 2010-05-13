@@ -137,8 +137,6 @@ public class PlayboardModel implements Cloneable, Serializable {
         for (int x = 0; x < Settings.getPlayboardSize(); x++) {
             for (int y = 0; y < Settings.getPlayboardSize(); y++) {
                 piece = board[x][y];
-//                if (piece == 6 && player == 1)
-//                    System.out.println((player == 1 && piece >= 5));
                 if ((player == 0 && piece > 0 && piece < 5) || (player == 1 && piece >= 5)) {
                     yourPieces.add(new Point(x, y));
                 }
@@ -441,6 +439,6 @@ public class PlayboardModel implements Cloneable, Serializable {
     }
 
     public void movePiece(int fromX, int fromY, int toX, int toY) {
-        movePiece(new Point(fromX, fromY), new Point(toY, toY));
+        movePiece(new Point(fromX, fromY), new Point(toX, toY));
     }
 }
