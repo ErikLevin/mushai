@@ -105,18 +105,15 @@ public class Model {
             for (int j = 1; boardSizeIndex > j; j++) { //kollar om målet är fullt med saker
                 if (getPiece(new Point(j, sideOfBoard), board) == null) {
                     goalIsFull = false;
-                    System.out.println("no full " + i);
                     break;
                 }
             }
 
             if (goalIsFull) {
                 win = i;
-                System.out.println("full " + i);
                 for (Point point : Model.getYourPieces(board, i)) {
                     if (point.y != sideOfBoard) {
                         win = -1;
-                        System.out.println("no win " + i);
                         break;
                     }
                 }
