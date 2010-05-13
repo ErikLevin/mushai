@@ -81,7 +81,7 @@ public class Minmaxtree {
     queue.push(previousMoves, m)
 
     undoAllMoves(move + previousMoves.reverse)*/
- /*   private Move breadthFirst(int depth) {
+    private Move breadthFirst(int depth) {
         int currDepth = 0;
         int fitness = playboard.getUtility();
         int bestFitness = 0;
@@ -103,7 +103,7 @@ public class Minmaxtree {
             for (Move prev : ma.prevMoves)
             System.out.println("\t\t" + prev);
             }*/
-  /*          if (queue.isEmpty()) {
+            if (queue.isEmpty()) {
                 System.out.println("reached empty, maybe correct");
                 System.out.println(currDepth);
                 break;
@@ -174,7 +174,7 @@ public class Minmaxtree {
         System.out.println("move chosen: " + bestMove);
         return bestMove;
     }
-*/
+
     private Move minimaxDecision(int depth, PlayboardModel playboard) {
         int turn = Model.whoseTurnIsIt(); // ???
         List<Move> goodMoves = new LinkedList<Move>();
