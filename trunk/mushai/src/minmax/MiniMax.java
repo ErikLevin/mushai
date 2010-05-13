@@ -35,11 +35,13 @@ public class MiniMax {
         int turn = Model.whoseTurnIsIt();
         playboard = new PlayboardModel(originalPlayboard, turn);
         MoveAndFitness maf;
+        Move move = null;
         if (playboard.endGameSituation(turn))
-            maf = findEndGameMove(depth+1, null);
-        else
+            move = breadthFirst(depth);
+        else{
             maf = findBestMove(depth, null);
-        Move move = maf.move;
+            move = maf.move;
+        }
         //Move move = breadthFirst(depth);
 //        Move move = minimaxDecision(depth, playboard);
 
@@ -230,11 +232,12 @@ public class MiniMax {
         int currDepth = 0;
         int fitness = playboard.getUtility();
         int bestFitness = 0;
-        if (playboard.getTurn() == 1) {
+        int requestTurn = Model.whoseTurnIsIt();
+        if (requestTurn == 1) {
             bestFitness = 0;
         }
         LinkedList<MoveAndPrevMoves> queue = new LinkedList<MoveAndPrevMoves>();
-        for (Move m : playboard.getAllPossibleMoves(playboard.getTurn())) {
+        for (Move m : playboard.getAllPossibleMoves(requestTurn)) {
             queue.add(new MoveAndPrevMoves(m, new LinkedList<Move>()));
         }
         Move move, bestMove, temp;
@@ -265,10 +268,9 @@ public class MiniMax {
             }
             playboard.movePiece(move.getStart(), move.getEnd());
 
-            fitness = playboard.getUtility();
-            System.out.println("turn: " + playboard.getTurn() + ", move made: " + move);
-            System.out.println("fitness: " + fitness + ", bestfitness: " + bestFitness);
-            if (playboard.getTurn() == 1) {
+            fitness = playboard.getEndGameFitness(requestTurn);
+
+            //if (requestTurn == 1) {
                 if (fitness > bestFitness) {
                     bestFitness = fitness;
                     if (prevMoves.isEmpty()) {
@@ -277,7 +279,7 @@ public class MiniMax {
                         bestMove = prevMoves.getFirst();
                     }
                 }
-            } else if (playboard.getTurn() == 0) {
+            /*} else if (requestTurn == 0) {
                 if (fitness < bestFitness) {
                     bestFitness = fitness;
                     if (prevMoves.isEmpty()) {
@@ -286,9 +288,9 @@ public class MiniMax {
                         bestMove = prevMoves.getFirst();
                     }
                 }
-            }
-            System.out.println("bestMove right now: " + bestMove);
-            System.out.println("after check, fitness: " + fitness + ", bestfitness: " + bestFitness);
+            }*/
+            //System.out.println("bestMove right now: " + bestMove);
+            //System.out.println("after check, fitness: " + fitness + ", bestfitness: " + bestFitness);
             if (playboard.checkWin() != 0) {
                 System.out.println("possible win! should break! " + currDepth + " " + bestMove);
                 for (Move m : prevMoves) {
@@ -303,11 +305,9 @@ public class MiniMax {
             }
             prevClone.add(move);
             if (currDepth < depth) {
-                playboard.movePiece(move.getStart(),move.getStart());
-                for (Move m : playboard.getAllPossibleMoves(playboard.getTurn())) {
+                for (Move m : playboard.getAllPossibleMoves(requestTurn)) {
                     queue.add(new MoveAndPrevMoves(m, prevClone));
                 }
-                playboard.movePiece(move.getStart(),move.getStart());
             }
             playboard.movePiece(move.getEnd(), move.getStart());
             for (int i = prevMoves.size() - 1; i >= 0; i--) {
