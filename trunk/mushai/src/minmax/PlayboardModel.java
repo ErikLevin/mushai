@@ -291,8 +291,26 @@ public class PlayboardModel implements Cloneable, Serializable {
         }
         return fitness;
     }
+    public boolean extremeFinishSituation(int turn){
+        ArrayList<Point> allPieces = getYourPieces(turn);
+        int goal = Settings.getPlayboardSize() - 1;
+        if (turn == 0) {
+            for (Point p : allPieces) {
+                if (p.y < goal - 1) {
+                    return false;
+                }
+            }
+        } else {
+            for (Point p : allPieces) {
+                if (p.y > 1) {
+                    return false;
+                }
+            }
+        }
 
-    public boolean endGameSituation(int turn) {
+        return true;
+    }
+    public boolean endGameSituation() {
         ArrayList<Point> player0Pieces = getYourPieces(0);
         ArrayList<Point> player1Pieces = getYourPieces(1);
 
@@ -304,25 +322,7 @@ public class PlayboardModel implements Cloneable, Serializable {
             }
         }
 
-        System.out.println("Is end game OMG");
         return true;
-//
-//        int goal = Settings.getPlayboardSize() - 1;
-//        if (turn == 0) {
-//            for (Point p : allPieces) {
-//                if (p.y < goal - 3) {
-//                    return false;
-//                }
-//            }
-//        } else {
-//            for (Point p : allPieces) {
-//                if (p.y > 3) {
-//                    return false;
-//                }
-//            }
-//        }
-//
-//        return true;
     }
 
     public int checkWin() {

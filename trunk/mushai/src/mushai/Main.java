@@ -26,7 +26,7 @@ public class Main {
 
         Player player2 = new Player("Ai", Color.cyan);
         player2.setMyTurn(true);
-//        player2.setType(Player.PlayerType.MINIMAX);
+        player2.setType(Player.PlayerType.MINIMAX);
         //player2.setType(Player.PlayerType.GENETIC);
 
         Settings.addPlayer(player2);
