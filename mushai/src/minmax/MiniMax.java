@@ -25,18 +25,28 @@ public class MiniMax {
     public MiniMax(PlayboardModel board) {
         playboard = board;
     }
-
+    int recursiveMoves;
     public Move findBestMove(int depth) {
+        long start = System.currentTimeMillis();
         int turn = Model.whoseTurnIsIt();
         playboard = new PlayboardModel(originalPlayboard, turn);
         MoveAndFitness maf;
         Move move = null;
-        if (playboard.endGameSituation(turn)) {
+        /*if (playboard.extremeFinishSituation(turn)) {
+            move = findEndGameMove(depth); //needs to have restraints.. maybe in backwards movability
+        } else if*/
+        if (playboard.endGameSituation()) {
             move = findEndGameMove(depth - 1);
         } else {
+            recursiveMoves = 0;
             maf = findBestMove(depth, null);
             move = maf.move;
+            if (turn == 1)
+                System.out.print("\t\t\t\t\t\t");
+            System.out.print(recursiveMoves + " findBestMove");
         }
+        long end = System.currentTimeMillis();
+        System.out.println( "\ttook: " + (end - start)/1000.0 + " seconds");
         return move;
     }
 
@@ -50,11 +60,7 @@ public class MiniMax {
         //from before endGame hits and until someone actually wins. Highly unlikely.
         //Please give supercomputer
         if (depth == 0 || playboard.getUtility() > 1000 || playboard.getUtility() < -1000) {
-            try {
-                return new MoveAndFitness(lastMove, playboard.getUtility());
-            } catch (Exception ex) {
-                Logger.getLogger(MiniMax.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            return new MoveAndFitness(lastMove, playboard.getUtility());
         }
 
         //initiation of needed variables
@@ -63,12 +69,11 @@ public class MiniMax {
         turn = Model.whoseTurnIsIt();
 
         List<Move> possibleMoves = playboard.getAllPossibleMoves(turn);
-        int noOfPossibleMoves = possibleMoves.size();
         if (possibleMoves.isEmpty()) {
-            throw new RuntimeException("CRITICAL ERROR EXCEPTION! NO POSSIBLE MOVES :(((((");
+            throw new RuntimeException("NO POSSIBLE MOVES :(((((");
         }
 
-        //Taking out first move from possible moves and set it as bestMove
+        //Takes out first move from possible moves and set it as bestMove
         //so there is something to compare the rest of the moves with
 
         Move firstMove = possibleMoves.remove(0);
@@ -78,9 +83,9 @@ public class MiniMax {
         playboard.movePiece(firstMove.getEnd(), firstMove.getStart());
         bestMove = firstMove;
 
-        //Is this random really necessary? None of the games seems to be random
+        //Is this random really used? None of the games seems to be random
         //when pitching two minimax-ai:s against each other
-        double randomValue;
+        double randomValue, bestRandom = 0;
         Random randomizer = new Random();
 
         //Search through all possible moves to find the best move
@@ -89,6 +94,7 @@ public class MiniMax {
         //saved, the move undone and the move is compared to the bestMove
         for (Move move : possibleMoves) {
             //domove
+            recursiveMoves++;
             playboard.movePiece(move.getStart(), move.getEnd());
 
             //find best submove for this move
@@ -111,27 +117,27 @@ public class MiniMax {
             }
             //Not necessary? See earlier comments about random
             randomValue = randomizer.nextDouble();
-
             //depending on whos turn it is, a higher/lower fitness is wanted
             //question is if it should be changed to > and < instead of >= and <=
             //and removing of the randomcheck altogether. See earlier comments about that
             if (turn == 0) {
                 if (value >= bestValue) {
-                    if (!(value == bestValue && randomValue > (1 / noOfPossibleMoves))) {
+                    if (!(value == bestValue && randomValue > bestRandom)) {
                         bestValue = value;
                         bestMove = move;
+                        bestRandom = randomValue;
                     }
                 }
             } else if (turn == 1) {
                 if (value <= bestValue) {
-                    if (!(value == bestValue && randomValue > (1 / noOfPossibleMoves))) {
+                    if (!(value == bestValue && randomValue > bestRandom)) {
                         bestValue = value;
                         bestMove = move;
+                        bestRandom = randomValue;
                     }
                 }
             }
         }
-        //This place should really not be reached... Ever... But it is possible..
         return new MoveAndFitness(bestMove, bestValue);
     }  
 
@@ -172,10 +178,10 @@ public class MiniMax {
         bestMove = null;
         LinkedList<Move> prevMoves = new LinkedList<Move>();
         LinkedList<Move> prevClone = new LinkedList<Move>();
+        int countMoves = 0;
         while (currDepth <= depth) {
+            countMoves++;
             if (queue.isEmpty()) {
-                System.out.println("reached empty, maybe correct");
-                System.out.println(currDepth);
                 break;
             }
             MoveAndPrevMoves mapm = queue.pop();
@@ -200,10 +206,7 @@ public class MiniMax {
                 }
             }
             if (playboard.checkWin() != 0) {
-                System.out.println("possible win! should break! " + currDepth + " " + bestMove);
-                for (Move m : prevMoves) {
-                    System.out.println(m);
-                }
+                System.out.print("POSSIBLE WIN: ");
                 break;
             }
 
@@ -226,6 +229,9 @@ public class MiniMax {
         if (bestMove == null) {
             System.out.println("RETURNING NULL AS BEST MOVE!");
         }
+        if (requestTurn == 1)
+            System.out.print("\t\t\t\t\t\t");
+        System.out.print(countMoves + " endGame");
         return bestMove;
     }
 
