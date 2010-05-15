@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import minmax.MiniMax;
+import minmax.PlayboardModel;
 
 /**
  * Controller class for game logic.
@@ -68,9 +69,9 @@ public class Controller implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-          if(e.getActionCommand().equals("Quit") ) {
-              System.exit(0);
-          }
+        if (e.getActionCommand().equals("Quit")) {
+            System.exit(0);
+        }
 
         if (e.getSource().getClass() == Tile.class) { //A Tile was clicked
             Tile t = (Tile) e.getSource();
@@ -180,12 +181,19 @@ public class Controller implements ActionListener {
     }
 
     private void gameLoop() {
+        int possibleMoves = 0;
+        int moves = 0;
         while (true) {
+//            possibleMoves += new PlayboardModel(board, Model.whoseTurnIsIt()).getAllPossibleMoves(Model.whoseTurnIsIt()).size();
+//            moves++;
 
             // <editor-fold defaultstate="collapsed" desc="Check for win">
             int gameWin = Model.checkWin(board);
             if (gameWin != -1) {
                 showWinnerMessage(Settings.getPlayer(gameWin));
+//                System.out.println("Avg pos moves: " + possibleMoves / moves);
+//                System.out.println("Number of moves: " + moves);
+                System.exit(0);
             }// </editor-fold>
 
             // <editor-fold defaultstate="collapsed" desc="Make move">
@@ -203,7 +211,7 @@ public class Controller implements ActionListener {
                     break;
                 case GENETIC:
                     System.out.println("I AM GENETIC!");
-                    move(player.makeMove(board, 0)); // @todo Shouldn't be 0.
+                    move(player.makeMove(board, Model.whoseTurnIsIt())); // @todo Shouldn't be 0.
                     break;
             }// </editor-fold>
 
